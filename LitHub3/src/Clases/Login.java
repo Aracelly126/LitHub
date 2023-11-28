@@ -1,5 +1,5 @@
 
-package Mysql;
+package Clases;
 
 /**
  *

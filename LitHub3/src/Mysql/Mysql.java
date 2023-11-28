@@ -4,6 +4,7 @@
  */
 package Mysql;
 
+import Clases.Login;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -48,6 +49,27 @@ public class Mysql extends Login {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
             return aux = false;
+        }
+    }
+
+    public void seleccionarUsuarios(AlmacenPermisos almaPermisos) {
+        try {
+            ps = con.prepareStatement("select * from login");
+            rs = ps.executeQuery();
+            int intento = 0;
+            while (rs.next()) {
+                String User = rs.getString("usuario");
+                String Clave = rs.getString("contraseña");
+                if (rs.getString("intentos") == null) {
+                    intento = 0;
+                } else {
+                    intento = Integer.parseInt(rs.getString("intentos"));
+                }
+                Permisos perm = new Permisos(User, Clave, intento);
+                almaPermisos.AgregarPermisosArray(perm);
+            }
+        } catch (SQLException ex) {
+            //System.out.println(ex);
         }
     }
 
