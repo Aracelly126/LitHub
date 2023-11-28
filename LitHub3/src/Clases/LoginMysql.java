@@ -5,7 +5,7 @@ package Clases;
  *
  * @author Lenovo
  */
-public class Login {
+public class LoginMysql {
     private String user;
     private String clave;
 

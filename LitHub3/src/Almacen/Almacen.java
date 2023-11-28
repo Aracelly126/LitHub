@@ -4,6 +4,7 @@
  */
 package Almacen;
 
+import Clases.Usuarios;
 import java.util.ArrayList;
 
 /**
@@ -11,5 +12,14 @@ import java.util.ArrayList;
  * @author ASUS
  */
 public class Almacen {
-    private ArrayList<Permisos> lista = new ArrayList<Permisos>();
+    private ArrayList<Usuarios> user = new ArrayList<Usuarios>();
+
+    public ArrayList<Usuarios> getLista() {
+        return user;
+    }
+
+    public void agregarUsuarios(Usuarios user) {
+        this.user.add(user);
+    }
+    
 }

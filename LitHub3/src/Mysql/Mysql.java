@@ -4,7 +4,9 @@
  */
 package Mysql;
 
-import Clases.Login;
+import Almacen.Almacen;
+import Clases.LoginMysql;
+import Clases.Usuarios;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,9 +18,9 @@ import javax.swing.JOptionPane;
  *
  * @author ASUS
  */
-public class Mysql extends Login {
+public class Mysql extends LoginMysql {
 
-    private static final String url = "jdbc:mysql://localhost:3306/proyecto?autoReconnect=true&useSSL=false";//jbdc java data base conexion
+    private static final String url = "jdbc:mysql://localhost:3306/biblioteca?autoReconnect=true&useSSL=false";//jbdc java data base conexion
     private static final String driver = "com.mysql.cj.jdbc.Driver";//para hacer  conexciones de redes
     public static Connection con;
     public static ResultSet rs;//me permite capturar todo lo que me devuelva 0 lineas hasta 100lineas
@@ -52,7 +54,7 @@ public class Mysql extends Login {
         }
     }
 
-    public void seleccionarUsuarios(AlmacenPermisos almaPermisos) {
+    public void seleccionarUsuarios(Almacen almaUsuarios) {
         try {
             ps = con.prepareStatement("select * from login");
             rs = ps.executeQuery();
@@ -65,12 +67,33 @@ public class Mysql extends Login {
                 } else {
                     intento = Integer.parseInt(rs.getString("intentos"));
                 }
-                Permisos perm = new Permisos(User, Clave, intento);
-                almaPermisos.AgregarPermisosArray(perm);
+                Usuarios perm = new Usuarios(User, Clave, intento);
+                almaUsuarios.agregarUsuarios(perm);
             }
         } catch (SQLException ex) {
             //System.out.println(ex);
         }
     }
 
+    public void actualizarUsuarios(Usuarios p) throws SQLException {
+        try {
+            boolean aux = conectar();
+            if (aux == true) {
+                String query = "UPDATE login SET intentos = ? WHERE usuario = ?";
+                PreparedStatement ps = con.prepareStatement(query);
+
+                ps.setInt(1, p.getIntentos());
+                ps.setString(2, p.getUser());
+                ps.executeUpdate();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
+
+            }
+
+        } catch (SQLException e) {
+            // Manejo de excepciones
+            System.out.println("Fallos en la actualisacion" + e);
+
+        }
+    }
 }
