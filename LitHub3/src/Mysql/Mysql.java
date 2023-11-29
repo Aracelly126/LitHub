@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class Mysql extends LoginMysql {
 
-    private static final String url = "jdbc:mysql://localhost:3306/biblioteca?autoReconnect=true&useSSL=false";//jbdc java data base conexion
+    private static final String url = "jdbc:mysql://localhost:3306/Biblioteca?autoReconnect=true&useSSL=false";//jbdc java data base conexion
     private static final String driver = "com.mysql.cj.jdbc.Driver";//para hacer  conexciones de redes
     public static Connection con;
     public static ResultSet rs;//me permite capturar todo lo que me devuelva 0 lineas hasta 100lineas
@@ -45,7 +45,7 @@ public class Mysql extends LoginMysql {
                 return aux = false;
             }
         } catch (ClassNotFoundException e) {//catch(SQLException e){
-            // System.out.println(e);
+            System.out.println(e);
             JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
             return aux = false;
         } catch (SQLException e) {
@@ -54,21 +54,22 @@ public class Mysql extends LoginMysql {
         }
     }
 
-    public void seleccionarUsuarios(Almacen almaUsuarios) {
+    public void seleccionarUsuarios(Almacen almaPermisos) {
         try {
-            ps = con.prepareStatement("select * from login");
+            ps = con.prepareStatement("select * from usuarios");
             rs = ps.executeQuery();
             int intento = 0;
+            
             while (rs.next()) {
-                String User = rs.getString("usuario");
+                String usuario = rs.getString("usuario");
                 String Clave = rs.getString("contraseña");
                 if (rs.getString("intentos") == null) {
                     intento = 0;
                 } else {
                     intento = Integer.parseInt(rs.getString("intentos"));
                 }
-                Usuarios perm = new Usuarios(User, Clave, intento);
-                almaUsuarios.agregarUsuarios(perm);
+                Usuarios perm = new Usuarios(usuario, Clave, intento);
+                almaPermisos.agregarUsuarios(perm);
             }
         } catch (SQLException ex) {
             //System.out.println(ex);
@@ -79,11 +80,11 @@ public class Mysql extends LoginMysql {
         try {
             boolean aux = conectar();
             if (aux == true) {
-                String query = "UPDATE login SET intentos = ? WHERE usuario = ?";
+                String query = "UPDATE usuarios SET intentos = ? WHERE usuario = ?";
                 PreparedStatement ps = con.prepareStatement(query);
 
                 ps.setInt(1, p.getIntentos());
-                ps.setString(2, p.getUser());
+                ps.setString(2, p.getUsuario());
                 ps.executeUpdate();
             } else {
                 JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
@@ -92,7 +93,7 @@ public class Mysql extends LoginMysql {
 
         } catch (SQLException e) {
             // Manejo de excepciones
-            System.out.println("Fallos en la actualisacion" + e);
+            System.out.println("Fallos en la actualización" + e);
 
         }
     }
