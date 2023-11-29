@@ -20,8 +20,9 @@ import javax.swing.JOptionPane;
 public class frmLogin extends javax.swing.JFrame {
 
     Mysql conec = new Mysql();
-    ControlUsuarios cntUsuarios= new ControlUsuarios();
-    Almacen almaPermisos =  new Almacen();
+    ControlUsuarios cntUsuarios = new ControlUsuarios();
+    Almacen almaPermisos = new Almacen();
+
     public frmLogin() {
         initComponents();
         this.setLocationRelativeTo(this);
@@ -37,81 +38,106 @@ public class frmLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTextField1 = new javax.swing.JTextField();
+        complemento = new javax.swing.JPanel();
+        imagen_complemento = new javax.swing.JLabel();
+        loginPanel = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        btIniciarSesion = new javax.swing.JButton();
         txtUsuario = new javax.swing.JTextField();
         txtContraseña = new javax.swing.JPasswordField();
-        btIniciarSesión = new javax.swing.JButton();
         txtMensaje = new javax.swing.JLabel();
+        label_usuario = new javax.swing.JLabel();
+        label_contraseña = new javax.swing.JLabel();
+        panelLogin = new javax.swing.JLabel();
+        fondo = new javax.swing.JLabel();
+
+        jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
+        imagen_complemento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/complemento.jpg"))); // NOI18N
+
+        javax.swing.GroupLayout complementoLayout = new javax.swing.GroupLayout(complemento);
+        complemento.setLayout(complementoLayout);
+        complementoLayout.setHorizontalGroup(
+            complementoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(complementoLayout.createSequentialGroup()
+                .addComponent(imagen_complemento, javax.swing.GroupLayout.PREFERRED_SIZE, 414, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        complementoLayout.setVerticalGroup(
+            complementoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(complementoLayout.createSequentialGroup()
+                .addComponent(imagen_complemento, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        getContentPane().add(complemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 540));
+
+        loginPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Sin título-1.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        loginPanel.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 40, -1, -1));
+
+        btIniciarSesion.setText("iniciar Sesion");
+        btIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsuarioActionPerformed(evt);
+                btIniciarSesionActionPerformed(evt);
             }
         });
+        loginPanel.add(btIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 330, -1, -1));
 
-        txtContraseña.setText("jPasswordField1");
+        txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        loginPanel.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, 190, 30));
 
-        btIniciarSesión.setText("Iniciar Sesión");
-        btIniciarSesión.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btIniciarSesiónActionPerformed(evt);
-            }
-        });
+        txtContraseña.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        loginPanel.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 190, 30));
+        loginPanel.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 410, 220, 30));
 
-        txtMensaje.setBackground(new java.awt.Color(0, 0, 0));
-        txtMensaje.setForeground(new java.awt.Color(255, 0, 102));
+        label_usuario.setText("Usuario:");
+        loginPanel.add(label_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btIniciarSesión)
-                .addGap(265, 265, 265))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(225, 225, 225)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                            .addComponent(txtUsuario)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(210, 210, 210)
-                        .addComponent(txtMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(181, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(txtMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(btIniciarSesión)
-                .addContainerGap(152, Short.MAX_VALUE))
-        );
+        label_contraseña.setText("Contraseña:");
+        loginPanel.add(label_contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, -1, -1));
+
+        panelLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo_login.jpg"))); // NOI18N
+        loginPanel.add(panelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 540));
+
+        getContentPane().add(loginPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 380, 540));
+
+        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo_login.jpg"))); // NOI18N
+        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
-        
-    }//GEN-LAST:event_txtUsuarioActionPerformed
-
-    private void btIniciarSesiónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIniciarSesiónActionPerformed
+    private void btIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIniciarSesionActionPerformed
+        // TODO add your handling code here:
         try {
             boolean aux2 = conec.conectar();
             if (aux2 == true) {
-                btIniciarSesión.setEnabled(true);
+                btIniciarSesion.setEnabled(true);
                 if (txtContraseña.getText().isEmpty() || txtUsuario.getText().isEmpty()) {
                     txtMensaje.setText("Ingrese la contraseña o el usuario");
                 } else {
-                    boolean aux = cntUsuarios.loginUsuarioYClave(this.txtUsuario.getText(), this.txtContraseña.getText(),almaPermisos, txtContraseña,txtUsuario, txtMensaje);
+                    boolean aux = cntUsuarios.loginUsuarioYClave(this.txtUsuario.getText(), this.txtContraseña.getText(), almaPermisos, txtContraseña, txtUsuario, txtMensaje);
                     if ((aux == true)) {
                         txtMensaje.setText("Contraseña correcta");
                         JOptionPane.showMessageDialog(null, "¡Bienvenido, " + this.txtUsuario.getText() + "!");
@@ -120,9 +146,9 @@ public class frmLogin extends javax.swing.JFrame {
                         inicio.setVisible(true);
                     }
                 }
-            }else{
-                 JOptionPane.showMessageDialog(null, "¡Comprueba tu conexion y vuelva a ingresar a la aplicación");
-                btIniciarSesión.setEnabled(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "¡Comprueba tu conexion y vuelva a ingresar a la aplicación");
+                btIniciarSesion.setEnabled(false);
             }
 
         } catch (SQLException ex) {
@@ -131,7 +157,7 @@ public class frmLogin extends javax.swing.JFrame {
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(frmLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btIniciarSesiónActionPerformed
+    }//GEN-LAST:event_btIniciarSesionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,7 +196,17 @@ public class frmLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btIniciarSesión;
+    private javax.swing.JButton btIniciarSesion;
+    private javax.swing.JPanel complemento;
+    private javax.swing.JLabel fondo;
+    private javax.swing.JLabel imagen_complemento;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel label_contraseña;
+    private javax.swing.JLabel label_usuario;
+    private javax.swing.JPanel loginPanel;
+    private javax.swing.JLabel panelLogin;
     private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JLabel txtMensaje;
     private javax.swing.JTextField txtUsuario;
