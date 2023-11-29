@@ -6,15 +6,15 @@ package Clases;
  * @author Lenovo
  */
 public class LoginMysql {
-    private String user;
+    private String usuario;
     private String clave;
 
     public String getUser() {
-        return this.user;
+        return this.usuario;
     }
 
     public void setUser(String user) {
-        this.user = user;
+        this.usuario = user;
     }
 
     public String getClave() {
@@ -24,8 +24,6 @@ public class LoginMysql {
     public void setClave(String clave) {
         this.clave = clave;
     }
-    
-  
 
     public void insertar() {//HACER EL INSERT
 

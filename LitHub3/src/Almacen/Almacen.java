@@ -12,14 +12,14 @@ import java.util.ArrayList;
  * @author ASUS
  */
 public class Almacen {
-    private ArrayList<Usuarios> user = new ArrayList<Usuarios>();
+    private ArrayList<Usuarios> lista = new ArrayList<Usuarios>();
 
-    public ArrayList<Usuarios> getLista() {
-        return user;
+    public ArrayList<Usuarios> getListaUsuarioContra() {
+        return this.lista;
     }
 
-    public void agregarUsuarios(Usuarios user) {
-        this.user.add(user);
+    public void agregarUsuarios(Usuarios m) {
+        this.getListaUsuarioContra().add(m);
     }
     
 }

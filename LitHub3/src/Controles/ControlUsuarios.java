@@ -5,11 +5,10 @@ import Mysql.Mysql;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.Base64;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
@@ -18,53 +17,51 @@ import javax.swing.JPasswordField;
 public class ControlUsuarios {
 
     Mysql conec = new Mysql();
-    Almacen almaPermisos = new Almacen();
-    public void CargarCombo(JComboBox c) {
-        DefaultComboBoxModel combo = new DefaultComboBoxModel();
 
-        c.setModel(combo);
-        try {
-            conec.conectar();
-            almaPermisos.getLista().clear();
-            conec.seleccionarUsuarios(almaPermisos);
-            for (int i = 0; i < almaPermisos.getLista().size(); i++) {
-                combo.addElement(almaPermisos.getLista().get(i).getUser());
-            }
-        } catch (Exception e) {
-            // System.out.println("Error al cargar el combo" + e);
+  public boolean loginUsuarioYClave(String user, String clave, Almacen almaPermisos, JPasswordField txtContraseña,JTextField txtUsuario, JLabel txtMensaje) throws SQLException, UnsupportedEncodingException {
+    boolean conf = false;
+    int ps = -1;
+    conec.conectar();
+    almaPermisos.getListaUsuarioContra().clear();
+    conec.seleccionarUsuarios(almaPermisos);
+
+    // Buscar el usuario
+    for (int i = 0; i < almaPermisos.getListaUsuarioContra().size(); i++) {
+        if (almaPermisos.getListaUsuarioContra().get(i).getUsuario().equals(user)) {
+            ps = i;
+            break;
         }
     }
-
-    public boolean LoginClave(String user, String clave,JPasswordField txtContraseñaUser, JLabel txtMensaje) throws SQLException, UnsupportedEncodingException {
-        boolean conf = false;
-        int ps = 0;
-        for (int i = 0; i < almaPermisos.getLista().size(); i++) {
-            if (almaPermisos.getLista().get(i).getUser().equals(user)) {
-                ps = i;
-                break;
-            }
-        }
-        if (almaPermisos.getLista().get(ps).getIntentos() < 3) {
-            String contra = Desencriptar(almaPermisos.getLista().get(ps).getClave());
+    if (ps != -1) {
+        if (almaPermisos.getListaUsuarioContra().get(ps).getIntentos() < 3) {
+            String contra = Desencriptar(almaPermisos.getListaUsuarioContra().get(ps).getContraseña());
             System.out.println(contra);
+
             if (contra.equals(clave)) {
                 conf = true;
-                almaPermisos.getLista().get(ps).setIntentos(0);
+                almaPermisos.getListaUsuarioContra().get(ps).setIntentos(0);
                 conec.conectar();
-                conec.actualizarUsuarios(almaPermisos.getLista().get(ps));
+                conec.actualizarUsuarios(almaPermisos.getListaUsuarioContra().get(ps));
             } else {
-                txtMensaje.setText("Usuario o contraseña incorrectos");
-                almaPermisos.getLista().get(ps).setIntentos(almaPermisos.getLista().get(ps).getIntentos() + 1);
+                txtMensaje.setText("contraseña incorrecta");
+                almaPermisos.getListaUsuarioContra().get(ps).setIntentos(almaPermisos.getListaUsuarioContra().get(ps).getIntentos() + 1);
                 conec.conectar();
-                conec.actualizarUsuarios(almaPermisos.getLista().get(ps));
-                txtContraseñaUser.setText("");
+                conec.actualizarUsuarios(almaPermisos.getListaUsuarioContra().get(ps));
+                txtContraseña.setText("");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Usuario bloqueado.");
-            txtContraseñaUser.setText("");
+            txtContraseña.setText("");
         }
-        return conf;
+    } else {
+        txtMensaje.setText("Usuario incorreco");
+        txtUsuario.setText("");
+        txtContraseña.setText("");
     }
+
+    return conf;
+}
+
 
     public String Encriptar(String s) throws UnsupportedEncodingException {
         return Base64.getEncoder().encodeToString(s.getBytes("utf-8"));
