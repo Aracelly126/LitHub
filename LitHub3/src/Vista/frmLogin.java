@@ -50,6 +50,10 @@ public class frmLogin extends javax.swing.JFrame {
         txtMensaje = new javax.swing.JLabel();
         label_usuario = new javax.swing.JLabel();
         label_contraseña = new javax.swing.JLabel();
+        label_registro = new javax.swing.JLabel();
+        btnregistro = new javax.swing.JButton();
+        label_autor = new javax.swing.JLabel();
+        btnregistroautor = new javax.swing.JButton();
         panelLogin = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
@@ -117,6 +121,31 @@ public class frmLogin extends javax.swing.JFrame {
         label_contraseña.setText("Contraseña:");
         loginPanel.add(label_contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, -1, -1));
 
+        label_registro.setText("No tienes una cuenta?");
+        loginPanel.add(label_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, -1, -1));
+
+        btnregistro.setForeground(new java.awt.Color(51, 0, 102));
+        btnregistro.setText("Registrarse");
+        btnregistro.setBorder(null);
+        btnregistro.setContentAreaFilled(false);
+        btnregistro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnregistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnregistroActionPerformed(evt);
+            }
+        });
+        loginPanel.add(btnregistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 480, -1, -1));
+
+        label_autor.setText("Eres autor?");
+        loginPanel.add(label_autor, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 505, -1, -1));
+
+        btnregistroautor.setForeground(new java.awt.Color(51, 0, 102));
+        btnregistroautor.setText("Registrarse como autor");
+        btnregistroautor.setBorder(null);
+        btnregistroautor.setContentAreaFilled(false);
+        btnregistroautor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        loginPanel.add(btnregistroautor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 505, -1, -1));
+
         panelLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo_login.jpg"))); // NOI18N
         loginPanel.add(panelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 540));
 
@@ -159,6 +188,13 @@ public class frmLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btIniciarSesionActionPerformed
 
+    private void btnregistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistroActionPerformed
+        // TODO add your handling code here:
+        frmregistro registro = new frmregistro();
+        registro.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnregistroActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -197,13 +233,17 @@ public class frmLogin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btIniciarSesion;
+    private javax.swing.JButton btnregistro;
+    private javax.swing.JButton btnregistroautor;
     private javax.swing.JPanel complemento;
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel imagen_complemento;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel label_autor;
     private javax.swing.JLabel label_contraseña;
+    private javax.swing.JLabel label_registro;
     private javax.swing.JLabel label_usuario;
     private javax.swing.JPanel loginPanel;
     private javax.swing.JLabel panelLogin;
