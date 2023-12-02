@@ -4,6 +4,11 @@
  */
 package Controles;
 
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
+import javax.swing.JTextField;
+
 public class Controles {
 
     public boolean validarCedula(String cedula) {
@@ -30,5 +35,43 @@ public class Controles {
 
         return true;
     }
+    
+    public void txtNotSpecialCharacters(java.awt.event.KeyEvent evt) {
+        if (!Character.isLetterOrDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }
+
+    public void txtOnlyLetters(java.awt.event.KeyEvent evt) {
+        if (!Character.isAlphabetic(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }
+
+    public void txtOnlyLettersSpaces(java.awt.event.KeyEvent evt) {
+        if (!(Character.isAlphabetic(evt.getKeyChar()) || evt.getKeyChar() == ' ')) {
+            evt.consume();
+        }
+    }
+
+    public boolean txtOnlyNumbers(java.awt.event.KeyEvent evt) {
+        if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+            return false;
+        }
+        return true;
+    }
+
+  
+
+   
+   
+    
+
+    
+
+    
+    
+    
 
 }
