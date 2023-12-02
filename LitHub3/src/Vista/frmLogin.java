@@ -144,6 +144,11 @@ public class frmLogin extends javax.swing.JFrame {
         btnregistroautor.setBorder(null);
         btnregistroautor.setContentAreaFilled(false);
         btnregistroautor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnregistroautor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnregistroautorActionPerformed(evt);
+            }
+        });
         loginPanel.add(btnregistroautor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 505, -1, -1));
 
         panelLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo_login.jpg"))); // NOI18N
@@ -194,6 +199,10 @@ public class frmLogin extends javax.swing.JFrame {
         registro.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnregistroActionPerformed
+
+    private void btnregistroautorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistroautorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnregistroautorActionPerformed
 
     /**
      * @param args the command line arguments
