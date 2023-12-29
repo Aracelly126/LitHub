@@ -33,7 +33,7 @@ public class frmregistro extends javax.swing.JFrame {
         PanelUsuario = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         label_nombre = new javax.swing.JLabel();
-        textnombre = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         label_correo = new javax.swing.JLabel();
         textcorreo = new javax.swing.JTextField();
         label_contra = new javax.swing.JLabel();
@@ -44,7 +44,7 @@ public class frmregistro extends javax.swing.JFrame {
         label_direccion = new javax.swing.JLabel();
         textdireccion = new javax.swing.JTextField();
         label_telefono = new javax.swing.JLabel();
-        texttelefono = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
         label_inicio = new javax.swing.JLabel();
         label_autor = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -64,7 +64,12 @@ public class frmregistro extends javax.swing.JFrame {
 
         label_nombre.setText("Nombre:");
 
-        textnombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         label_correo.setText("Correo:");
 
@@ -89,7 +94,7 @@ public class frmregistro extends javax.swing.JFrame {
         });
 
         btnregistrar.setText("Registrarse");
-        btnregistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnregistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnregistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnregistrarActionPerformed(evt);
@@ -102,7 +107,12 @@ public class frmregistro extends javax.swing.JFrame {
 
         label_telefono.setText("Telefono:");
 
-        texttelefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtTelefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
 
         label_inicio.setText("Ya tienes una cuenta?");
 
@@ -112,7 +122,7 @@ public class frmregistro extends javax.swing.JFrame {
         jButton1.setText("Registrarse como autor");
         jButton1.setBorder(null);
         jButton1.setContentAreaFilled(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -123,7 +133,7 @@ public class frmregistro extends javax.swing.JFrame {
         jButton2.setText("iniciar sesion");
         jButton2.setBorder(null);
         jButton2.setContentAreaFilled(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -144,9 +154,9 @@ public class frmregistro extends javax.swing.JFrame {
                 .addComponent(label_telefono))
             .addGroup(PanelUsuarioLayout.createSequentialGroup()
                 .addGap(140, 140, 140)
-                .addComponent(textnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(texttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(PanelUsuarioLayout.createSequentialGroup()
                 .addGap(140, 140, 140)
                 .addComponent(label_correo))
@@ -196,8 +206,8 @@ public class frmregistro extends javax.swing.JFrame {
                     .addComponent(label_telefono))
                 .addGap(4, 4, 4)
                 .addGroup(PanelUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(texttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addComponent(label_correo)
                 .addGap(4, 4, 4)
@@ -272,6 +282,18 @@ public class frmregistro extends javax.swing.JFrame {
         this.PanelUsuario.repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+         if (!Character.isDigit(evt.getKeyChar()) || this.txtNombre.getText().trim().length() >= 10) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        if (this.txtTelefono.getText().trim().length() >= 10) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtTelefonoKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -328,7 +350,7 @@ public class frmregistro extends javax.swing.JFrame {
     private javax.swing.JPasswordField textcontra;
     private javax.swing.JTextField textcorreo;
     private javax.swing.JTextField textdireccion;
-    private javax.swing.JTextField textnombre;
-    private javax.swing.JTextField texttelefono;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
