@@ -410,12 +410,11 @@ public class frmInicio extends javax.swing.JFrame {
                 .addGroup(MasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(MasLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(btnPortada)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(btnPortada))
                     .addGroup(MasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(MasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(MasLayout.createSequentialGroup()
@@ -494,7 +493,6 @@ public class frmInicio extends javax.swing.JFrame {
         int respuesta = portada.showOpenDialog(Mas);
 
         if (respuesta == JFileChooser.APPROVE_OPTION) {
-
             ruta = portada.getSelectedFile().getPath();
 
             Image mImagen = new ImageIcon(ruta).getImage();

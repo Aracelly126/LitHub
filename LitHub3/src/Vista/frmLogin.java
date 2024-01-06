@@ -62,7 +62,7 @@ public class frmLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        imagen_complemento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/complemento.jpg"))); // NOI18N
+        imagen_complemento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/complemento.png"))); // NOI18N
 
         javax.swing.GroupLayout complementoLayout = new javax.swing.GroupLayout(complemento);
         complemento.setLayout(complementoLayout);
