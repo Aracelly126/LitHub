@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 public class ControlUsuarios {
 
     Mysql conec = new Mysql();
-
+    Controles contr= new Controles();
   public boolean loginUsuarioYClave(String user, String clave, Almacen almaPermisos, JPasswordField txtContraseña,JTextField txtUsuario, JLabel txtMensaje) throws SQLException, UnsupportedEncodingException {
     boolean conf = false;
     int ps = -1;
@@ -27,14 +27,14 @@ public class ControlUsuarios {
 
     // Buscar el usuario
     for (int i = 0; i < almaPermisos.getListaUsuarioContra().size(); i++) {
-        if (almaPermisos.getListaUsuarioContra().get(i).getUsuario().equals(user)) {
+        if (almaPermisos.getListaUsuarioContra().get(i).getUsuario().toUpperCase().equals(user.toUpperCase())) {
             ps = i;
             break;
         }
     }
     if (ps != -1) {
         if (almaPermisos.getListaUsuarioContra().get(ps).getIntentos() < 3) {
-            String contra = Desencriptar(almaPermisos.getListaUsuarioContra().get(ps).getContraseña());
+            String contra = contr.Desencriptar(almaPermisos.getListaUsuarioContra().get(ps).getContraseña());
             System.out.println(contra);
 
             if (contra.equals(clave)) {
@@ -54,7 +54,7 @@ public class ControlUsuarios {
             txtContraseña.setText("");
         }
     } else {
-        txtMensaje.setText("Usuario incorreco");
+        txtMensaje.setText("Usuario incorrecto");
         txtUsuario.setText("");
         txtContraseña.setText("");
     }
@@ -63,13 +63,6 @@ public class ControlUsuarios {
 }
 
 
-    public String Encriptar(String s) throws UnsupportedEncodingException {
-        return Base64.getEncoder().encodeToString(s.getBytes("utf-8"));
-    }
-
-    public String Desencriptar(String s) throws UnsupportedEncodingException {
-        byte[] decode = Base64.getDecoder().decode(s.getBytes());
-        return new String(decode, "utf-8");
-    }
+   
 
 }

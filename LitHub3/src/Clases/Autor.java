@@ -12,6 +12,7 @@ public class Autor {
     String Nacionalidad;
     int Obras_Literarias;
     String Reconocimientos;
+    public ArrayList<Libro> libros = new ArrayList<Libro>();
     
     public String getNombre() {
         return Nombre;
@@ -67,6 +68,15 @@ public class Autor {
 
     public void setReconocimientos(String Reconocimientos) {
         this.Reconocimientos = Reconocimientos;
+    }
+
+    public Autor(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void agregarLibro(String titulo, String imagen, String sinopsis,int ancho, int alto,String genero,int nPaginas) {
+        Libro libro = new Libro(titulo, imagen, sinopsis, ancho, alto,genero,nPaginas);
+        libros.add(libro);
     }
 
     

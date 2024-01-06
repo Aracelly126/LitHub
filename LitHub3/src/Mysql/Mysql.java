@@ -12,6 +12,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -59,7 +61,7 @@ public class Mysql extends LoginMysql {
             ps = con.prepareStatement("select * from usuarios");
             rs = ps.executeQuery();
             int intento = 0;
-            
+
             while (rs.next()) {
                 String usuario = rs.getString("usuario");
                 String Clave = rs.getString("contraseña");
@@ -95,6 +97,54 @@ public class Mysql extends LoginMysql {
             // Manejo de excepciones
             System.out.println("Fallos en la actualización" + e);
 
+        }
+    }
+
+    public boolean aggAutores(String Nombre, String apellido, String pais, String fechaNac, int numObras, String correoElectro, String contraseña) {
+        boolean aux;
+        try {
+            Statement st = con.createStatement();
+            String query = "INSERT INTO autor (nombre, apellido, pais, fechaNac,numeroObras,correoElectro,contraseña) VALUES ('" + Nombre + "', '" + apellido + "', '" + pais + "', '" + fechaNac + "', '" + numObras + "','" + correoElectro + "','" + contraseña + "')";
+            st.executeUpdate(query);
+            return aux = true;
+        } catch (SQLException ex) {
+            if (ex instanceof SQLIntegrityConstraintViolationException) {
+                JOptionPane.showMessageDialog(null, "Ya existe este autor, por favor ingrese otro nombre.");
+                return aux = false;
+            }
+            return aux = false;
+        }
+    }
+
+    public boolean aggUsuarios(String Nombre, String contraseña) {
+        boolean aux = true;
+        try {
+            Statement st = con.createStatement();
+            String query = "INSERT INTO usuarios (usuario, contraseña, intentos)VALUES ('" + Nombre + "', '" + contraseña + "',0)";
+            st.executeUpdate(query);
+            return aux = true;
+        } catch (SQLException ex) {
+            if (ex instanceof SQLIntegrityConstraintViolationException) {
+                JOptionPane.showMessageDialog(null, "No se pudo registrar en la lista de usuarios. Por favor, cambie su nombre");
+                return aux = false;
+            }
+            return aux = false;
+        }
+    }
+
+    public boolean aggLector(String Nombre, String telefono, String correoElc, String direccion, String contraseña) {
+        boolean aux = true;
+        try {
+            Statement st = con.createStatement();
+            String query = "INSERT INTO lector (nombre, telefono, correoElectro, direccion,contraseña) VALUES ('" + Nombre + "', '" + telefono + "', '" + correoElc + "', '" + direccion + "', '" + contraseña + "')";
+            st.executeUpdate(query);
+            return aux = true;
+        } catch (SQLException ex) {
+            if (ex instanceof SQLIntegrityConstraintViolationException) {
+                JOptionPane.showMessageDialog(null, "Ya existe este Lector , por favor ingrese otro nombre.");
+                return aux = false;
+            }
+            return aux = false;
         }
     }
 }

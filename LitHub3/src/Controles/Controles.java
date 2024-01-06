@@ -4,8 +4,20 @@
  */
 package Controles;
 
-public class Controles {
+import java.io.UnsupportedEncodingException;
+import java.util.Base64;
 
+public class Controles {
+    
+     public String Encriptar(String s) throws UnsupportedEncodingException {
+        return Base64.getEncoder().encodeToString(s.getBytes("utf-8"));
+    }
+
+    public String Desencriptar(String s) throws UnsupportedEncodingException {
+        byte[] decode = Base64.getDecoder().decode(s.getBytes());
+        return new String(decode, "utf-8");
+    }
+    
     public boolean validarCedula(String cedula) {
         if (!cedula.matches("[0-9]{10}")) {
             return false;
