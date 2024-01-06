@@ -10,7 +10,9 @@ public class ManejoBD {
     private Conexion conexion = new Conexion();
 
     public ArrayList<?> SELECT(String tipo) {
-        this.conexion.conectar();
+        if (this.conexion.conectar() == false) {
+            return null;
+        }
 
         try {
             Statement statement = this.conexion.getConexion().createStatement();

@@ -1,7 +1,6 @@
 package Vista;
 
 import BaseDatos.Almacen;
-import Mysql.Mysql;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -9,10 +8,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class frmLogin extends javax.swing.JFrame {
-
-    Mysql conec = new Mysql();
-    ControlUsuarios cntUsuarios = new ControlUsuarios();
-    Almacen almaPermisos = new Almacen();
 
     public frmLogin() {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -37,8 +32,7 @@ public class frmLogin extends javax.swing.JFrame {
         }
         //</editor-fold>
         initComponents();
-        this.setLocationRelativeTo(this);
-        almaPermisos.getListaUsuarioContra().clear();
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -180,34 +174,34 @@ public class frmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIniciarSesionActionPerformed
-        // TODO add your handling code here:
-        try {
-            boolean aux2 = conec.conectar();
-            if (aux2 == true) {
-                btIniciarSesion.setEnabled(true);
-                if (txtContraseña.getText().isEmpty() || txtUsuario.getText().isEmpty()) {
-                    txtMensaje.setText("Ingrese la contraseña o el usuario");
-                } else {
-                    boolean aux = cntUsuarios.loginUsuarioYClave(this.txtUsuario.getText(), this.txtContraseña.getText(), almaPermisos, txtContraseña, txtUsuario, txtMensaje);
-                    if ((aux == true)) {
-                        txtMensaje.setText("Contraseña correcta");
-                        JOptionPane.showMessageDialog(null, "¡Bienvenido, " + this.txtUsuario.getText() + "!");
-                        this.dispose();
-                        frmInicio inicio = new frmInicio();
-                        inicio.setVisible(true);
-                    }
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "¡Comprueba tu conexion y vuelva a ingresar a la aplicación");
-                btIniciarSesion.setEnabled(false);
-            }
-
-        } catch (SQLException ex) {
-            System.out.println("linea botton" + ex);
-            Logger.getLogger(frmLogin.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(frmLogin.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        // TODO add your handling code here:
+//        try {
+//            boolean aux2 = conec.conectar();
+//            if (aux2 == true) {
+//                btIniciarSesion.setEnabled(true);
+//                if (txtContraseña.getText().isEmpty() || txtUsuario.getText().isEmpty()) {
+//                    txtMensaje.setText("Ingrese la contraseña o el usuario");
+//                } else {
+//                    boolean aux = cntUsuarios.loginUsuarioYClave(this.txtUsuario.getText(), this.txtContraseña.getText(), almaPermisos, txtContraseña, txtUsuario, txtMensaje);
+//                    if ((aux == true)) {
+//                        txtMensaje.setText("Contraseña correcta");
+//                        JOptionPane.showMessageDialog(null, "¡Bienvenido, " + this.txtUsuario.getText() + "!");
+//                        this.dispose();
+//                        frmInicio inicio = new frmInicio();
+//                        inicio.setVisible(true);
+//                    }
+//                }
+//            } else {
+//                JOptionPane.showMessageDialog(null, "¡Comprueba tu conexion y vuelva a ingresar a la aplicación");
+//                btIniciarSesion.setEnabled(false);
+//            }
+//
+//        } catch (SQLException ex) {
+//            System.out.println("linea botton" + ex);
+//            Logger.getLogger(frmLogin.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (UnsupportedEncodingException ex) {
+//            Logger.getLogger(frmLogin.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_btIniciarSesionActionPerformed
 
     private void btnregistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistroActionPerformed
