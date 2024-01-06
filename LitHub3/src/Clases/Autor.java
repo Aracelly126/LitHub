@@ -13,8 +13,8 @@ public class Autor {
         this.nombre = nombre;
     }
 
-    public void agregarLibro(String titulo, String imagen, String sinopsis,int ancho, int alto) {
-        Libro libro = new Libro(titulo, imagen, sinopsis, ancho, alto);
+    public void agregarLibro(String titulo, String imagen, String sinopsis,int ancho, int alto,String genero,int nPaginas) {
+        Libro libro = new Libro(titulo, imagen, sinopsis, ancho, alto,genero,nPaginas);
         libros.add(libro);
     }
 

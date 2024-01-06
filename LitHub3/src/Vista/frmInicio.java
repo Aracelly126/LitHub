@@ -35,7 +35,7 @@ public class frmInicio extends javax.swing.JFrame {
      */
     private JPanel panelLibros;
     ArrayList<Autor> autores = new ArrayList<>();
-    private Autor autor = new Autor("Steeven");
+    private Autor pruebaautor = new Autor("Steeven");
     private Autor autor2 = new Autor("Paul");
 
     public frmInicio() {
@@ -44,9 +44,9 @@ public class frmInicio extends javax.swing.JFrame {
 
         panelLibros = new JPanel();
         panelLibros.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
-        autor.agregarLibro("Cada Historia cuenta", "cover.jpg", "Es un libro ", 160, 200);
-        autor2.agregarLibro("48 leyes del poder", "descarga.jpg", "Libro sobre leyes", 160, 200);
-        autores.add(autor);
+        pruebaautor.agregarLibro("Cada Historia cuenta", "cover.jpg", "Es un libro ", 160, 200,"drama",320);
+        autor2.agregarLibro("48 leyes del poder", "descarga.jpg", "Libro sobre leyes", 160, 200,"motivacion",450);
+        autores.add(pruebaautor);
         autores.add(autor2);
         mostrarLibros(autores);
 
@@ -529,6 +529,14 @@ public class frmInicio extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        String nombre = this.txtTitulo.getText();
+        String nombre_Imagen = this.Portada.getName();
+        String sinopsis = this.txtSinpsis.getText();
+        String genero = (String) this.cbGenero.getSelectedItem();
+        int nPaginas = Integer.parseInt(this.txtNPaginar.getText());
+        
+        pruebaautor.agregarLibro(nombre, nombre_Imagen, sinopsis, 160, 200, genero, nPaginas);
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**

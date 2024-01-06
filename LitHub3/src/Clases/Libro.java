@@ -1,7 +1,6 @@
 package Clases;
 
 import java.awt.Image;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 public class Libro {
@@ -12,10 +11,12 @@ public class Libro {
     private String genero;
     private int nPaginas;
 
-    public Libro(String nombre, String rutaImagen, String sinopsis,int anchoPanel, int altoPanel) {
+    public Libro(String nombre, String rutaImagen, String sinopsis,int anchoPanel, int altoPanel,String genero,int nPaginas) {
         this.titulo = nombre;
         this.sinopsis = sinopsis;
         this.image = redimensionarImagen("/imagenes/" + rutaImagen, anchoPanel, altoPanel);
+        this.genero = genero;
+        this.nPaginas = nPaginas;
     }
 
     public ImageIcon getImage() {
