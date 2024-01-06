@@ -1,9 +1,7 @@
 package Clases;
 
-/**
- *
- * @author thexe
- */
+import java.util.ArrayList;
+
 public class Autor {
     String Nombre;
     String Apellido;
@@ -71,7 +69,7 @@ public class Autor {
     }
 
     public Autor(String nombre) {
-        this.nombre = nombre;
+        this.Nombre = nombre;
     }
 
     public void agregarLibro(String titulo, String imagen, String sinopsis,int ancho, int alto,String genero,int nPaginas) {
