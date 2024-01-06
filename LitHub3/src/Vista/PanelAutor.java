@@ -4,17 +4,16 @@
  */
 package Vista;
 
+import Controles.ControlAutores;
 import java.awt.BorderLayout;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author thexe
  */
 public class PanelAutor extends javax.swing.JPanel {
-
-    /**
-     * Creates new form PanelAutor
-     */
+public ControlAutores contAutor=new ControlAutores();
     public PanelAutor() {
         initComponents();
     }
@@ -52,38 +51,67 @@ public class PanelAutor extends javax.swing.JPanel {
         btniniciarsesion = new javax.swing.JButton();
         label_autor = new javax.swing.JLabel();
         btnregistroautor = new javax.swing.JButton();
+        txtClave = new javax.swing.JTextField();
+        lbClave = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("Registro de Autores");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, -1, -1));
 
         label_nombre.setText("Nombre:");
+        add(label_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, -1, -1));
+        add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 115, 140, 30));
 
         label_apellido.setText("Apellido:");
+        add(label_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, -1, -1));
+        add(txtapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 115, 140, 30));
 
         label_pais.setText("Pais:");
+        add(label_pais, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 155, -1, -1));
 
         comboPais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ecuador", "Peru", "Mexico", "Bolivia", "Argentina" }));
+        add(comboPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 140, 30));
 
         label_provincia.setText("Provincia:");
+        add(label_provincia, new org.netbeans.lib.awtextra.AbsoluteConstraints(261, 155, -1, -1));
 
         comboProvincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tungurahua", "El Oro", "Guayas", " " }));
+        add(comboProvincia, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 140, 30));
 
         label_fecha.setText("Fecha nacimiento:");
+        add(label_fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, -1, -1));
+        add(txtfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 245, 140, 30));
 
         label_obras.setText("Numero de Obras");
+        add(label_obras, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 220, -1, -1));
+        add(txtobras, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 245, 140, 30));
 
         label_correo.setText("Correo:");
+        add(label_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 285, 100, -1));
+        add(txtcorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 290, 30));
 
         label_contra.setText("Contraseña:");
+        add(label_contra, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 350, -1, -1));
+        add(txtcontra, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 375, 290, 30));
 
         label_confirmar.setText("Confirmar contraseña:");
+        add(label_confirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 415, -1, -1));
+        add(txtconfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 440, 290, 30));
 
         btnregistrar.setText("Registrar");
+        btnregistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnregistrarActionPerformed(evt);
+            }
+        });
+        add(btnregistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 503, -1, -1));
 
         label_inicio.setText("Ya tienes una cuenta?");
+        add(label_inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, -1, -1));
 
         btniniciarsesion.setForeground(new java.awt.Color(51, 0, 102));
         btniniciarsesion.setText("iniciar sesion");
@@ -95,8 +123,10 @@ public class PanelAutor extends javax.swing.JPanel {
                 btniniciarsesionActionPerformed(evt);
             }
         });
+        add(btniniciarsesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(157, 550, -1, -1));
 
         label_autor.setText("No eres autor?");
+        add(label_autor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 575, -1, -1));
 
         btnregistroautor.setForeground(new java.awt.Color(51, 0, 102));
         btnregistroautor.setText("Registrarse como usuario");
@@ -108,128 +138,11 @@ public class PanelAutor extends javax.swing.JPanel {
                 btnregistroautorActionPerformed(evt);
             }
         });
+        add(btnregistroautor, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 575, -1, -1));
+        add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 503, 144, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addComponent(jLabel1))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(label_nombre)
-                .addGap(102, 102, 102)
-                .addComponent(label_apellido))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(txtapellido, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(label_pais)
-                .addGap(122, 122, 122)
-                .addComponent(label_provincia))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(comboPais, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(comboProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(label_fecha)
-                .addGap(47, 47, 47)
-                .addComponent(label_obras))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(txtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(txtobras, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(label_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(txtcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(label_contra))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(txtcontra, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(label_confirmar))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(txtconfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(210, 210, 210)
-                .addComponent(btnregistrar))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(label_inicio)
-                .addGap(5, 5, 5)
-                .addComponent(btniniciarsesion))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(label_autor)
-                .addGap(6, 6, 6)
-                .addComponent(btnregistroautor))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel1)
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label_nombre)
-                    .addComponent(label_apellido))
-                .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtapellido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label_pais)
-                    .addComponent(label_provincia))
-                .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboPais, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label_fecha)
-                    .addComponent(label_obras))
-                .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtobras, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addComponent(label_correo)
-                .addGap(4, 4, 4)
-                .addComponent(txtcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(label_contra)
-                .addGap(4, 4, 4)
-                .addComponent(txtcontra, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(label_confirmar)
-                .addGap(4, 4, 4)
-                .addComponent(txtconfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(btnregistrar)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label_inicio)
-                    .addComponent(btniniciarsesion))
-                .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label_autor)
-                    .addComponent(btnregistroautor)))
-        );
+        lbClave.setText("Clave:");
+        add(lbClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 476, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btniniciarsesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btniniciarsesionActionPerformed
@@ -243,6 +156,7 @@ public class PanelAutor extends javax.swing.JPanel {
 
     private void btnregistroautorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistroautorActionPerformed
         // TODO add your handling code here:
+       
         frmregistro registro = new frmregistro();
         registro.PanelUsuario.setSize(510,540);
         registro.PanelUsuario.setLocation(0,0);
@@ -253,6 +167,13 @@ public class PanelAutor extends javax.swing.JPanel {
         this.repaint();
         
     }//GEN-LAST:event_btnregistroautorActionPerformed
+
+    private void btnregistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarActionPerformed
+     boolean aux=contAutor.registroAutores(this.txtnombre.getText(),this.txtapellido.getText(),this.comboPais.getSelectedItem().toString(),this.txtfecha.getText(),Integer.parseInt(this.txtobras.getText()),this.txtcorreo.getText(),this.txtcontra.getText(),Integer.parseInt(this.txtClave.getText()));
+        if (aux) {
+            JOptionPane.showMessageDialog(null, "Se registro con exito");
+        }
+    }//GEN-LAST:event_btnregistrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -273,6 +194,8 @@ public class PanelAutor extends javax.swing.JPanel {
     private javax.swing.JLabel label_obras;
     private javax.swing.JLabel label_pais;
     private javax.swing.JLabel label_provincia;
+    private javax.swing.JLabel lbClave;
+    private javax.swing.JTextField txtClave;
     private javax.swing.JTextField txtapellido;
     private javax.swing.JPasswordField txtconfirmar;
     private javax.swing.JPasswordField txtcontra;

@@ -35,7 +35,7 @@ public class ControlUsuarios {
     if (ps != -1) {
         if (almaPermisos.getListaUsuarioContra().get(ps).getIntentos() < 3) {
             String contra = contr.Desencriptar(almaPermisos.getListaUsuarioContra().get(ps).getContraseña());
-            System.out.println(contra);
+            System.out.println("La contraseña corredta es"+contra);
 
             if (contra.equals(clave)) {
                 conf = true;

@@ -5,6 +5,7 @@
 package Mysql;
 
 import Almacen.Almacen;
+import Clases.Libro;
 import Clases.LoginMysql;
 import Clases.Usuarios;
 import java.sql.Connection;
@@ -56,6 +57,17 @@ public class Mysql extends LoginMysql {
         }
     }
 
+    public Connection getConnection() {
+        return con;
+    }
+
+    public void desconectar() {
+        try {
+            con.close();
+        } catch (SQLException ex) {
+        }
+    }
+
     public void seleccionarUsuarios(Almacen almaPermisos) {
         try {
             ps = con.prepareStatement("select * from usuarios");
@@ -100,11 +112,11 @@ public class Mysql extends LoginMysql {
         }
     }
 
-    public boolean aggAutores(String Nombre, String apellido, String pais, String fechaNac, int numObras, String correoElectro, String contraseña) {
+    public boolean aggAutores(String Nombre, String apellido, String pais, String fechaNac, int numObras, String correoElectro, String contraseña,int clave) {
         boolean aux;
         try {
             Statement st = con.createStatement();
-            String query = "INSERT INTO autor (nombre, apellido, pais, fechaNac,numeroObras,correoElectro,contraseña) VALUES ('" + Nombre + "', '" + apellido + "', '" + pais + "', '" + fechaNac + "', '" + numObras + "','" + correoElectro + "','" + contraseña + "')";
+            String query = "INSERT INTO autor (nombre, apellido, pais, fechaNac,numeroObras,correoElectro,contraseña,clave) VALUES ('" + Nombre + "', '" + apellido + "', '" + pais + "', '" + fechaNac + "', '" + numObras + "','" + correoElectro + "','" + contraseña + "','"+clave+"')";
             st.executeUpdate(query);
             return aux = true;
         } catch (SQLException ex) {
@@ -147,4 +159,7 @@ public class Mysql extends LoginMysql {
             return aux = false;
         }
     }
+
+    //*------------------------Libros agregar
+    
 }

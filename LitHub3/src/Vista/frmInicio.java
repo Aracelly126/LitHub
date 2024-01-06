@@ -8,19 +8,29 @@ import Clases.Autor;
 import Clases.DetallesLibro;
 import Clases.Libro;
 import Clases.Usuarios;
+import Mysql.Mysql;
+import static Mysql.Mysql.con;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -37,6 +47,11 @@ public class frmInicio extends javax.swing.JFrame {
     ArrayList<Autor> autores = new ArrayList<>();
     private Autor pruebaautor = new Autor("Steeven");
     private Autor autor2 = new Autor("Paul");
+    Libro libro;
+    String ruta;
+    private FileInputStream fis;
+    private int longitudBytes;
+    private  Mysql mi = new Mysql();
 
     public frmInicio() {
         initComponents();
@@ -44,8 +59,8 @@ public class frmInicio extends javax.swing.JFrame {
 
         panelLibros = new JPanel();
         panelLibros.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
-        pruebaautor.agregarLibro("Cada Historia cuenta", "cover.jpg", "Es un libro ", 160, 200,"drama",320);
-        autor2.agregarLibro("48 leyes del poder", "descarga.jpg", "Libro sobre leyes", 160, 200,"motivacion",450);
+        pruebaautor.agregarLibro("Cada Historia cuenta", "cover.jpg", "Es un libro ", 160, 200, "drama", 320);
+        autor2.agregarLibro("48 leyes del poder", "descarga.jpg", "Libro sobre leyes", 160, 200, "motivacion", 450);
         autores.add(pruebaautor);
         autores.add(autor2);
         mostrarLibros(autores);
@@ -147,7 +162,7 @@ public class frmInicio extends javax.swing.JFrame {
         lbGenero = new javax.swing.JLabel();
         cbGenero = new javax.swing.JComboBox<>();
         lbFechaP = new javax.swing.JLabel();
-        txtAutor = new javax.swing.JTextField();
+        txtClave = new javax.swing.JTextField();
         lbNPaginas = new javax.swing.JLabel();
         txtNPaginar = new javax.swing.JTextField();
         lbidioam = new javax.swing.JLabel();
@@ -167,7 +182,7 @@ public class frmInicio extends javax.swing.JFrame {
         panel_libros1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         img_icon1.setBackground(new java.awt.Color(36, 35, 53));
-        img_icon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario_2.png"))); // NOI18N
+        img_icon1.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\OneDrive\\Desktop\\estructura clases\\LitHub\\LitHub3\\src\\imagenes\\usuario_2.png")); // NOI18N
         img_icon1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 img_icon1MouseClicked(evt);
@@ -181,7 +196,7 @@ public class frmInicio extends javax.swing.JFrame {
         panel_favoritos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         img_guardado.setBackground(new java.awt.Color(36, 35, 53));
-        img_guardado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/favoritos.png"))); // NOI18N
+        img_guardado.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\OneDrive\\Desktop\\estructura clases\\LitHub\\LitHub3\\src\\imagenes\\favoritos.png")); // NOI18N
         img_guardado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 img_guardadoMouseClicked(evt);
@@ -195,7 +210,7 @@ public class frmInicio extends javax.swing.JFrame {
         panel_mas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         img_masicon.setBackground(new java.awt.Color(36, 35, 53));
-        img_masicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mas_v2.png"))); // NOI18N
+        img_masicon.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\OneDrive\\Desktop\\estructura clases\\LitHub\\LitHub3\\src\\imagenes\\mas_v2.png")); // NOI18N
         img_masicon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 img_masiconMouseClicked(evt);
@@ -209,7 +224,7 @@ public class frmInicio extends javax.swing.JFrame {
         panel_libros.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         img_icon.setBackground(new java.awt.Color(36, 35, 53));
-        img_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/libro_color.png"))); // NOI18N
+        img_icon.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\OneDrive\\Desktop\\estructura clases\\LitHub\\LitHub3\\src\\imagenes\\libro_color.png")); // NOI18N
         img_icon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 img_iconMouseClicked(evt);
@@ -219,7 +234,7 @@ public class frmInicio extends javax.swing.JFrame {
 
         barra.add(panel_libros, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 30, 30));
 
-        barra_label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/barra_menu.png"))); // NOI18N
+        barra_label.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\OneDrive\\Desktop\\estructura clases\\LitHub\\LitHub3\\src\\imagenes\\barra_menu.png")); // NOI18N
         barra.add(barra_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 540));
 
         getContentPane().add(barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 540));
@@ -242,12 +257,12 @@ public class frmInicio extends javax.swing.JFrame {
             .addGroup(favoritosLayout.createSequentialGroup()
                 .addGap(347, 347, 347)
                 .addComponent(jLabel2)
-                .addContainerGap(373, Short.MAX_VALUE))
+                .addContainerGap(347, Short.MAX_VALUE))
         );
         favoritosLayout.setVerticalGroup(
             favoritosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, favoritosLayout.createSequentialGroup()
-                .addContainerGap(275, Short.MAX_VALUE)
+                .addContainerGap(274, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(245, 245, 245))
         );
@@ -285,19 +300,19 @@ public class frmInicio extends javax.swing.JFrame {
             }
         });
 
-        lbAutor.setText("Autor:");
+        lbAutor.setText("Clave");
 
         txtFecha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtFecha.setPreferredSize(new java.awt.Dimension(2, 22));
 
         lbGenero.setText("Genero:");
 
-        cbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "_______", "Novela", "Romance", "Aventura", "Cuento", "Manga", "Ciencia Ficción", "Relato Corto", "Fantasia", "Manga", "Poesia", "Drama" }));
 
         lbFechaP.setText("Fecha de Publicacion:");
 
-        txtAutor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txtAutor.setPreferredSize(new java.awt.Dimension(2, 22));
+        txtClave.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtClave.setPreferredSize(new java.awt.Dimension(2, 22));
 
         lbNPaginas.setText("Numero de paginas:");
 
@@ -319,6 +334,11 @@ public class frmInicio extends javax.swing.JFrame {
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cancelar_icon.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnPdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pdf_icon.png"))); // NOI18N
         btnPdf.setText("PDF");
@@ -362,7 +382,7 @@ public class frmInicio extends javax.swing.JFrame {
                                 .addGroup(MasLayout.createSequentialGroup()
                                     .addGroup(MasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(MasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txtTitulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                                            .addComponent(txtTitulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(txtFecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(lbFechaP, javax.swing.GroupLayout.Alignment.LEADING))
                                         .addComponent(lbGenero)
@@ -372,9 +392,9 @@ public class frmInicio extends javax.swing.JFrame {
                                         .addComponent(lbidioam)
                                         .addComponent(txtNPaginar, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
                                         .addComponent(lbNPaginas)
-                                        .addComponent(txtAutor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtClave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(txtIdioma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
-                .addContainerGap(208, Short.MAX_VALUE))
+                .addContainerGap(161, Short.MAX_VALUE))
         );
         MasLayout.setVerticalGroup(
             MasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -388,7 +408,7 @@ public class frmInicio extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(MasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(MasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbFechaP)
@@ -441,12 +461,12 @@ public class frmInicio extends javax.swing.JFrame {
             .addGroup(PerfilLayout.createSequentialGroup()
                 .addGap(310, 310, 310)
                 .addComponent(jLabel3)
-                .addContainerGap(368, Short.MAX_VALUE))
+                .addContainerGap(337, Short.MAX_VALUE))
         );
         PerfilLayout.setVerticalGroup(
             PerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PerfilLayout.createSequentialGroup()
-                .addContainerGap(301, Short.MAX_VALUE)
+                .addContainerGap(300, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(219, 219, 219))
         );
@@ -484,20 +504,25 @@ public class frmInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_img_masiconMouseClicked
 
     private void btnPortadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPortadaActionPerformed
-        // TODO add your handling code here:
-        String ruta = "";
-        JFileChooser portada = new JFileChooser();
-        FileNameExtensionFilter filtrar = new FileNameExtensionFilter("jpg & png", "jpg", "png");
-        portada.setFileFilter(filtrar);
+        JFileChooser se = new JFileChooser();
+        se.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        int estado = se.showOpenDialog(null);
+        if (estado == JFileChooser.APPROVE_OPTION) {
+            try {
 
-        int respuesta = portada.showOpenDialog(Mas);
+                fis = new FileInputStream(se.getSelectedFile());
+                this.longitudBytes = (int) se.getSelectedFile().length();
+                Image icono = ImageIO.read(se.getSelectedFile()).getScaledInstance(this.Portada.getWidth(), this.Portada.getHeight(), Image.SCALE_DEFAULT);
+                this.Portada.setIcon(new ImageIcon(icono));
+                this.Portada.updateUI();
 
-        if (respuesta == JFileChooser.APPROVE_OPTION) {
-            ruta = portada.getSelectedFile().getPath();
-
-            Image mImagen = new ImageIcon(ruta).getImage();
-            ImageIcon mIcon = new ImageIcon(mImagen.getScaledInstance(Portada.getWidth(), Portada.getHeight(), Image.SCALE_SMOOTH));
-            Portada.setIcon(mIcon);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                System.out.println("Error en el primer catch");
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Error en el segundo catch");
+            }
         }
     }//GEN-LAST:event_btnPortadaActionPerformed
 
@@ -512,13 +537,25 @@ public class frmInicio extends javax.swing.JFrame {
         detalleFrame.setVisible(true);
     }
 
+    private byte[] leerContenidoPDF(String ruta) {
+        try ( InputStream input = new FileInputStream(ruta)) {
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = input.read(buffer)) != -1) {
+                output.write(buffer, 0, bytesRead);
+            }
+            return output.toByteArray();
+        } catch (IOException ex) {
+            System.out.println("Error al leer el contenido del PDF: " + ex.getMessage());
+            return null;
+        }
+    }
     private void btnPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPdfActionPerformed
-        // TODO add your handling code here:
-        String ruta = "";
+
         JFileChooser pdfLibro = new JFileChooser();
         FileNameExtensionFilter filtrar = new FileNameExtensionFilter("pdf", "pdf");
         pdfLibro.setFileFilter(filtrar);
-
         int respuesta = pdfLibro.showOpenDialog(Mas);
         if (respuesta == JFileChooser.APPROVE_OPTION) {
             ruta = pdfLibro.getSelectedFile().getAbsolutePath();
@@ -526,16 +563,28 @@ public class frmInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPdfActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
+
         String nombre = this.txtTitulo.getText();
-        String nombre_Imagen = this.Portada.getName();
         String sinopsis = this.txtSinpsis.getText();
         String genero = (String) this.cbGenero.getSelectedItem();
+        int clave = Integer.parseInt(this.txtClave.getText());
         int nPaginas = Integer.parseInt(this.txtNPaginar.getText());
-        
-        pruebaautor.agregarLibro(nombre, nombre_Imagen, sinopsis, 160, 200, genero, nPaginas);
-        
+        byte[] contenidoPdf = leerContenidoPDF(ruta);
+        libro = new Libro(sinopsis,genero,nPaginas,nPaginas, nombre, contenidoPdf,clave);
+        try {
+            agregarLibroBase(libro);
+        } catch (SQLException ex) {
+            Logger.getLogger(frmInicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿Deseas cancelar?", "Mensaje",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (respuesta == JOptionPane.YES_OPTION) {
+            Menu_Inicio.setSelectedIndex(0);
+        } 
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -605,11 +654,39 @@ public class frmInicio extends javax.swing.JFrame {
     private javax.swing.JPanel panel_libros;
     private javax.swing.JPanel panel_libros1;
     private javax.swing.JPanel panel_mas;
-    private javax.swing.JTextField txtAutor;
+    private javax.swing.JTextField txtClave;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtIdioma;
     private javax.swing.JTextField txtNPaginar;
     private javax.swing.JTextArea txtSinpsis;
     private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
+public void agregarLibroBase(Libro libro) throws SQLException {
+
+        try {
+            boolean aux = mi.conectar();
+            if (aux == true) {
+                String query = "INSERT INTO Libro (sinopsis,genero,numPags,nombreLi,codigopdf, nombrepdf, archivopdf,foto,clave) VALUES(?,?,?,?,?, ?, ?,?,?);";
+                PreparedStatement ps = con.prepareStatement(query);
+                ps.setString(1,libro.getSinopsis());
+                ps.setString(2,libro.getGenero());
+                ps.setInt(3,libro.getnPaginas());
+                ps.setString(4,libro.getNombre());
+                ps.setInt(5, libro.getCodigoPdf());
+                ps.setString(6, libro.getNombrePdf());
+                ps.setBytes(7, libro.getArchivoPdf());
+                ps.setBlob(8,fis,longitudBytes);
+                ps.setInt(9,libro.getClave());
+                ps.executeUpdate();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
+
+            }
+
+        } catch (SQLException e) {
+            // Manejo de excepciones
+            System.out.println("Fallos en la actualización" + e);
+
+        }
+    }
 }

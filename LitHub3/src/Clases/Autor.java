@@ -10,6 +10,16 @@ public class Autor {
     String Nacionalidad;
     int Obras_Literarias;
     String Reconocimientos;
+    int clave;
+
+    public int getClave() {
+        return this.clave;
+    }
+
+    public void setClave(int clave) {
+        this.clave = clave;
+    }
+    
     public ArrayList<Libro> libros = new ArrayList<Libro>();
     
     public String getNombre() {
