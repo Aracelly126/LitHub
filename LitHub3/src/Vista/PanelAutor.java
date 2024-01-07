@@ -13,7 +13,9 @@ import javax.swing.JOptionPane;
  * @author thexe
  */
 public class PanelAutor extends javax.swing.JPanel {
-public ControlAutores contAutor=new ControlAutores();
+
+    public ControlAutores contAutor = new ControlAutores();
+
     public PanelAutor() {
         initComponents();
     }
@@ -156,20 +158,20 @@ public ControlAutores contAutor=new ControlAutores();
 
     private void btnregistroautorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistroautorActionPerformed
         // TODO add your handling code here:
-       
+
         frmregistro registro = new frmregistro();
-        registro.PanelUsuario.setSize(510,540);
-        registro.PanelUsuario.setLocation(0,0);
-        
+        registro.PanelUsuario.setSize(510, 540);
+        registro.PanelUsuario.setLocation(0, 0);
+
         this.removeAll();
-        this.add(registro.PanelUsuario,BorderLayout.CENTER);
+        this.add(registro.PanelUsuario, BorderLayout.CENTER);
         this.revalidate();
         this.repaint();
-        
+
     }//GEN-LAST:event_btnregistroautorActionPerformed
 
     private void btnregistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarActionPerformed
-     boolean aux=contAutor.registroAutores(this.txtnombre.getText(),this.txtapellido.getText(),this.comboPais.getSelectedItem().toString(),this.txtfecha.getText(),Integer.parseInt(this.txtobras.getText()),this.txtcorreo.getText(),this.txtcontra.getText(),Integer.parseInt(this.txtClave.getText()));
+        boolean aux = contAutor.registroAutores(this.txtnombre.getText(), this.txtapellido.getText(), this.comboPais.getSelectedItem().toString(), this.txtfecha.getText(), Integer.parseInt(this.txtobras.getText()), this.txtcorreo.getText(), this.txtcontra.getText(), Integer.parseInt(this.txtClave.getText()));
         if (aux) {
             JOptionPane.showMessageDialog(null, "Se registro con exito");
         }

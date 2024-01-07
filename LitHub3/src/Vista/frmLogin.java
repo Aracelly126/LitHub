@@ -64,14 +64,12 @@ public class frmLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        imagen_complemento.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\OneDrive\\Desktop\\estructura clases\\LitHub\\LitHub3\\src\\imagenes\\complemento.png")); // NOI18N
-
         javax.swing.GroupLayout complementoLayout = new javax.swing.GroupLayout(complemento);
         complemento.setLayout(complementoLayout);
         complementoLayout.setHorizontalGroup(
             complementoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(complementoLayout.createSequentialGroup()
-                .addComponent(imagen_complemento, javax.swing.GroupLayout.PREFERRED_SIZE, 414, Short.MAX_VALUE)
+                .addComponent(imagen_complemento, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
                 .addContainerGap())
         );
         complementoLayout.setVerticalGroup(
@@ -86,8 +84,6 @@ public class frmLogin extends javax.swing.JFrame {
         loginPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\OneDrive\\Desktop\\estructura clases\\LitHub\\LitHub3\\src\\imagenes\\Sin título-1.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -158,21 +154,13 @@ public class frmLogin extends javax.swing.JFrame {
         btnregistroautor.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         loginPanel.add(btnregistroautor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 505, -1, -1));
 
-<<<<<<< HEAD
         lblMensajeErroresLogin.setForeground(new java.awt.Color(255, 0, 0));
-        lblMensajeErroresLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo_login.jpg"))); // NOI18N
         loginPanel.add(lblMensajeErroresLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 540));
 
         jLabel3.setText("jLabel3");
         loginPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 190, 30));
-=======
-        panelLogin.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\OneDrive\\Desktop\\estructura clases\\LitHub\\LitHub3\\src\\imagenes\\fondo_login.jpg")); // NOI18N
-        loginPanel.add(panelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 540));
->>>>>>> main
 
         getContentPane().add(loginPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 380, 540));
-
-        fondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\ASUS\\OneDrive\\Desktop\\estructura clases\\LitHub\\LitHub3\\src\\imagenes\\fondo_login.jpg")); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 540));
 
         pack();

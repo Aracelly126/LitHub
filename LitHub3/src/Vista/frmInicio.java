@@ -4,12 +4,6 @@
  */
 package Vista;
 
-import Clases.Autor;
-import Clases.DetallesLibro;
-import Clases.Libro;
-import Clases.Usuarios;
-import Mysql.Mysql;
-import static Mysql.Mysql.con;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Image;
@@ -44,16 +38,37 @@ public class frmInicio extends javax.swing.JFrame {
      * Creates new form frmInicio
      */
     private JPanel panelLibros;
-    ArrayList<Autor> autores = new ArrayList<>();
-    private Autor pruebaautor = new Autor("Steeven");
-    private Autor autor2 = new Autor("Paul");
+//    ArrayList<Autor> autores = new ArrayList<>();
+    //private Autor pruebaautor = new Autor("Steeven");
+    //private Autor autor2 = new Autor("Paul");
     Libro libro;
     String ruta;
     private FileInputStream fis;
     private int longitudBytes;
-    private  Mysql mi = new Mysql();
+    private Mysql mi = new Mysql();
 
     public frmInicio() {
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(frmInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(frmInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(frmInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(frmInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
         initComponents();
         this.setLocationRelativeTo(null);
 
@@ -538,7 +553,7 @@ public class frmInicio extends javax.swing.JFrame {
     }
 
     private byte[] leerContenidoPDF(String ruta) {
-        try ( InputStream input = new FileInputStream(ruta)) {
+        try (InputStream input = new FileInputStream(ruta)) {
             ByteArrayOutputStream output = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
             int bytesRead;
@@ -570,7 +585,7 @@ public class frmInicio extends javax.swing.JFrame {
         int clave = Integer.parseInt(this.txtClave.getText());
         int nPaginas = Integer.parseInt(this.txtNPaginar.getText());
         byte[] contenidoPdf = leerContenidoPDF(ruta);
-        libro = new Libro(sinopsis,genero,nPaginas,nPaginas, nombre, contenidoPdf,clave);
+        libro = new Libro(sinopsis, genero, nPaginas, nPaginas, nombre, contenidoPdf, clave);
         try {
             agregarLibroBase(libro);
         } catch (SQLException ex) {
@@ -583,44 +598,8 @@ public class frmInicio extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (respuesta == JOptionPane.YES_OPTION) {
             Menu_Inicio.setSelectedIndex(0);
-        } 
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmInicio().setVisible(true);
-            }
-        });
-    }
-
+    }//GEN-LAST:event_btnCancelarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Mas;
     private javax.swing.JTabbedPane Menu_Inicio;
@@ -668,15 +647,15 @@ public void agregarLibroBase(Libro libro) throws SQLException {
             if (aux == true) {
                 String query = "INSERT INTO Libro (sinopsis,genero,numPags,nombreLi,codigopdf, nombrepdf, archivopdf,foto,clave) VALUES(?,?,?,?,?, ?, ?,?,?);";
                 PreparedStatement ps = con.prepareStatement(query);
-                ps.setString(1,libro.getSinopsis());
-                ps.setString(2,libro.getGenero());
-                ps.setInt(3,libro.getnPaginas());
-                ps.setString(4,libro.getNombre());
+                ps.setString(1, libro.getSinopsis());
+                ps.setString(2, libro.getGenero());
+                ps.setInt(3, libro.getnPaginas());
+                ps.setString(4, libro.getNombre());
                 ps.setInt(5, libro.getCodigoPdf());
                 ps.setString(6, libro.getNombrePdf());
                 ps.setBytes(7, libro.getArchivoPdf());
-                ps.setBlob(8,fis,longitudBytes);
-                ps.setInt(9,libro.getClave());
+                ps.setBlob(8, fis, longitudBytes);
+                ps.setInt(9, libro.getClave());
                 ps.executeUpdate();
             } else {
                 JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");

@@ -11,7 +11,6 @@ public class Main {
         arrancarBD();
         
         frmLogin login =  new frmLogin();
-        
         login.setVisible(true);
     }
     
