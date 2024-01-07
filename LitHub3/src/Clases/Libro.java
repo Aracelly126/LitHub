@@ -21,6 +21,7 @@ public class Libro {
 
     public void setClave(int clave) {
         this.clave = clave;
+        //so
     }
 
     public Libro(String titulo, String rutaImagen, String sinopsis, int anchoPanel, int altoPanel, String genero, int nPaginas) {
