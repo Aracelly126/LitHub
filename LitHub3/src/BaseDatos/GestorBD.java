@@ -83,7 +83,6 @@ public class GestorBD {
             this.con.desconectar();
             return;
         }
-        System.out.println("c va a insertar");
         try {
             // Insertar el usuario en la base de datos
             String consultaInsert = "INSERT INTO USUARIOS (NOMBRE, APELLIDO, CLAVE, PAIS, FEC_NAC, CORREO, TIPO) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -102,7 +101,6 @@ public class GestorBD {
 
             preparedStatement.close();
             this.con.desconectar();
-            System.out.println("c inserta");
         } catch (Exception e) {
             this.con.desconectar();
             System.out.println("Error Metodo:insertarUsuario Clase:GestorBD Usuario:" + usuario.getNombre() + "\n" + e);

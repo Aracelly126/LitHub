@@ -246,7 +246,6 @@ public class frmregistro extends javax.swing.JFrame {
             this.con.desconectar();
             return;
         }
-        System.out.println("xd");
         GestorPrograma.crearUsuario(nombre,apellido,fecNac,tipo,pais,correo,contrasenia1);
         this.con.desconectar();
     }//GEN-LAST:event_btn_registrarMouseClicked

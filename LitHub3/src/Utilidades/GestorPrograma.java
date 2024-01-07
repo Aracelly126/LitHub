@@ -15,7 +15,6 @@ public class GestorPrograma {
     }
 
     public static void crearUsuario(String nombre, String apellido, String fecNac, String tipo, String pais, String correo, String contrasenia) {
-        System.out.println("se va a crear");
         Usuario newUsuario = new Usuario(nombre,
                 apellido,
                 Seguridad.Encriptar(contrasenia),
@@ -23,7 +22,6 @@ public class GestorPrograma {
                 fecNac,
                 correo,
                 tipo);
-        System.out.println("c crea");
         gestorBD.insertarUsuario(newUsuario);
     }
 
