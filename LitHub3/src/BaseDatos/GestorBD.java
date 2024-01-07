@@ -122,11 +122,10 @@ public class GestorBD {
             preparedStatement.setString(2, nombreUsuario);
             preparedStatement.executeUpdate();
 
-            // Actualizar la clave en el almacenamiento local (Almacen)
             for (Usuario usuario : Almacen.getInstance().usuarios) {
                 if (usuario.getNombre().equals(nombreUsuario)) {
                     usuario.setClave(nuevaClave);
-                    break; // No es necesario seguir buscando
+                    break;
                 }
             }
             preparedStatement.close();

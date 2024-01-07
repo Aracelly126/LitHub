@@ -42,7 +42,7 @@ public class Controles {
         //Si las credenciales son incorrectas empieza un contador para bloquearlo
         if (Controles.intentoLogueo() == true && Controles.cadenaVacia(user) == false) {
             bloquearUsuario(user);
-            return 0;
+            return 0;//Si el usuario se bloquea regresa 0
         }
         return -1;//Si las credenciales son incorrectas devuelve -1
     }
