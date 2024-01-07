@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import javax.swing.JOptionPane;
 
-
 public class Conexion {
 
     //PUERTO PARA ARACELLY
@@ -24,13 +23,17 @@ public class Conexion {
 
     private Connection con;
 
+    public Conexion() {
+
+    }
+
     public boolean conectar() {
         try {
             con = DriverManager.getConnection(url, user, clave);
             System.out.println("Conexion a la bd establecida. . .\nMetodo: conectar Clase: Mysql");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al conectar a la BD, intentalo despues. . .");
-            System.out.println("Conexion a la bd fallida. . .\nMetodo: conectar Clase: Mysql\n"+e);
+            System.out.println("Conexion a la bd fallida. . .\nMetodo: conectar Clase: Mysql\n" + e);
             return false;
         }
         return true;
@@ -44,7 +47,7 @@ public class Conexion {
         try {
             this.con.close();
         } catch (Exception e) {
-            System.out.println("Error al desconectar la BD. . .\nMetodo: desconectar Clase: Mysql\n"+e);
+            System.out.println("Error al desconectar la BD. . .\nMetodo: desconectar Clase: Mysql\n" + e);
         }
     }
 }

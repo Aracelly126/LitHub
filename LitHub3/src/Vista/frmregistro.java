@@ -137,10 +137,10 @@ public class frmregistro extends javax.swing.JFrame {
         jButton2.setText("iniciar sesion");
         jButton2.setBorder(null);
         jButton2.setContentAreaFilled(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clickIrIniciarSesion(evt);
             }
         });
 
@@ -267,13 +267,6 @@ public class frmregistro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textcontraActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        frmLogin login = new frmLogin();
-        login.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         PanelAutor autor = new PanelAutor();
@@ -297,13 +290,18 @@ public class frmregistro extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtTelefonoKeyTyped
+
+    private void clickIrIniciarSesion(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickIrIniciarSesion
+        // TODO add your handling code here:
+    }//GEN-LAST:event_clickIrIniciarSesion
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel PanelUsuario;
     private javax.swing.JButton btnregistrar;
     private javax.swing.JLabel fondo;
     private javax.swing.JPanel imagen;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    public javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel label_autor;

@@ -9,19 +9,19 @@ public class GestorBD {
 
     private Conexion conexion = new Conexion();
 
-    public ArrayList<?> SELECT(String tipo) {
+    public ArrayList<?> SELECT(String tipo) {//consulta a todos los datos de una tabla especificada
         if (this.conexion.conectar() == false) {
             return null;
         }
 
+        ArrayList<Object> entidades = new ArrayList<>();
         try {
             Statement statement = this.conexion.getConexion().createStatement();
             String consultaSQL = "SELECT * FROM " + tipo;
             ResultSet resultSetEntidades = statement.executeQuery(consultaSQL);
-            
+
             switch (tipo) {
                 case "USUARIOS":
-                    ArrayList<Usuario> usuarios = new ArrayList<>();
                     while (resultSetEntidades.next()) {
                         Usuario usuario = new Usuario(
                                 resultSetEntidades.getString("NOMBRE"),
@@ -32,14 +32,11 @@ public class GestorBD {
                                 resultSetEntidades.getString("CORREO"),
                                 resultSetEntidades.getString("TIPO")
                         );
-                        usuarios.add(usuario);
+                        entidades.add(usuario);
                     }
-                    statement.close();
-                    this.conexion.desconectar();
-                    return usuarios;
+                    break;
 
                 case "LIBROS":
-                    ArrayList<Libro> libros = new ArrayList<>();
                     while (resultSetEntidades.next()) {
                         Libro libro = new Libro(
                                 resultSetEntidades.getString("CODIGO"),
@@ -50,11 +47,9 @@ public class GestorBD {
                                 resultSetEntidades.getString("URL_FOTO"),
                                 resultSetEntidades.getString("URL_PDF")
                         );
-                        libros.add(libro);
+                        entidades.add(libro);
                     }
-                    statement.close();
-                    this.conexion.desconectar();
-                    return libros;
+                    break;
 
                 case "PRESTAMOS":
                     ArrayList<Prestamo> prestamos = new ArrayList<>();
@@ -67,16 +62,16 @@ public class GestorBD {
                                 resultSetEntidades.getString("FEC_DEV"),
                                 resultSetEntidades.getString("ESTADO")
                         );
-                        prestamos.add(prestamo);
+                        entidades.add(prestamo);
                     }
-                    statement.close();
-                    this.conexion.desconectar();
-                    return prestamos;
+                    break;
             }
+            statement.close();
+            this.conexion.desconectar();
         } catch (Exception e) {
-            System.out.println("Error Metodo:SELECT Clase:ManejoBD Tabla:"+tipo+"\n"+e);
+            System.out.println("Error Metodo:SELECT Clase:ManejoBD Tabla:" + tipo + "\n" + e);
         }
 
-        return null;
+        return entidades;
     }
 }

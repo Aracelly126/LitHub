@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Vista;
 
 import java.awt.BorderLayout;
@@ -28,24 +24,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-/**
- *
- * @author ASUS
- */
 public class frmInicio extends javax.swing.JFrame {
 
-    /**
-     * Creates new form frmInicio
-     */
     private JPanel panelLibros;
 //    ArrayList<Autor> autores = new ArrayList<>();
-    //private Autor pruebaautor = new Autor("Steeven");
-    //private Autor autor2 = new Autor("Paul");
-    Libro libro;
+//    private Autor pruebaautor = new Autor("Steeven");
+//    private Autor autor2 = new Autor("Paul");
+//    Libro libro;
     String ruta;
     private FileInputStream fis;
     private int longitudBytes;
-    private Mysql mi = new Mysql();
+//    private Mysql mi = new Mysql();
 
     public frmInicio() {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -74,77 +63,71 @@ public class frmInicio extends javax.swing.JFrame {
 
         panelLibros = new JPanel();
         panelLibros.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
-        pruebaautor.agregarLibro("Cada Historia cuenta", "cover.jpg", "Es un libro ", 160, 200, "drama", 320);
-        autor2.agregarLibro("48 leyes del poder", "descarga.jpg", "Libro sobre leyes", 160, 200, "motivacion", 450);
-        autores.add(pruebaautor);
-        autores.add(autor2);
-        mostrarLibros(autores);
+//        pruebaautor.agregarLibro("Cada Historia cuenta", "cover.jpg", "Es un libro ", 160, 200, "drama", 320);
+//        autor2.agregarLibro("48 leyes del poder", "descarga.jpg", "Libro sobre leyes", 160, 200, "motivacion", 450);
+//        autores.add(pruebaautor);
+//        autores.add(autor2);
+//        mostrarLibros(autores);
 
         libros.setLayout(new BorderLayout());
         libros.add(panelLibros, BorderLayout.CENTER);
 
     }
 
-    private void mostrarLibros(ArrayList<Autor> autores) {
-        panelLibros.removeAll();
-        for (Autor autor : autores) {
+//    private void mostrarLibros(ArrayList<Autor> autores) {
+//        panelLibros.removeAll();
+//        for (Autor autor : autores) {
+//
+//            for (Libro libro : autor.libros) {
+//                JLabel labelLibro = new JLabel(libro.getNombre());
+//                JLabel labelImagen = new JLabel(libro.getImage());
+//
+//                JPanel panelLibro = new JPanel(new BorderLayout());
+//                panelLibro.add(labelImagen, BorderLayout.CENTER);
+//                panelLibro.add(labelLibro, BorderLayout.SOUTH);
+//
+//                panelLibro.addMouseListener(new MouseAdapter() {
+//                    @Override
+//                    public void mouseClicked(MouseEvent e) {
+//                        mostrarDetalleLibro(libro);
+//                    }
+//                });
+//
+//                panelLibros.add(panelLibro);
+//            }
+//        }
+//        panelLibros.setLocation(panelLibros.getX(), 0);
+//
+//        revalidate();
+//        repaint();
+//    }
 
-            for (Libro libro : autor.libros) {
-                JLabel labelLibro = new JLabel(libro.getNombre());
-                JLabel labelImagen = new JLabel(libro.getImage());
-
-                JPanel panelLibro = new JPanel(new BorderLayout());
-                panelLibro.add(labelImagen, BorderLayout.CENTER);
-                panelLibro.add(labelLibro, BorderLayout.SOUTH);
-
-                panelLibro.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        mostrarDetalleLibro(libro);
-                    }
-                });
-
-                panelLibros.add(panelLibro);
-            }
-        }
-        panelLibros.setLocation(panelLibros.getX(), 0);
-
-        revalidate();
-        repaint();
-    }
-
-    private void mostrarLibrosFavoritosUsuario(Usuarios usuario) {
-        panel_favoritos.removeAll();
-
-        for (Libro libro : usuario.librosFavoritos) {
-            JLabel labelLibro = new JLabel(libro.getNombre());
-            JLabel labelImagen = new JLabel(libro.getImage());
-
-            JPanel panelLibrofavorito = new JPanel(new BorderLayout());
-            panelLibrofavorito.add(labelImagen, BorderLayout.CENTER);
-            panelLibrofavorito.add(labelLibro, BorderLayout.SOUTH);
-
-            panelLibrofavorito.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    mostrarDetalleLibro(libro);
-                }
-            });
-
-            panel_favoritos.add(panelLibrofavorito);
-        }
-
-        panel_favoritos.setLocation(panel_favoritos.getX(), 0);
-
-        revalidate();
-        repaint();
-    }
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+//    private void mostrarLibrosFavoritosUsuario(Usuarios usuario) {
+//        panel_favoritos.removeAll();
+//
+//        for (Libro libro : usuario.librosFavoritos) {
+//            JLabel labelLibro = new JLabel(libro.getNombre());
+//            JLabel labelImagen = new JLabel(libro.getImage());
+//
+//            JPanel panelLibrofavorito = new JPanel(new BorderLayout());
+//            panelLibrofavorito.add(labelImagen, BorderLayout.CENTER);
+//            panelLibrofavorito.add(labelLibro, BorderLayout.SOUTH);
+//
+//            panelLibrofavorito.addMouseListener(new MouseAdapter() {
+//                @Override
+//                public void mouseClicked(MouseEvent e) {
+//                    mostrarDetalleLibro(libro);
+//                }
+//            });
+//
+//            panel_favoritos.add(panelLibrofavorito);
+//        }
+//
+//        panel_favoritos.setLocation(panel_favoritos.getX(), 0);
+//
+//        revalidate();
+//        repaint();
+//    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -494,13 +477,11 @@ public class frmInicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void img_iconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_img_iconMouseClicked
-        // TODO add your handling code here:
-        Menu_Inicio.setSelectedIndex(0);
-        libros.setLayout(new BorderLayout());
-        libros.add(panelLibros, BorderLayout.CENTER);
-        mostrarLibros(autores);
-
-
+//        // TODO add your handling code here:
+//        Menu_Inicio.setSelectedIndex(0);
+//        libros.setLayout(new BorderLayout());
+//        libros.add(panelLibros, BorderLayout.CENTER);
+//        mostrarLibros(autores);
     }//GEN-LAST:event_img_iconMouseClicked
 
     private void img_guardadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_img_guardadoMouseClicked
@@ -541,16 +522,16 @@ public class frmInicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnPortadaActionPerformed
 
-    private void mostrarDetalleLibro(Libro libro) {
-        JFrame detalleFrame = new JFrame("Detalles del Libro");
-        detalleFrame.setSize(300, 200);
-        // Crear y agregar el panel de detalles
-        DetallesLibro detallePanel = new DetallesLibro(libro.getImage(), libro.getNombre(), libro.getSinopsis());
-        detalleFrame.add(detallePanel);
-
-        detalleFrame.setLocationRelativeTo(null);
-        detalleFrame.setVisible(true);
-    }
+//    private void mostrarDetalleLibro(Libro libro) {
+//        JFrame detalleFrame = new JFrame("Detalles del Libro");
+//        detalleFrame.setSize(300, 200);
+//        // Crear y agregar el panel de detalles
+//        DetallesLibro detallePanel = new DetallesLibro(libro.getImage(), libro.getNombre(), libro.getSinopsis());
+//        detalleFrame.add(detallePanel);
+//
+//        detalleFrame.setLocationRelativeTo(null);
+//        detalleFrame.setVisible(true);
+//    }
 
     private byte[] leerContenidoPDF(String ruta) {
         try (InputStream input = new FileInputStream(ruta)) {
@@ -579,18 +560,18 @@ public class frmInicio extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
-        String nombre = this.txtTitulo.getText();
-        String sinopsis = this.txtSinpsis.getText();
-        String genero = (String) this.cbGenero.getSelectedItem();
-        int clave = Integer.parseInt(this.txtClave.getText());
-        int nPaginas = Integer.parseInt(this.txtNPaginar.getText());
-        byte[] contenidoPdf = leerContenidoPDF(ruta);
-        libro = new Libro(sinopsis, genero, nPaginas, nPaginas, nombre, contenidoPdf, clave);
-        try {
-            agregarLibroBase(libro);
-        } catch (SQLException ex) {
-            Logger.getLogger(frmInicio.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        String nombre = this.txtTitulo.getText();
+//        String sinopsis = this.txtSinpsis.getText();
+//        String genero = (String) this.cbGenero.getSelectedItem();
+//        int clave = Integer.parseInt(this.txtClave.getText());
+//        int nPaginas = Integer.parseInt(this.txtNPaginar.getText());
+//        byte[] contenidoPdf = leerContenidoPDF(ruta);
+//        libro = new Libro(sinopsis, genero, nPaginas, nPaginas, nombre, contenidoPdf, clave);
+//        try {
+//            agregarLibroBase(libro);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(frmInicio.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -640,32 +621,32 @@ public class frmInicio extends javax.swing.JFrame {
     private javax.swing.JTextArea txtSinpsis;
     private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
-public void agregarLibroBase(Libro libro) throws SQLException {
-
-        try {
-            boolean aux = mi.conectar();
-            if (aux == true) {
-                String query = "INSERT INTO Libro (sinopsis,genero,numPags,nombreLi,codigopdf, nombrepdf, archivopdf,foto,clave) VALUES(?,?,?,?,?, ?, ?,?,?);";
-                PreparedStatement ps = con.prepareStatement(query);
-                ps.setString(1, libro.getSinopsis());
-                ps.setString(2, libro.getGenero());
-                ps.setInt(3, libro.getnPaginas());
-                ps.setString(4, libro.getNombre());
-                ps.setInt(5, libro.getCodigoPdf());
-                ps.setString(6, libro.getNombrePdf());
-                ps.setBytes(7, libro.getArchivoPdf());
-                ps.setBlob(8, fis, longitudBytes);
-                ps.setInt(9, libro.getClave());
-                ps.executeUpdate();
-            } else {
-                JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
-
-            }
-
-        } catch (SQLException e) {
-            // Manejo de excepciones
-            System.out.println("Fallos en la actualización" + e);
-
-        }
-    }
+//public void agregarLibroBase(Libro libro) throws SQLException {
+//
+//        try {
+//            boolean aux = mi.conectar();
+//            if (aux == true) {
+//                String query = "INSERT INTO Libro (sinopsis,genero,numPags,nombreLi,codigopdf, nombrepdf, archivopdf,foto,clave) VALUES(?,?,?,?,?, ?, ?,?,?);";
+//                PreparedStatement ps = con.prepareStatement(query);
+//                ps.setString(1, libro.getSinopsis());
+//                ps.setString(2, libro.getGenero());
+//                ps.setInt(3, libro.getnPaginas());
+//                ps.setString(4, libro.getNombre());
+//                ps.setInt(5, libro.getCodigoPdf());
+//                ps.setString(6, libro.getNombrePdf());
+//                ps.setBytes(7, libro.getArchivoPdf());
+//                ps.setBlob(8, fis, longitudBytes);
+//                ps.setInt(9, libro.getClave());
+//                ps.executeUpdate();
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
+//
+//            }
+//
+//        } catch (SQLException e) {
+//            // Manejo de excepciones
+//            System.out.println("Fallos en la actualización" + e);
+//
+//        }
+//    }
 }

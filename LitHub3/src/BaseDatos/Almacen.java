@@ -15,6 +15,9 @@ public class Almacen {
     }
 
     public static Almacen getInstance() {
-        return instance == null ? instance = new Almacen() : instance;
+        if (instance == null) {
+            instance = new Almacen();
+        }
+        return instance;
     }
 }

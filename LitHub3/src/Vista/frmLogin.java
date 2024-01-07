@@ -1,13 +1,13 @@
 package Vista;
 
-import BaseDatos.Almacen;
-import java.io.UnsupportedEncodingException;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import BaseDatos.Conexion;
+import BaseDatos.GestorBD;
 
 public class frmLogin extends javax.swing.JFrame {
+
+    private frmregistro registro = new frmregistro();
+    private GestorBD gestorBD = new GestorBD();
+    private Conexion con = new Conexion();
 
     public frmLogin() {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -33,6 +33,14 @@ public class frmLogin extends javax.swing.JFrame {
         //</editor-fold>
         initComponents();
         this.setLocationRelativeTo(null);
+
+        this.registro.jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                setVisible(true);
+                registro.dispose();
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -55,8 +63,8 @@ public class frmLogin extends javax.swing.JFrame {
         btnregistro = new javax.swing.JButton();
         label_autor = new javax.swing.JLabel();
         btnregistroautor = new javax.swing.JButton();
-        lblMensajeErroresLogin = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        lblMensajeErroresLogin = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
@@ -99,27 +107,17 @@ public class frmLogin extends javax.swing.JFrame {
         loginPanel.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 40, -1, -1));
 
         btIniciarSesion.setText("iniciar Sesion");
-        btIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btIniciarSesionActionPerformed(evt);
+        btIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btIniciarSesionMouseClicked(evt);
             }
         });
         loginPanel.add(btIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 330, -1, -1));
 
         txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtUsuarioKeyTyped(evt);
-            }
-        });
         loginPanel.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, 190, 30));
 
         txtContraseña.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txtContraseña.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtContraseñaKeyTyped(evt);
-            }
-        });
         loginPanel.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 190, 30));
         loginPanel.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 410, 220, 30));
 
@@ -137,9 +135,9 @@ public class frmLogin extends javax.swing.JFrame {
         btnregistro.setBorder(null);
         btnregistro.setContentAreaFilled(false);
         btnregistro.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnregistro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnregistroActionPerformed(evt);
+        btnregistro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnregistroMouseClicked(evt);
             }
         });
         loginPanel.add(btnregistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 480, -1, -1));
@@ -154,11 +152,11 @@ public class frmLogin extends javax.swing.JFrame {
         btnregistroautor.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         loginPanel.add(btnregistroautor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 505, -1, -1));
 
-        lblMensajeErroresLogin.setForeground(new java.awt.Color(255, 0, 0));
-        loginPanel.add(lblMensajeErroresLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 540));
-
         jLabel3.setText("jLabel3");
         loginPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 190, 30));
+
+        lblMensajeErroresLogin.setForeground(new java.awt.Color(255, 0, 0));
+        loginPanel.add(lblMensajeErroresLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 540));
 
         getContentPane().add(loginPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 380, 540));
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 540));
@@ -166,54 +164,17 @@ public class frmLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIniciarSesionActionPerformed
-//        // TODO add your handling code here:
-//        try {
-//            boolean aux2 = conec.conectar();
-//            if (aux2 == true) {
-//                btIniciarSesion.setEnabled(true);
-//                if (txtContraseña.getText().isEmpty() || txtUsuario.getText().isEmpty()) {
-//                    txtMensaje.setText("Ingrese la contraseña o el usuario");
-//                } else {
-//                    boolean aux = cntUsuarios.loginUsuarioYClave(this.txtUsuario.getText(), this.txtContraseña.getText(), almaPermisos, txtContraseña, txtUsuario, txtMensaje);
-//                    if ((aux == true)) {
-//                        txtMensaje.setText("Contraseña correcta");
-//                        JOptionPane.showMessageDialog(null, "¡Bienvenido, " + this.txtUsuario.getText() + "!");
-//                        this.dispose();
-//                        frmInicio inicio = new frmInicio();
-//                        inicio.setVisible(true);
-//                    }
-//                }
-//            } else {
-//                JOptionPane.showMessageDialog(null, "¡Comprueba tu conexion y vuelva a ingresar a la aplicación");
-//                btIniciarSesion.setEnabled(false);
-//            }
-//
-//        } catch (SQLException ex) {
-//            System.out.println("linea botton" + ex);
-//            Logger.getLogger(frmLogin.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (UnsupportedEncodingException ex) {
-//            Logger.getLogger(frmLogin.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-    }//GEN-LAST:event_btIniciarSesionActionPerformed
-
-    private void btnregistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistroActionPerformed
-        // TODO add your handling code here:
-        frmregistro registro = new frmregistro();
-        registro.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnregistroActionPerformed
-
-    private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
-        if (!Character.isDigit(evt.getKeyChar()) || this.txtUsuario.getText().trim().length() >= 10) {
-            evt.consume();
+    private void btIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btIniciarSesionMouseClicked
+        if(this.con.conectar() == false){
+            return;
         }
-        this.lblMensajeErroresLogin.setText("");
-    }//GEN-LAST:event_txtUsuarioKeyTyped
+        
+    }//GEN-LAST:event_btIniciarSesionMouseClicked
 
-    private void txtContraseñaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraseñaKeyTyped
-        this.lblMensajeErroresLogin.setText("");
-    }//GEN-LAST:event_txtContraseñaKeyTyped
+    private void btnregistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnregistroMouseClicked
+        this.registro.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnregistroMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
