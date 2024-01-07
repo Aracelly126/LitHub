@@ -1,5 +1,11 @@
 package Utilidades;
 
+import BaseDatos.Almacen;
+import Clases.Usuario;
+import static Utilidades.GestorPrograma.bloquearUsuario;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Controles {
 
     public static int intentosIngresos = 0;
@@ -17,8 +23,48 @@ public class Controles {
         return false;
     }
 
+    public static int credenciales(String user, String contrasenia) {
+        for (Usuario usuario : Almacen.getInstance().usuarios) {
+            String nombre = usuario.getNombre();
+            String clave = usuario.getClave();
+            if (nombre.equals(user) && clave.equals(Seguridad.Encriptar(contrasenia))) {
+                switch (usuario.getTipo()) {
+                    case "ADMIN":
+                        return 1;
+                    case "AUTOR":
+                        return 2;
+                    case "LECTOR":
+                        return 3;
+                }
+                Controles.intentosIngresos = 0;
+            }
+        }
+        //Si las credenciales son incorrectas empieza un contador para bloquearlo
+        if (Controles.intentoLogueo() == true && Controles.cadenaVacia(user) == false) {
+            bloquearUsuario(user);
+            return 0;
+        }
+        return -1;//Si las credenciales son incorrectas devuelve -1
+    }
+
+    public static boolean nombreUsuario(String nombre) {
+        for (Usuario usuario : Almacen.getInstance().usuarios) {
+            if (usuario.getNombre().equals(nombre)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static boolean cadenaVacia(String cadena) {
         return cadena.isBlank() || cadena.isEmpty();
+    }
+
+    public static boolean correoElectronico(String email) {
+        String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]+$";
+        Pattern pattern = Pattern.compile(EMAIL_REGEX);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
     public static boolean cedula(String ced) {

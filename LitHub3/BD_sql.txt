@@ -14,7 +14,7 @@ CREATE TABLE Usuarios (
 
 -- Insertar un nuevo usuario en la tabla Usuarios
 INSERT INTO Usuarios (NOMBRE, CLAVE, FEC_NAC, TIPO)
-VALUES ('admin1', 'root', '05/02/2003', 'ADMIN');
+VALUES ('Auel', 'lruxImViiJZybBeV1xN/zQ==', '05/02/2003', 'ADMIN');
 
 
 -- Crear la tabla Libros

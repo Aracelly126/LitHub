@@ -1,8 +1,10 @@
 package Utilidades;
 
-import BaseDatos.Almacen;
 import BaseDatos.GestorBD;
 import Clases.Usuario;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class GestorPrograma {
 
@@ -12,33 +14,21 @@ public class GestorPrograma {
 
     }
 
-    public static int compCredenciales(String user, String contrasenia) {
-        for (Usuario usuario : Almacen.getInstance().usuarios) {
-            String nombre = usuario.getNombre();
-            String clave = usuario.getClave();
-            if (nombre.equals(user) && clave.equals(contrasenia)) {
-                switch (usuario.getTipo()) {
-                    case "ADMIN":
-                        return 1;
-                    case "AUTOR":
-                        return 2;
-                    case "LECTOR":
-                        return 3;
-                }
-                Controles.intentosIngresos = 0;
-            }
-        }
-        //Si las credenciales son incorrectas empieza un contador para bloquearlo
-        if (Controles.intentoLogueo() == true
-                && Controles.cadenaVacia(user) == false
-                && Controles.cadenaVacia(contrasenia) == false) {
-            bloquearUsuario(user);
-        }
-        return -1;//Si las credenciales son incorrectas devuelve -1
+    public static void crearUsuario(String nombre, String apellido, String fecNac, String tipo, String pais, String correo, String contrasenia) {
+        System.out.println("se va a crear");
+        Usuario newUsuario = new Usuario(nombre,
+                apellido,
+                Seguridad.Encriptar(contrasenia),
+                pais,
+                fecNac,
+                correo,
+                tipo);
+        System.out.println("c crea");
+        gestorBD.insertarUsuario(newUsuario);
     }
 
     public static void bloquearUsuario(String user) {
-        gestorBD.cambiarClaveUsuario(user, generarCadenaNumAleatoria(10));
+        gestorBD.cambiarClaveUsuario(user, Seguridad.Encriptar(generarCadenaNumAleatoria(10)));
     }
 
     public static String generarCadenaNumAleatoria(int longitud) {
@@ -49,6 +39,32 @@ public class GestorPrograma {
             sb.append(caracteres.charAt(index));
         }
         return sb.toString();
+    }
+
+    public static String transformarFecha(String fechaOriginal) {// EEE MMM dd HH:mm:ss z yyyy to dd/MM/yyyy
+        try {
+            SimpleDateFormat formatoOriginal = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+            Date fecha = formatoOriginal.parse(fechaOriginal);
+
+            SimpleDateFormat formatoNuevo = new SimpleDateFormat("dd/MM/yyyy");
+            return formatoNuevo.format(fecha);
+        } catch (Exception e) {
+            System.out.println("Error Metodo:transformarFecha Clase:GestorPrograma\n" + e);
+            return null;
+        }
+    }
+
+    public static String transformarFechaInverso(String fechaOriginal) {// dd/MM/yyyy to EEE MMM dd HH:mm:ss z yyyy
+        try {
+            SimpleDateFormat formatoOriginal = new SimpleDateFormat("dd/MM/yyyy");
+            Date fecha = formatoOriginal.parse(fechaOriginal + " 00:00:00");
+
+            SimpleDateFormat formatoNuevo = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+            return formatoNuevo.format(fecha);
+        } catch (Exception e) {
+            System.out.println("Error Metodo:transformarFechaInverso Clase:GestorPrograma\n" + e);
+            return null;
+        }
     }
 
 }

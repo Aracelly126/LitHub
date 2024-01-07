@@ -1,8 +1,14 @@
 package Vista;
 
+import BaseDatos.Conexion;
+import Utilidades.Controles;
+import Utilidades.GestorPrograma;
 import Utilidades.ManejoComp;
+import java.awt.Color;
 
 public class frmregistro extends javax.swing.JFrame {
+
+    private Conexion con = new Conexion();
 
     public frmregistro() {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -28,7 +34,7 @@ public class frmregistro extends javax.swing.JFrame {
         //</editor-fold>
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
         ManejoComp.crearVerPassword(this.txt_contrasenia, this.btn_verContrasenia);
         ManejoComp.crearVerPassword(this.txt_confContrasenia, this.btn_verConfContrasenia);
         ManejoComp.crearlabel(this.lbl_izquierda, "imagenes/img_fondo2.png");
@@ -100,6 +106,9 @@ public class frmregistro extends javax.swing.JFrame {
 
         lbl_fechaNac.setText("Fecha de Nacimiento");
         pnl_registro.add(lbl_fechaNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, -1, -1));
+
+        txt_fecNac.setDateFormatString("dd/MM/yyyy");
+        txt_fecNac.setMaxSelectableDate(new java.util.Date(1262235600000L));
         pnl_registro.add(txt_fecNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 120, 30));
 
         lbl_tipo.setText("Tipo");
@@ -112,21 +121,31 @@ public class frmregistro extends javax.swing.JFrame {
         pnl_registro.add(lbl_pais, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, -1, -1));
 
         txt_pais.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txt_pais.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_paisKeyTyped(evt);
+            }
+        });
         pnl_registro.add(txt_pais, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 250, 30));
 
         lbl_correo.setText("Correo:");
         pnl_registro.add(lbl_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, -1, -1));
 
         txt_correo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txt_correo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_correoKeyTyped(evt);
+            }
+        });
         pnl_registro.add(txt_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, 250, 30));
 
         lbl_contrasenia.setText("Contraseña:");
         pnl_registro.add(lbl_contrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, -1, -1));
 
         txt_contrasenia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txt_contrasenia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_contraseniaActionPerformed(evt);
+        txt_contrasenia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_contraseniaKeyTyped(evt);
             }
         });
         pnl_registro.add(txt_contrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 380, 250, 30));
@@ -135,36 +154,31 @@ public class frmregistro extends javax.swing.JFrame {
         pnl_registro.add(lbl_confContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, -1, -1));
 
         txt_confContrasenia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txt_confContrasenia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_confContraseniaActionPerformed(evt);
+        txt_confContrasenia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_confContraseniaKeyTyped(evt);
             }
         });
         pnl_registro.add(txt_confContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 440, 250, 30));
 
         btn_registrar.setText("Registrarse");
         btn_registrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_registrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_registrarActionPerformed(evt);
+        btn_registrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_registrarMouseClicked(evt);
             }
         });
         pnl_registro.add(btn_registrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 500, -1, -1));
 
         lbl_inicio.setText("Ya tienes una cuenta?");
-        pnl_registro.add(lbl_inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, -1, -1));
+        pnl_registro.add(lbl_inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, -1, -1));
 
         btn_inicio.setForeground(new java.awt.Color(51, 0, 102));
         btn_inicio.setText("iniciar sesion");
         btn_inicio.setBorder(null);
         btn_inicio.setContentAreaFilled(false);
         btn_inicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_inicio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                clickIrIniciarSesion(evt);
-            }
-        });
-        pnl_registro.add(btn_inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 560, -1, -1));
+        pnl_registro.add(btn_inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 550, -1, -1));
 
         btn_verConfContrasenia.setText("Ver");
         btn_verConfContrasenia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -180,31 +194,89 @@ public class frmregistro extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarActionPerformed
+    private void btn_registrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_registrarMouseClicked
+        if (this.con.conectar() == false) {
+            this.con.desconectar();
+            return;
+        }
+        String nombre = this.txt_nombre.getText();
+        String apellido = this.txt_apellido.getText();
+        String fecNac;
+        try {
+            fecNac = GestorPrograma.transformarFecha(this.txt_fecNac.getDate().toString());
+        } catch (Exception e) {
+            fecNac = "";
+        }
+        String tipo = this.cmb_tipo.getSelectedItem().toString();
+        String pais = this.txt_pais.getText();
+        String correo = this.txt_correo.getText();
+        String contrasenia1 = ManejoComp.claveToString(this.txt_contrasenia);
+        String contrasenia2 = ManejoComp.claveToString(this.txt_confContrasenia);
 
-    }//GEN-LAST:event_btn_registrarActionPerformed
-
-    private void txt_confContraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_confContraseniaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_confContraseniaActionPerformed
-
-    private void txt_contraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_contraseniaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_contraseniaActionPerformed
+        boolean llave = true;
+        if (Controles.cadenaVacia(nombre) || Controles.nombreUsuario(nombre)) {
+            ManejoComp.colorBorderTxt(this.txt_nombre, Color.RED, Color.GREEN);
+            llave = false;
+        }
+        if (Controles.cadenaVacia(apellido)) {
+            ManejoComp.colorBorderTxt(this.txt_apellido, Color.RED, Color.GREEN);
+            llave = false;
+        }
+        if (Controles.cadenaVacia(fecNac)) {
+            ManejoComp.colorBorderCajaFecha(this.txt_fecNac, Color.RED, Color.GREEN);
+            llave = false;
+        }
+        if (Controles.cadenaVacia(pais)) {
+            ManejoComp.colorBorderTxt(this.txt_pais, Color.RED, Color.GREEN);
+            llave = false;
+        }
+        if (Controles.cadenaVacia(correo) || Controles.correoElectronico(correo) == false) {
+            ManejoComp.colorBorderTxt(this.txt_correo, Color.RED, Color.GREEN);
+            llave = false;
+        }
+        if (Controles.cadenaVacia(contrasenia1)) {
+            ManejoComp.colorBorderPassword(this.txt_contrasenia, Color.RED, Color.GREEN);
+            llave = false;
+        }
+        if (Controles.cadenaVacia(contrasenia2) || contrasenia2.equals(contrasenia1) == false) {
+            ManejoComp.colorBorderPassword(this.txt_confContrasenia, Color.RED, Color.GREEN);
+            llave = false;
+        }
+        if (llave == false) {
+            this.con.desconectar();
+            return;
+        }
+        System.out.println("xd");
+        GestorPrograma.crearUsuario(nombre,apellido,fecNac,tipo,pais,correo,contrasenia1);
+        this.con.desconectar();
+    }//GEN-LAST:event_btn_registrarMouseClicked
 
     private void txt_nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nombreKeyTyped
-        if (!Character.isDigit(evt.getKeyChar()) || this.txt_nombre.getText().trim().length() >= 10) {
-            evt.consume();
-        }
+        ManejoComp.txtLongitudCondicion(this.txt_nombre, evt, 20);
+        ManejoComp.txtOnlyLetters(evt);
     }//GEN-LAST:event_txt_nombreKeyTyped
 
-    private void clickIrIniciarSesion(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickIrIniciarSesion
-        // TODO add your handling code here:
-    }//GEN-LAST:event_clickIrIniciarSesion
-
     private void txt_apellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_apellidoKeyTyped
-        // TODO add your handling code here:
+        ManejoComp.txtLongitudCondicion(this.txt_apellido, evt, 20);
+        ManejoComp.txtOnlyLetters(evt);
     }//GEN-LAST:event_txt_apellidoKeyTyped
+
+    private void txt_paisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_paisKeyTyped
+        ManejoComp.txtLongitudCondicion(this.txt_nombre, evt, 20);
+        ManejoComp.txtOnlyLetters(evt);
+    }//GEN-LAST:event_txt_paisKeyTyped
+
+    private void txt_correoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_correoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_correoKeyTyped
+
+    private void txt_contraseniaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_contraseniaKeyTyped
+        ManejoComp.txtLongitudCondicion(this.txt_contrasenia, evt, 20);
+    }//GEN-LAST:event_txt_contraseniaKeyTyped
+
+    private void txt_confContraseniaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_confContraseniaKeyTyped
+        ManejoComp.txtLongitudCondicion(this.txt_contrasenia, evt, 20);
+    }//GEN-LAST:event_txt_confContraseniaKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btn_inicio;

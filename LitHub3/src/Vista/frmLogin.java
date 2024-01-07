@@ -51,7 +51,6 @@ public class frmLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
         lbl_izquierda = new javax.swing.JLabel();
         pnl_derecha = new javax.swing.JPanel();
         lbl_logo = new javax.swing.JLabel();
@@ -67,12 +66,11 @@ public class frmLogin extends javax.swing.JFrame {
         lblbaseDerecha = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
-        jTextField1.setText("jTextField1");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(lbl_izquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 540));
 
+        pnl_derecha.setBackground(new java.awt.Color(255, 255, 255));
         pnl_derecha.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         pnl_derecha.add(lbl_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 120, 120));
 
@@ -103,7 +101,7 @@ public class frmLogin extends javax.swing.JFrame {
         pnl_derecha.add(btn_verContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 265, 55, 20));
 
         lbl_mensaje.setForeground(new java.awt.Color(255, 0, 0));
-        pnl_derecha.add(lbl_mensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 190, 30));
+        pnl_derecha.add(lbl_mensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 240, 30));
 
         btn_iniciarSesion.setText("iniciar Sesion");
         btn_iniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -115,7 +113,7 @@ public class frmLogin extends javax.swing.JFrame {
         pnl_derecha.add(btn_iniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 330, -1, -1));
 
         lbl_registro.setText("No tienes una cuenta?");
-        pnl_derecha.add(lbl_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, -1, -1));
+        pnl_derecha.add(lbl_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 510, -1, -1));
 
         btn_registro.setForeground(new java.awt.Color(51, 0, 102));
         btn_registro.setText("Registrarse");
@@ -127,8 +125,9 @@ public class frmLogin extends javax.swing.JFrame {
                 btn_registroMouseClicked(evt);
             }
         });
-        pnl_derecha.add(btn_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 500, -1, -1));
+        pnl_derecha.add(btn_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 510, -1, -1));
 
+        lblbaseDerecha.setBackground(new java.awt.Color(255, 255, 255));
         lblbaseDerecha.setForeground(new java.awt.Color(255, 0, 0));
         pnl_derecha.add(lblbaseDerecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 540));
 
@@ -140,25 +139,35 @@ public class frmLogin extends javax.swing.JFrame {
 
     private void btn_iniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_iniciarSesionMouseClicked
         if (this.con.conectar() == false) {
+            this.con.desconectar();
             return;
         }
         String usuario = this.txt_usuario.getText();
         String contrasenia = ManejoComp.claveToString(this.txt_contrasenia);
 
-        int tipo = GestorPrograma.compCredenciales(usuario, contrasenia);
+        int tipo = Controles.credenciales(usuario, contrasenia);
         switch (tipo) {
             case -1://si las credenciales son incorrectas
                 this.lbl_mensaje.setText("Usuario y/o Clave incorrectas");
                 ManejoComp.colorBorderTxt(this.txt_usuario, Color.RED, Color.GREEN);
                 ManejoComp.colorBorderTxt(this.txt_contrasenia, Color.RED, Color.GREEN);
                 break;
+            case 0:// Usuario Bloqueado
+                this.lbl_mensaje.setText("Usuario Bloqueado, contacta a soporte. . .");
+                ManejoComp.colorBorderTxt(this.txt_usuario, Color.RED, Color.GREEN);
+                ManejoComp.colorBorderTxt(this.txt_contrasenia, Color.RED, Color.GREEN);
+                break;
             case 1:// ADMIN
+                System.out.println("Bienvenido ADMIN "+usuario);
                 break;
             case 2:// AUTOR        
+                System.out.println("Bienvenido AUTOR "+usuario);
                 break;
             case 3:// LECTOR
+                System.out.println("Bienvenido LECTOR "+usuario);
                 break;
         }
+        this.con.desconectar();
     }//GEN-LAST:event_btn_iniciarSesionMouseClicked
 
     private void btn_registroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_registroMouseClicked
@@ -168,10 +177,13 @@ public class frmLogin extends javax.swing.JFrame {
 
     private void txt_usuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_usuarioKeyTyped
         this.lbl_mensaje.setText("");
+        ManejoComp.txtLongitudCondicion(this.txt_usuario, evt, 20);
+        ManejoComp.txtOnlyLetters(evt);
     }//GEN-LAST:event_txt_usuarioKeyTyped
 
     private void txt_contraseniaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_contraseniaKeyTyped
         this.lbl_mensaje.setText("");
+        ManejoComp.txtLongitudCondicion(this.txt_contrasenia, evt, 20);
     }//GEN-LAST:event_txt_contraseniaKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -179,7 +191,6 @@ public class frmLogin extends javax.swing.JFrame {
     private javax.swing.JButton btn_registro;
     private javax.swing.JToggleButton btn_verContrasenia;
     private javax.swing.JLabel fondo;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbl_contrasenia;
     private javax.swing.JLabel lbl_izquierda;
     private javax.swing.JLabel lbl_logo;

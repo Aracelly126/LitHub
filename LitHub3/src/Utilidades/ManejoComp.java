@@ -1,11 +1,14 @@
 package Utilidades;
 
+import com.toedter.calendar.JDateChooser;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -196,6 +199,26 @@ public class ManejoComp {
             }
         });
         txt.setBorder(new LineBorder(colorBad, 3));
+    }
+
+    public static void colorBorderPassword(JPasswordField passwordField, Color colorBad, Color colorGood) {
+        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                passwordField.setBorder(new LineBorder(colorGood, 3));
+            }
+        });
+        passwordField.setBorder(new LineBorder(colorBad, 3));
+    }
+
+    public static void colorBorderCajaFecha(JDateChooser dateChooser, Color colorBad, Color colorGood) {
+        dateChooser.getDateEditor().addPropertyChangeListener("date", new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                dateChooser.setBorder(new LineBorder(colorGood, 2));
+            }
+        });
+        dateChooser.setBorder(new LineBorder(colorBad, 3));
     }
 
     public static String claveToString(JPasswordField p) {
