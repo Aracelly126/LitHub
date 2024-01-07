@@ -75,5 +75,4 @@ public class Libro {
     public String getUrlPdf() {
         return this.urlPdf;
     }
-
 }

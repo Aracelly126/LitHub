@@ -2,11 +2,10 @@
 package Controles;
 
 import java.awt.Color;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import javax.swing.ImageIcon;
+import java.io.UnsupportedEncodingException;
+import java.util.Base64;
 import javax.swing.JComboBox;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -14,7 +13,16 @@ import javax.swing.JToggleButton;
 import javax.swing.border.LineBorder;
 
 public class Controles {
+    
+     public String Encriptar(String s) throws UnsupportedEncodingException {
+        return Base64.getEncoder().encodeToString(s.getBytes("utf-8"));
+    }
 
+    public String Desencriptar(String s) throws UnsupportedEncodingException {
+        byte[] decode = Base64.getDecoder().decode(s.getBytes());
+        return new String(decode, "utf-8");
+    }
+    
     public boolean validarCedula(String cedula) {
         if (!cedula.matches("[0-9]{10}")) {
             return false;
