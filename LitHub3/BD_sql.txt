@@ -9,7 +9,7 @@ CREATE TABLE Usuarios (
     PAIS VARCHAR(20),
     FEC_NAC VARCHAR(10),
     CORREO VARCHAR(30),
-    TIPO VARCHAR(10) CHECK(TIPO IN ('AUTOR', 'LECTOR', 'ADMIN'))
+    TIPO VARCHAR(10) CHECK(TIPO IN ( 'ADMIN', 'AUTOR', 'LECTOR'))
 );
 
 -- Insertar un nuevo usuario en la tabla Usuarios

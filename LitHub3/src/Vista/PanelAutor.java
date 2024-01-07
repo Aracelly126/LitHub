@@ -165,11 +165,11 @@ public class PanelAutor extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         frmregistro registro = new frmregistro();
-        registro.PanelUsuario.setSize(510, 540);
-        registro.PanelUsuario.setLocation(0, 0);
+        registro.pnl_registro.setSize(510, 540);
+        registro.pnl_registro.setLocation(0, 0);
 
         this.removeAll();
-        this.add(registro.PanelUsuario, BorderLayout.CENTER);
+        this.add(registro.pnl_registro, BorderLayout.CENTER);
         this.revalidate();
         this.repaint();
 

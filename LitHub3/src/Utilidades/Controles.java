@@ -1,130 +1,72 @@
-
 package Utilidades;
-
-import java.awt.Color;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.JToggleButton;
-import javax.swing.border.LineBorder;
 
 public class Controles {
 
-    public boolean validarCedula(String cedula) {
-        if (!cedula.matches("[0-9]{10}")) {
+    public static int intentosIngresos = 0;
+
+    private Controles() {
+        // Private constructor to prevent instantiation
+    }
+
+    public static boolean intentoLogueo() {
+        intentosIngresos = intentosIngresos + 1;
+        if (intentosIngresos == 3) {
+            intentosIngresos = 0;
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean cadenaVacia(String cadena) {
+        return cadena.isBlank() || cadena.isEmpty();
+    }
+
+    public static boolean cedula(String ced) {
+        int a, e, i, o, cont, j, u = 0, y = 0, r = 0, s = 0;
+        double z = 0, k = 100000000;
+        String ced1 = null;
+        ced = ced.trim();
+        try {
+            ced1 = ced.substring(0, 9);        //*1 *2 *3 *4 *5 *6 *7 *8 *9
+            cont = ced1.length();
+            //--------------------------------------
+            a = Integer.parseInt(ced.substring(0, 2));           //*1 *2
+            e = Integer.parseInt(ced.substring(2, 3));           //*3
+            i = Integer.parseInt(ced.substring(3, 9));           //*4 *5 *6 *7 *8 *9
+            o = Integer.parseInt(ced.substring(9, 10));          //*10
+            //--------------------------------------
+        } catch (Exception w) {
             return false;
         }
-        int tercerdigito = Integer.parseInt(cedula.substring(2, 3));
-        if (!(tercerdigito < 6)) {
-            return false;
-        }
-        int[] coefValCedula = {2, 1, 2, 1, 2, 1, 2, 1, 2};
-        int verificador = Integer.parseInt(cedula.substring(9, 10));
-        int suma = 0;
-        int digito;
-
-        for (int i = 0; i < (cedula.length() - 1); i++) {
-            digito = Integer.parseInt(cedula.substring(i, i + 1)) * coefValCedula[i];
-            suma += ((digito % 10) + (digito / 10));
-        }
-
-        if (suma % 10 != 0 || suma % 10 != verificador && 10 - (suma % 10) != verificador) {
-            return false;
-        }
-
-        return true;
-    }
-    
-    public void txtNotSpecialCharacters(java.awt.event.KeyEvent evt) {
-        if (!Character.isLetterOrDigit(evt.getKeyChar())) {
-            evt.consume();
-        }
-    }
-
-    public void txtOnlyLetters(java.awt.event.KeyEvent evt) {
-        if (!Character.isAlphabetic(evt.getKeyChar())) {
-            evt.consume();
-        }
-    }
-
-    public void txtOnlyLettersSpaces(java.awt.event.KeyEvent evt) {
-        if (!(Character.isAlphabetic(evt.getKeyChar()) || evt.getKeyChar() == ' ')) {
-            evt.consume();
-        }
-    }
-
-    public boolean txtOnlyNumbers(java.awt.event.KeyEvent evt) {
-        if (!Character.isDigit(evt.getKeyChar())) {
-            evt.consume();
-            return false;
-        }
-        return true;
-    }
-    
-    public void colorBackgroundCmbx(JComboBox cmb, Color colorBad, Color colorGod) {
-        cmb.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cmb.setBackground(colorGod);
-            }
-        });
-        cmb.setBackground(colorBad);
-    }
-
-    public String claveToString(JPasswordField p) {
-        char[] passwordChars = p.getPassword();
-        String password = new String(passwordChars);
-        return password;
-    }
-
-    public void colorBorderTxt(JTextField txt, Color colorBad, Color colorGod) {
-        txt.addKeyListener(new java.awt.event.KeyAdapter() {
-            @Override
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt.setBorder(new LineBorder(colorGod, 3));
-            }
-        });
-        txt.setBorder(new LineBorder(colorBad, 3));
-    }
-
-    public void colorBackgroundTxt(JTextField txt, Color colorBad, Color colorGod) {
-        txt.addKeyListener(new java.awt.event.KeyAdapter() {
-            @Override
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt.setBackground(colorGod);
-            }
-        });
-        txt.setBackground(colorBad);
-    }
-
-    public void crearVerPassword(JPasswordField pas, JToggleButton btn) {
-        btn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JToggleButton btn = (JToggleButton) e.getSource();
-                if (btn.isSelected()) {
-                    pas.setEchoChar((char) 0); // Mostrar texto sin ocultarlo
-                } else {
-                    pas.setEchoChar('\u2022'); // Ocultar texto
+        if (a >= 0 && a <= 24) {
+            if (e >= 0 && e < 6) {
+                for (j = 0; j < cont; j++) {
+                    if (j % 2 == 0) {
+                        y = 2;
+                    } else {
+                        y = 1;
+                    }
+                    ced1 = ced.substring(j, j + 1);
+                    z = Integer.parseInt(ced1);
+                    u = (int) (z * y);
+                    if (u >= 10) {
+                        u = u - 9;
+                    }
+                    r = r + u;
                 }
+                s = r;
+                //System.out.println(z+"   "+y+"    "+u+"    "+r);
+                for (j = 0; s % 10 != 0; j++) {
+                    s = s + 1;
+                }
+                r = s - r;
+                //System.out.println(r);
+                if (r == 10) {
+                    r = 0;
+                }
+                return r == o;
             }
-        });
+        }
+        return false;
     }
-
-  
-
-   
-   
-    
-
-    
-
-    
-    
-    
-
 }
