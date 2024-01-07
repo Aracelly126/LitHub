@@ -9,6 +9,9 @@ public class Prestamo {
     private String fecDev;
     private String estado;
 
+    public Prestamo() {
+    }
+
     public Prestamo(int codigo, String codLib, String nomUsu, String fecIni, String fecDev, String estado) {
         this.codigo = codigo;
         this.codLib = codLib;

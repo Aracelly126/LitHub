@@ -10,6 +10,8 @@ public class Libro {
     private String urlFoto;
     private String urlPdf;
 
+    public Libro() {
+    }
 
     public Libro(String codigo, String autor, String nombre, String genero, int numPag, String urlFoto, String urlPdf) {
         this.codigo = codigo;

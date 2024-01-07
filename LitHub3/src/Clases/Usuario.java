@@ -10,6 +10,9 @@ public class Usuario {
     private String correo;
     private String tipo;
 
+    public Usuario() {
+    }
+
     public Usuario(String nombre, String apellido, String clave, String pais, String fecNac, String correo, String tipo) {
         this.nombre = nombre;
         this.apellido = apellido;

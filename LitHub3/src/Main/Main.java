@@ -2,7 +2,7 @@ package Main;
 
 import BaseDatos.*;
 import Clases.*;
-import Vista.frmLogin;
+import Vista.FrmIniciarSesion;
 import java.util.ArrayList;
 
 public class Main {
@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         arrancarBD();
         
-        frmLogin login =  new frmLogin();
+        FrmIniciarSesion login =  new FrmIniciarSesion();
         login.setVisible(true);
     }
     

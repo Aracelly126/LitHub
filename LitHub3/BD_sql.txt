@@ -28,6 +28,13 @@ CREATE TABLE Libros (
     URL_PDF VARCHAR(10)
 );
 
+-- Crear la tabla Favoritos
+CREATE TABLE Favoritos (
+    CODIGO INT AUTO_INCREMENT PRIMARY KEY,
+    NOM_USU VARCHAR(20) REFERENCES Usuarios(NOMBRE),
+    COD_LIB VARCHAR(10) REFERENCES Libros(CODIGO)
+);
+
 -- Crear la tabla Prestamos
 CREATE TABLE Prestamos (
     CODIGO INT AUTO_INCREMENT PRIMARY KEY,

@@ -235,4 +235,14 @@ public class ManejoComp {
         }
         return new ImageIcon(imagenRedimensionada);
     }
+
+    public static ImageIcon imageTopIcon(String ruta) {
+        try {
+            return new ImageIcon(ruta);
+        } catch (Exception e) {
+            System.out.println("Error Metodo:imageToIcon Clase:ManejoComp Ruta:" + ruta + "\n" + e);
+            return null;
+        }
+    }
+
 }
