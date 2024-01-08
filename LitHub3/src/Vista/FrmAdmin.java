@@ -372,7 +372,7 @@ public class FrmAdmin extends javax.swing.JFrame {
             return;
         }
         if (Controles.cadenaVacia(this.urlPortada) || Controles.cadenaVacia(this.urlPdf)) {
-            JOptionPane.showMessageDialog(this, "Portada o pef faltantes, intenta de nuevo. . .");
+            JOptionPane.showMessageDialog(this, "Portada o PDF faltantes, intenta de nuevo. . .");
             return;
         }
         Libro librito = new Libro(
