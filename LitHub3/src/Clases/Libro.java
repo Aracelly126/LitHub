@@ -7,16 +7,18 @@ public class Libro {
     private String nombre;
     private String genero;
     private int numPag;
+    private String prestado;
 
     public Libro() {
     }
 
-    public Libro(String codigo, String autor, String nombre, String genero, int numPag) {
+    public Libro(String codigo, String autor, String nombre, String genero, int numPag, String prestado) {
         this.codigo = codigo;
         this.autor = autor;
         this.nombre = nombre;
         this.genero = genero;
         this.numPag = numPag;
+        this.prestado = prestado;
     }
 
     public void setCodigo(String codigo) {
@@ -57,5 +59,13 @@ public class Libro {
 
     public int getNumPag() {
         return this.numPag;
+    }
+
+    public void setPrestado(String prestado) {
+        this.prestado = prestado;
+    }
+
+    public String getPrestado() {
+        return this.prestado;
     }
 }

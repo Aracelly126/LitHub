@@ -380,7 +380,8 @@ public class FrmAdmin extends javax.swing.JFrame {
                 this.txt_libAutor.getText(),
                 this.txt_libNombre.getText(),
                 this.txt_libGenero.getText(),
-                Integer.parseInt(this.txt_libNumPags.getText()));
+                Integer.parseInt(this.txt_libNumPags.getText()),
+                "NO");
         this.gestorBD.insertarLibro(librito);
         GestorPrograma.almacenarImagen(this.urlPortada, this.txt_libCodigo.getText() + ".png");
         GestorPrograma.almacenarPDF(this.urlPdf, this.txt_libCodigo.getText() + ".pdf");

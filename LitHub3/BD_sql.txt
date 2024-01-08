@@ -24,6 +24,7 @@ CREATE TABLE Libros (
     NOMBRE VARCHAR(50),
     GENERO VARCHAR(20),
     NUM_PAG INT CHECK(NUM_PAG <= 500),
+    PRESTADO VARCHAR(2) CHECK(PRESTADO IN ('SI', 'NO'))
 );
 
 -- Crear la tabla Favoritos

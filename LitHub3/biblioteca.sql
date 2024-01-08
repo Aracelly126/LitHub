@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3387
--- Tiempo de generación: 08-01-2024 a las 05:31:09
+-- Tiempo de generación: 08-01-2024 a las 05:42:07
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -44,15 +44,16 @@ CREATE TABLE `libros` (
   `AUTOR` varchar(20) DEFAULT NULL,
   `NOMBRE` varchar(50) DEFAULT NULL,
   `GENERO` varchar(20) DEFAULT NULL,
-  `NUM_PAG` int(11) DEFAULT NULL CHECK (`NUM_PAG` <= 500)
+  `NUM_PAG` int(11) DEFAULT NULL CHECK (`NUM_PAG` <= 500),
+  `PRESTADO` varchar(2) DEFAULT NULL CHECK (`PRESTADO` in ('SI','NO'))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `libros`
 --
 
-INSERT INTO `libros` (`CODIGO`, `AUTOR`, `NOMBRE`, `GENERO`, `NUM_PAG`) VALUES
-('1764326883', 'Anuel', 'El alienista', 'Otro', 50);
+INSERT INTO `libros` (`CODIGO`, `AUTOR`, `NOMBRE`, `GENERO`, `NUM_PAG`, `PRESTADO`) VALUES
+('1764326883', 'Anuel', 'El alienista', 'Otro', 50, 'NO');
 
 -- --------------------------------------------------------
 

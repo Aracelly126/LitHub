@@ -45,7 +45,8 @@ public class GestorBD {
                                 resultSetEntidades.getString("AUTOR"),
                                 resultSetEntidades.getString("NOMBRE"),
                                 resultSetEntidades.getString("GENERO"),
-                                resultSetEntidades.getInt("NUM_PAG")
+                                resultSetEntidades.getInt("NUM_PAG"),
+                                resultSetEntidades.getString("PRESTADO")
                         );
                         entidades.add(libro);
                     }
