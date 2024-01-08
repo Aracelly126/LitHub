@@ -66,7 +66,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         lblbaseDerecha = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("LibHib | Iniciar Sesion");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -160,8 +160,10 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
                 ManejoComp.colorBorderTxt(this.txt_contrasenia, Color.RED, Color.GREEN);
                 break;
             case 1:// ADMIN
-                System.out.println("Bienvenido ADMIN "+usuario);
-                break;
+            FrmAdmin adminForm = new FrmAdmin();
+            adminForm.setVisible(true);
+            break;
+                //System.out.println("Bienvenido ADMIN "+usuario);
             case 2:// AUTOR        
                 System.out.println("Bienvenido AUTOR "+usuario);
                 break;

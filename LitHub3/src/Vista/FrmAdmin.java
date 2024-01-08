@@ -1,5 +1,6 @@
 package Vista;
-
+import Clases.Prestamo;
+import Clases.Libro;
 import Clases.Usuario;
 import Utilidades.ManejoComp;
 import java.awt.BorderLayout;
@@ -7,7 +8,10 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -20,10 +24,12 @@ public class FrmAdmin extends javax.swing.JFrame {
     
     private Usuario usuarioActual = new Usuario();
 
-//    private JPanel panelLibros;
-//    ArrayList<Autor> autores = new ArrayList<>();
-//    private Autor pruebaautor = new Autor("Steeven", "Loor", "12/24/2003", "Arenillas", "Ecuatoriano", 1, "A la paz");
-//    private Autor autor2 = new Autor("Paul");
+    private JPanel panelLibros;
+    ArrayList<Usuario> usuarios = new ArrayList<>();
+    private Usuario pruebausuarios = new Usuario("Steeven", "Loor", "1111", "ecuador", ""
+            + "", "wechewhcb@gmail.com", "ADMIN");
+    private Usuario usuario2 = new Usuario("Steeven", "Loor", "1111", "ecuador", ""
+            + "", "wechewhcb@gmail.com", "ADMIN");
     public FrmAdmin() {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -49,21 +55,20 @@ public class FrmAdmin extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
 
-//        panelLibros = new JPanel();
-//        panelLibros.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
-//        pruebaautor.agregarLibro("Cada Historia cuenta", "cover.jpg", "Es un libro ", 160, 200, "drama", 320);
-//        pruebaautor.agregarLibro("Divina comedia", "libro3.jpg", "Libro de reflexion", 160, 200, "drama", 550);
-//        pruebaautor.agregarLibro("Divina comedia", "libro3.jpg", "Libro de reflexion", 160, 200, "drama", 550);
-//        pruebaautor.agregarLibro("Divina comedia", "libro3.jpg", "Libro de reflexion", 160, 200, "drama", 550);
-//        pruebaautor.agregarLibro("Divina comedia", "libro3.jpg", "Libro de reflexion", 160, 200, "drama", 550);
-//        pruebaautor.agregarLibro("Divina comedia", "libro3.jpg", "Libro de reflexion", 160, 200, "drama", 550);
-//        autor2.agregarLibro("48 leyes del poder", "descarga.jpg", "Libro sobre leyes", 160, 200, "motivacion", 450);
-//        autores.add(pruebaautor);
-//        autores.add(autor2);
-//        //mostrarLibros(autores);
-//
-//        libros.setLayout(new BorderLayout());
-//        libros.add(panelLibros, BorderLayout.CENTER);
+        panelLibros = new JPanel();
+        panelLibros.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
+        pruebausuarios.setApellido("-----");
+        pruebausuarios.setClave("11111");
+        pruebausuarios.setCorreo("kjfeh4euwehwj@gmail.com");
+        pruebausuarios.setFecNac("1/1/1");
+        usuario2.setClave("ADMIN");
+        usuarios.add(pruebausuarios);
+        usuarios.add(usuario2);
+        //mostrarLibros(autores);
+
+        
+        panelLibros.setLayout(new BorderLayout());
+        lbl_btnLibros.add(panelLibros, BorderLayout.CENTER);
         ManejoComp.crearlabel(lbl_btnLibros, "imagenes/ico_libro.png");
         ManejoComp.crearlabel(lbl_btnFavoritos, "imagenes/ico_favoritos.png");
         ManejoComp.crearlabel(lbl_btnAgregarLibro, "imagenes/ico_agregar.png");
@@ -71,125 +76,120 @@ public class FrmAdmin extends javax.swing.JFrame {
 
     }
 
-//    private void mostrarLibros(ArrayList<Autor> autores) {
-//        panelLibros.removeAll();
-//        for (Autor autor : autores) {
-//
-//            for (Libro libro : autor.libros) {
-//                JLabel labelLibro = new JLabel(libro.getNombre());
-//                JLabel labelImagen = new JLabel(libro.getImage());
-//
-//                JPanel panelLibro = new JPanel(new BorderLayout());
-//                panelLibro.add(labelImagen, BorderLayout.CENTER);
-//                panelLibro.add(labelLibro, BorderLayout.SOUTH);
-//
-//                panelLibro.addMouseListener(new MouseAdapter() {
-//                    @Override
-//                    public void mouseClicked(MouseEvent e) {
-//                        mostrarDetalleLibro(libro);
-//                    }
-//                });
-//
-//                panelLibros.add(panelLibro);
-//            }
-//        }
-//        panelLibros.setLocation(panelLibros.getX(), 0);
-//
-//        revalidate();
-//        repaint();
-//    }
-//    private void mostrarLibrosporAutor(ArrayList<Libro> Libros) {
-//        panelLibros.removeAll();
-//        DetallesLibro dt = new DetallesLibro();
-//        for (Libro libro : Libros) {
-//            JLabel labelLibro = new JLabel(libro.getNombre());
-//            
-//            ImageIcon imageIcon = libro.getImage();
-//            Image image = imageIcon.getImage().getScaledInstance(100, 120, Image.SCALE_SMOOTH);
-//            ImageIcon scaledImageIcon = new ImageIcon(image);
-//
-//            JLabel labelImagen = new JLabel(scaledImageIcon);
-//
-//            JPanel panelLibro = new JPanel(new BorderLayout());
-//            panelLibro.add(labelImagen, BorderLayout.CENTER);
-//            panelLibro.add(labelLibro, BorderLayout.SOUTH);
-//
-//            panelLibro.addMouseListener(new MouseAdapter() {
-//                @Override
-//                public void mouseClicked(MouseEvent e) {
-//                   dt.mostrarVentanaOpciones();
-//                }
-//            });
-//
-//            panelLibros.add(panelLibro);
-//        }
-//
-//        panelLibros.setLocation(panelLibros.getX(), 0);
-//
-//        revalidate();
-//        repaint();
-//    }
-//    private void mostrarLibrosFavoritosUsuario(Usuarios usuario) {
-//        panel_favoritos.removeAll();
-//
-//        for (Libro libro : usuario.librosFavoritos) {
-//            JLabel labelLibro = new JLabel(libro.getNombre());
-//            JLabel labelImagen = new JLabel(libro.getImage());
-//
-//            JPanel panelLibrofavorito = new JPanel(new BorderLayout());
-//            panelLibrofavorito.add(labelImagen, BorderLayout.CENTER);
-//            panelLibrofavorito.add(labelLibro, BorderLayout.SOUTH);
-//
-//            panelLibrofavorito.addMouseListener(new MouseAdapter() {
-//                @Override
-//                public void mouseClicked(MouseEvent e) {
-//                    mostrarDetalleLibro(libro);
-//                }
-//            });
-//
-//            panel_favoritos.add(panelLibrofavorito);
-//        }
-//
-//        panel_favoritos.setLocation(panel_favoritos.getX(), 0);
-//
-//        revalidate();
-//        repaint();
-//    }
+    private void mostrarLibros(ArrayList<Libro> libros) {
+    panelLibros.removeAll();
+    for (Libro libro : libros) {
+        try {
+            URL urlImagen = new URL(libro.getUrlFoto());
+            Image imagen = ImageIO.read(urlImagen).getScaledInstance(100, 150, Image.SCALE_SMOOTH);
+            ImageIcon iconoImagen = new ImageIcon(imagen);
+
+            JLabel labelLibro = new JLabel(libro.getNombre(), iconoImagen, JLabel.CENTER);
+            labelLibro.setHorizontalTextPosition(JLabel.CENTER);
+            labelLibro.setVerticalTextPosition(JLabel.BOTTOM);
+
+            JPanel panelLibro = new JPanel(new BorderLayout());
+            panelLibro.add(labelLibro, BorderLayout.CENTER);
+
+            panelLibro.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    mostrarDetalleLibro(libro);
+                }
+            });
+
+            panelLibros.add(panelLibro);
+        } catch (Exception e) {
+            e.printStackTrace(); // Manejar excepciones relacionadas con la carga de imágenes
+        }
+    }
+    panelLibros.setLocation(panelLibros.getX(), 0);
+
+    revalidate();
+    repaint();
+}
+
+    private void mostrarLibrosporAutor(ArrayList<Libro> libros) {
+    panelLibros.removeAll();
+   
+    for (Libro libro : libros) {
+        JLabel labelLibro = new JLabel(libro.getNombre());
+        
+        try {
+            URL urlImagen = new URL(libro.getUrlPdf());
+            Image imagen = ImageIO.read(urlImagen).getScaledInstance(100, 120, Image.SCALE_SMOOTH);
+            ImageIcon scaledImageIcon = new ImageIcon(imagen);
+            JLabel labelImagen = new JLabel(scaledImageIcon);
+
+            JPanel panelLibro = new JPanel(new BorderLayout());
+            panelLibro.add(labelImagen, BorderLayout.CENTER);
+            panelLibro.add(labelLibro, BorderLayout.SOUTH);
+
+           panelLibro.addMouseListener(new MouseAdapter() {
+  //              @Override
+ //               public void mouseClicked(MouseEvent e) {
+   //                 dt.mostrarVentanaOpciones();
+  //              }
+            });
+
+            panelLibros.add(panelLibro);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    panelLibros.setLocation(panelLibros.getX(), 0);
+    revalidate();
+    repaint();
+}
+
+    private void mostrarLibrosFavoritosUsuario(Usuario usuarios) {
+    pnl_favoritos.removeAll(); // Limpia el panel para nuevos elementos
+
+    for (Libro libro : usuario.libro) {
+        // Asume que libro.getNombre() retorna el nombre del libro y libro.getImage() retorna un ImageIcon
+        JLabel labelLibro = new JLabel(libro.getNombre());
+        JLabel labelImagen = new JLabel();
+        //labelImagen.setIcon(libro.getImage()); // Establece el icono de la imagen
+
+        // Mejora en la presentación visual
+        labelLibro.setHorizontalAlignment(JLabel.CENTER);
+        labelImagen.setHorizontalAlignment(JLabel.CENTER);
+
+        JPanel panelLibroFavorito = new JPanel(new BorderLayout());
+        panelLibroFavorito.add(labelImagen, BorderLayout.CENTER);
+        panelLibroFavorito.add(labelLibro, BorderLayout.SOUTH);
+
+        // Añade un borde y un poco de espacio entre elementos
+        //panelLibroFavorito.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+        panelLibroFavorito.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                mostrarDetalleLibro(libro);
+            }
+        });
+
+        pnl_favoritos.add(panelLibroFavorito);
+    }//
+
+    // Ajustes de layout y renderizado
+    pnl_favoritos.revalidate(); // Recalcula el layout del panel
+    pnl_favoritos.repaint(); // Redibuja el panel para mostrar los cambios
+}
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
         pnl_navBar = new javax.swing.JPanel();
         lbl_btnLibros = new javax.swing.JLabel();
         lbl_btnFavoritos = new javax.swing.JLabel();
         lbl_btnAgregarLibro = new javax.swing.JLabel();
         lbl_btnUsuario = new javax.swing.JLabel();
         pnl_menu = new javax.swing.JTabbedPane();
-        pnl_libros = new javax.swing.JPanel();
-        pnl_favoritos = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        pnl_agregarLibro = new javax.swing.JPanel();
-        PanelPortada = new javax.swing.JPanel();
-        Portada = new javax.swing.JLabel();
-        lbTitulo = new javax.swing.JLabel();
-        txtTitulo = new javax.swing.JTextField();
-        lbSinopsis = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtSinpsis = new javax.swing.JTextArea();
-        btnPortada = new javax.swing.JButton();
-        lbAutor = new javax.swing.JLabel();
-        txtFecha = new javax.swing.JTextField();
-        lbGenero = new javax.swing.JLabel();
-        cbGenero = new javax.swing.JComboBox<>();
-        lbFechaP = new javax.swing.JLabel();
-        txtAutor = new javax.swing.JTextField();
-        lbNPaginas = new javax.swing.JLabel();
-        txtNPaginar = new javax.swing.JTextField();
-        lbidioam = new javax.swing.JLabel();
-        txtIdioma = new javax.swing.JTextField();
-        btnGuardar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
-        btnPdf = new javax.swing.JButton();
+        pnl_Libro = new javax.swing.JPanel();
         pnl_usuario = new javax.swing.JPanel();
         lbNombre = new javax.swing.JLabel();
         mostrarNombre = new javax.swing.JLabel();
@@ -210,8 +210,44 @@ public class FrmAdmin extends javax.swing.JFrame {
         mostrarNacionalidad = new javax.swing.JLabel();
         lbReconocimientos = new javax.swing.JLabel();
         mostrarReconocimientos = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        pnl_favoritos = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        pnl_agregarLibro = new javax.swing.JPanel();
+        PanelPortada = new javax.swing.JPanel();
+        lbTitulo = new javax.swing.JLabel();
+        txtTitulo = new javax.swing.JTextField();
+        lbSinopsis = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtSinpsis = new javax.swing.JTextArea();
+        btnPortada = new javax.swing.JButton();
+        lbAutor = new javax.swing.JLabel();
+        txtFecha = new javax.swing.JTextField();
+        lbGenero = new javax.swing.JLabel();
+        cbGenero = new javax.swing.JComboBox<>();
+        lbFechaP = new javax.swing.JLabel();
+        txtAutor = new javax.swing.JTextField();
+        lbNPaginas = new javax.swing.JLabel();
+        txtNPaginar = new javax.swing.JTextField();
+        lbidioam = new javax.swing.JLabel();
+        txtIdioma = new javax.swing.JTextField();
+        btnGuardar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnPdf = new javax.swing.JButton();
+        Portada = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("LibHub | Administrador");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -220,51 +256,131 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_navBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_btnLibros.setBackground(new java.awt.Color(36, 35, 53));
+        lbl_btnLibros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/libros.png"))); // NOI18N
         lbl_btnLibros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbl_btnLibros.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_btnLibrosMouseClicked(evt);
             }
         });
-        pnl_navBar.add(lbl_btnLibros, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 50, 35, 35));
+        pnl_navBar.add(lbl_btnLibros, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 60, 60));
 
         lbl_btnFavoritos.setBackground(new java.awt.Color(36, 35, 53));
+        lbl_btnFavoritos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FAVORITOS.png"))); // NOI18N
         lbl_btnFavoritos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbl_btnFavoritos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_btnFavoritosMouseClicked(evt);
             }
         });
-        pnl_navBar.add(lbl_btnFavoritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 95, 35, 35));
+        pnl_navBar.add(lbl_btnFavoritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 60, 70));
 
         lbl_btnAgregarLibro.setBackground(new java.awt.Color(36, 35, 53));
+        lbl_btnAgregarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/agregar libro.png"))); // NOI18N
         lbl_btnAgregarLibro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbl_btnAgregarLibro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_btnAgregarLibroMouseClicked(evt);
             }
         });
-        pnl_navBar.add(lbl_btnAgregarLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 140, 35, 35));
+        pnl_navBar.add(lbl_btnAgregarLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 60, 60));
 
         lbl_btnUsuario.setBackground(new java.awt.Color(36, 35, 53));
+        lbl_btnUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/DALL·E 2024-01-07 18.17.07 - A simple and clean icon representing users. The icon should feature a group of abstract human figures, stylized and minimalistic, suitable for use in .png"))); // NOI18N
         lbl_btnUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbl_btnUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_btnUsuarioMouseClicked(evt);
             }
         });
-        pnl_navBar.add(lbl_btnUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 605, 35, 35));
+        pnl_navBar.add(lbl_btnUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 580, 60, 50));
 
-        getContentPane().add(pnl_navBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 650));
+        getContentPane().add(pnl_navBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 650));
 
         pnl_menu.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         pnl_menu.setEnabled(false);
 
-        pnl_libros.setBackground(new java.awt.Color(255, 255, 255));
-        pnl_libros.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        pnl_menu.addTab("", pnl_libros);
+        pnl_Libro.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout pnl_LibroLayout = new javax.swing.GroupLayout(pnl_Libro);
+        pnl_Libro.setLayout(pnl_LibroLayout);
+        pnl_LibroLayout.setHorizontalGroup(
+            pnl_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 922, Short.MAX_VALUE)
+        );
+        pnl_LibroLayout.setVerticalGroup(
+            pnl_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 650, Short.MAX_VALUE)
+        );
+
+        pnl_menu.addTab("tab4", pnl_Libro);
+
+        pnl_usuario.setBackground(new java.awt.Color(255, 255, 255));
+        pnl_usuario.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lbNombre.setText("Nombre:");
+        pnl_usuario.add(lbNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 46, -1, -1));
+        pnl_usuario.add(mostrarNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 46, -1, -1));
+
+        lbApellido.setText("Apellido:");
+        pnl_usuario.add(lbApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 80, -1, -1));
+        pnl_usuario.add(mostrarApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 80, -1, -1));
+
+        lbFecha.setText("Fecha de Nacimiento:");
+        pnl_usuario.add(lbFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 114, -1, -1));
+        pnl_usuario.add(mostrarFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 114, -1, -1));
+
+        lbLugar.setText("Lugar de Nacimiento:");
+        pnl_usuario.add(lbLugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 142, -1, -1));
+        pnl_usuario.add(mostrarLugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(289, 142, -1, -1));
+
+        lbNacionalida.setText("Nacionalidad:");
+        pnl_usuario.add(lbNacionalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 163, -1, -1));
+
+        lbObras.setText("Numero de Obras:");
+        pnl_usuario.add(lbObras, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 189, -1, -1));
+
+        lbLibros.setText("Libros publicados:");
+        pnl_usuario.add(lbLibros, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 254, -1, -1));
+        pnl_usuario.add(scrollLibros, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 276, 499, 198));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 82, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 128, Short.MAX_VALUE)
+        );
+
+        pnl_usuario.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 26, 82, -1));
+
+        btnSubirFoto.setText("Subir foto");
+        btnSubirFoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubirFotoActionPerformed(evt);
+            }
+        });
+        pnl_usuario.add(btnSubirFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 160, -1, -1));
+
+        btnGuardarFoto.setText("Guardar");
+        pnl_usuario.add(btnGuardarFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 189, 82, -1));
+        pnl_usuario.add(mostrarNObras, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 189, -1, -1));
+        pnl_usuario.add(mostrarNacionalidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(248, 160, -1, -1));
+
+        lbReconocimientos.setText("Reconocimientos:");
+        pnl_usuario.add(lbReconocimientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 217, -1, -1));
+        pnl_usuario.add(mostrarReconocimientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 217, -1, -1));
+
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnl_usuario.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, -1, -1));
+
+        pnl_menu.addTab("", pnl_usuario);
 
         pnl_favoritos.setBackground(new java.awt.Color(255, 255, 255));
+        pnl_favoritos.setPreferredSize(new java.awt.Dimension(670, 638));
 
         jLabel2.setText("PAGINA 2");
 
@@ -275,7 +391,7 @@ public class FrmAdmin extends javax.swing.JFrame {
             .addGroup(pnl_favoritosLayout.createSequentialGroup()
                 .addGap(347, 347, 347)
                 .addComponent(jLabel2)
-                .addContainerGap(546, Short.MAX_VALUE))
+                .addContainerGap(523, Short.MAX_VALUE))
         );
         pnl_favoritosLayout.setVerticalGroup(
             pnl_favoritosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,16 +404,17 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_menu.addTab("", pnl_favoritos);
 
         pnl_agregarLibro.setBackground(new java.awt.Color(255, 255, 255));
+        pnl_agregarLibro.setPreferredSize(new java.awt.Dimension(670, 638));
 
         javax.swing.GroupLayout PanelPortadaLayout = new javax.swing.GroupLayout(PanelPortada);
         PanelPortada.setLayout(PanelPortadaLayout);
         PanelPortadaLayout.setHorizontalGroup(
             PanelPortadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Portada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         PanelPortadaLayout.setVerticalGroup(
             PanelPortadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Portada, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+            .addGap(0, 143, Short.MAX_VALUE)
         );
 
         lbTitulo.setText("Titulo:");
@@ -365,24 +482,28 @@ public class FrmAdmin extends javax.swing.JFrame {
             .addGroup(pnl_agregarLibroLayout.createSequentialGroup()
                 .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_agregarLibroLayout.createSequentialGroup()
-                        .addGap(250, 250, 250)
+                        .addGap(69, 69, 69)
+                        .addComponent(btnPdf)
+                        .addGap(153, 153, 153)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnl_agregarLibroLayout.createSequentialGroup()
+                        .addGap(288, 288, 288)
+                        .addComponent(Portada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGuardar)
                         .addGap(34, 34, 34)
                         .addComponent(btnCancelar))
                     .addGroup(pnl_agregarLibroLayout.createSequentialGroup()
                         .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnl_agregarLibroLayout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnPortada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(PanelPortada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(pnl_agregarLibroLayout.createSequentialGroup()
-                                .addGap(69, 69, 69)
-                                .addComponent(btnPdf)))
-                        .addGap(26, 26, 26)
+                                .addContainerGap(124, Short.MAX_VALUE)
+                                .addComponent(PanelPortada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(157, 157, 157))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_agregarLibroLayout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnPortada)
+                                .addGap(63, 63, 63)))
                         .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbSinopsis)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_agregarLibroLayout.createSequentialGroup()
                                     .addComponent(lbTitulo)
@@ -390,68 +511,84 @@ public class FrmAdmin extends javax.swing.JFrame {
                                     .addComponent(lbAutor)
                                     .addGap(149, 149, 149))
                                 .addGroup(pnl_agregarLibroLayout.createSequentialGroup()
-                                    .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txtTitulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
-                                            .addComponent(txtFecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(lbFechaP, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addComponent(lbGenero)
-                                        .addComponent(cbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(37, 37, 37)
-                                    .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(lbidioam)
-                                        .addComponent(txtNPaginar, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                                        .addComponent(lbNPaginas)
-                                        .addComponent(txtAutor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtIdioma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
-                .addContainerGap(389, Short.MAX_VALUE))
+                                    .addGap(103, 103, 103)
+                                    .addComponent(lbSinopsis)))
+                            .addGroup(pnl_agregarLibroLayout.createSequentialGroup()
+                                .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtTitulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                                        .addComponent(txtFecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lbFechaP, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(lbGenero))
+                                .addGap(37, 37, 37)
+                                .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lbidioam)
+                                    .addComponent(txtNPaginar, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                                    .addComponent(lbNPaginas)
+                                    .addComponent(txtAutor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(pnl_agregarLibroLayout.createSequentialGroup()
+                                .addGap(61, 61, 61)
+                                .addComponent(cbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(67, 67, 67)
+                                .addComponent(txtIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(243, 243, 243))
         );
         pnl_agregarLibroLayout.setVerticalGroup(
             pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_agregarLibroLayout.createSequentialGroup()
                 .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_agregarLibroLayout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbTitulo)
-                            .addComponent(lbAutor))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbFechaP)
-                            .addComponent(lbNPaginas))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNPaginar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(pnl_agregarLibroLayout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(lbidioam))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_agregarLibroLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lbGenero))))
-                    .addGroup(pnl_agregarLibroLayout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(PanelPortada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(Portada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnl_agregarLibroLayout.createSequentialGroup()
+                        .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnl_agregarLibroLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(PanelPortada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnl_agregarLibroLayout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lbTitulo)
+                                    .addComponent(lbAutor))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lbFechaP)
+                                    .addComponent(lbNPaginas))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNPaginar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(pnl_agregarLibroLayout.createSequentialGroup()
+                                        .addGap(21, 21, 21)
+                                        .addComponent(lbidioam))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_agregarLibroLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lbGenero)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnl_agregarLibroLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPortada))))
+                .addGap(145, 145, 145)
                 .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnl_agregarLibroLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(btnPortada))
-                    .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 67, Short.MAX_VALUE)
-                .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE))
                     .addGroup(pnl_agregarLibroLayout.createSequentialGroup()
+                        .addGap(66, 66, 66)
                         .addComponent(lbSinopsis)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(pnl_agregarLibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnCancelar))
@@ -460,138 +597,6 @@ public class FrmAdmin extends javax.swing.JFrame {
 
         pnl_menu.addTab("", pnl_agregarLibro);
 
-        pnl_usuario.setBackground(new java.awt.Color(255, 255, 255));
-
-        lbNombre.setText("Nombre:");
-
-        lbApellido.setText("Apellido:");
-
-        lbFecha.setText("Fecha de Nacimiento:");
-
-        lbLugar.setText("Lugar de Nacimiento:");
-
-        lbNacionalida.setText("Nacionalidad:");
-
-        lbObras.setText("Numero de Obras:");
-
-        lbLibros.setText("Libros publicados:");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 128, Short.MAX_VALUE)
-        );
-
-        btnSubirFoto.setText("Subir foto");
-        btnSubirFoto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSubirFotoActionPerformed(evt);
-            }
-        });
-
-        btnGuardarFoto.setText("Guardar");
-
-        lbReconocimientos.setText("Reconocimientos:");
-
-        javax.swing.GroupLayout pnl_usuarioLayout = new javax.swing.GroupLayout(pnl_usuario);
-        pnl_usuario.setLayout(pnl_usuarioLayout);
-        pnl_usuarioLayout.setHorizontalGroup(
-            pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_usuarioLayout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSubirFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGuardarFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(40, 40, 40)
-                .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnl_usuarioLayout.createSequentialGroup()
-                        .addComponent(lbObras)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mostrarNObras))
-                    .addGroup(pnl_usuarioLayout.createSequentialGroup()
-                        .addComponent(lbNacionalida)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mostrarNacionalidad))
-                    .addGroup(pnl_usuarioLayout.createSequentialGroup()
-                        .addComponent(lbApellido)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mostrarApellido))
-                    .addGroup(pnl_usuarioLayout.createSequentialGroup()
-                        .addComponent(lbNombre)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mostrarNombre))
-                    .addGroup(pnl_usuarioLayout.createSequentialGroup()
-                        .addComponent(lbFecha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mostrarFecha))
-                    .addGroup(pnl_usuarioLayout.createSequentialGroup()
-                        .addComponent(lbLugar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mostrarLugar))
-                    .addComponent(lbLibros)
-                    .addGroup(pnl_usuarioLayout.createSequentialGroup()
-                        .addComponent(lbReconocimientos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mostrarReconocimientos))
-                    .addComponent(scrollLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(263, Short.MAX_VALUE))
-        );
-        pnl_usuarioLayout.setVerticalGroup(
-            pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_usuarioLayout.createSequentialGroup()
-                .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnl_usuarioLayout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbNombre)
-                            .addComponent(mostrarNombre))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbApellido)
-                            .addComponent(mostrarApellido))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbFecha)
-                            .addComponent(mostrarFecha))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbLugar)
-                            .addComponent(mostrarLugar))
-                        .addGap(2, 2, 2))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_usuarioLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbNacionalida)
-                    .addComponent(btnSubirFoto)
-                    .addComponent(mostrarNacionalidad))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnGuardarFoto)
-                    .addGroup(pnl_usuarioLayout.createSequentialGroup()
-                        .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbObras)
-                            .addComponent(mostrarNObras))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnl_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbReconocimientos)
-                            .addComponent(mostrarReconocimientos))))
-                .addGap(21, 21, 21)
-                .addComponent(lbLibros)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(172, Short.MAX_VALUE))
-        );
-
-        pnl_menu.addTab("", pnl_usuario);
-
         getContentPane().add(pnl_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 970, 650));
 
         pack();
@@ -599,9 +604,9 @@ public class FrmAdmin extends javax.swing.JFrame {
 
     private void lbl_btnLibrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_btnLibrosMouseClicked
         this.pnl_menu.setSelectedIndex(0);
-//        libros.setLayout(new BorderLayout());
-//        libros.add(panelLibros, BorderLayout.CENTER);
-//        mostrarLibros(autores);
+        panelLibros.setLayout(new BorderLayout());
+        panelLibros.add(panelLibros, BorderLayout.CENTER);
+        mostrarLibros(panelLibros);
 
 
     }//GEN-LAST:event_lbl_btnLibrosMouseClicked
@@ -612,20 +617,20 @@ public class FrmAdmin extends javax.swing.JFrame {
 
     private void lbl_btnUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_btnUsuarioMouseClicked
         this.pnl_menu.setSelectedIndex(3);
-//        this.mostrarNombre.setText(pruebaautor.getNombre());
-//        this.mostrarApellido.setText(pruebaautor.getApellido());
-//        this.mostrarFecha.setText(pruebaautor.getFecha_Nacimiento());
-//        this.mostrarLugar.setText(pruebaautor.getLugar_Nacimiento());
-//        this.mostrarNacionalidad.setText(pruebaautor.getNacionalidad());
-//        this.mostrarNObras.setText(String.valueOf(pruebaautor.getObras_Literarias()));
-//        this.mostrarReconocimientos.setText(pruebaautor.getReconocimientos());
-//        JScrollPane scrollPane = new JScrollPane(panelLibros);
-//        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-//        this.mostrarLibrosporAutor(pruebaautor.libros);
-//
-//        this.scrollLibros.setViewportView(scrollPane);
-//        this.scrollLibros.revalidate();
-//        this.scrollLibros.repaint();
+        this.mostrarNombre.setText(pruebausuarios.getNombre());
+        this.mostrarApellido.setText(pruebausuarios.getApellido());
+        this.mostrarFecha.setText(pruebausuarios.getFecNac());
+        this.mostrarLugar.setText(pruebausuarios.getApellido());
+        this.mostrarNacionalidad.setText(pruebausuarios.getPais());
+        this.mostrarNObras.setText(pruebausuarios.getTipo());
+        this.mostrarReconocimientos.setText(pruebausuarios.getClave());
+        JScrollPane scrollPane = new JScrollPane(panelLibros);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        //this.mostrarLibrosporAutor(pruebausuarios.libro);
+
+        this.scrollLibros.setViewportView(scrollPane);
+        this.scrollLibros.revalidate();
+        this.scrollLibros.repaint();
     }//GEN-LAST:event_lbl_btnUsuarioMouseClicked
 
     private void lbl_btnAgregarLibroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_btnAgregarLibroMouseClicked
@@ -650,16 +655,16 @@ public class FrmAdmin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnPortadaActionPerformed
 
-//    private void mostrarDetalleLibro(Libro libro) {
-//        JFrame detalleFrame = new JFrame("Detalles del Libro");
-//        detalleFrame.setSize(300, 200);
-//        // Crear y agregar el panel de detalles
-//        DetallesLibro detallePanel = new DetallesLibro(libro.getImage(), libro.getNombre(), libro.getSinopsis());
-//        detalleFrame.add(detallePanel);
-//
-//        detalleFrame.setLocationRelativeTo(null);
-//        detalleFrame.setVisible(true);
-//    }
+    private void mostrarDetalleLibro(Libro libro) {
+        JFrame detalleFrame = new JFrame("Detalles del Libro");
+        detalleFrame.setSize(300, 200);
+        // Crear y agregar el panel de detalles
+        Libro detallePanel = new Libro("", "", "", "", NORMAL, "", "");
+        detalleFrame.add(detalleFrame);
+
+        detalleFrame.setLocationRelativeTo(null);
+        detalleFrame.setVisible(true);
+    }
 
     private void btnPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPdfActionPerformed
         String ruta = "";
@@ -710,6 +715,8 @@ public class FrmAdmin extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbGenero;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbApellido;
     private javax.swing.JLabel lbAutor;
@@ -737,12 +744,12 @@ public class FrmAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel mostrarNacionalidad;
     private javax.swing.JLabel mostrarNombre;
     private javax.swing.JLabel mostrarReconocimientos;
+    private javax.swing.JPanel pnl_Libro;
     private javax.swing.JPanel pnl_agregarLibro;
     private javax.swing.JPanel pnl_favoritos;
-    private javax.swing.JPanel pnl_libros;
     private javax.swing.JTabbedPane pnl_menu;
     private javax.swing.JPanel pnl_navBar;
-    private javax.swing.JPanel pnl_usuario;
+    public javax.swing.JPanel pnl_usuario;
     private javax.swing.JScrollPane scrollLibros;
     private javax.swing.JTextField txtAutor;
     private javax.swing.JTextField txtFecha;
