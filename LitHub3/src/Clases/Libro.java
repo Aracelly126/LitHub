@@ -10,14 +10,61 @@ public class Libro {
     private String sinopsis;
     private String genero;
     private int nPaginas;
+    private int codigoPdf;
+    private int clave;
+    private String nombrePdf;
+    byte[] archivoPdf;
 
-    public Libro(String nombre, String rutaImagen, String sinopsis, int anchoPanel, int altoPanel, String genero, int nPaginas) {
-        this.titulo = nombre;
+    public int getClave() {
+        return this.clave;
+    }
+
+    public void setClave(int clave) {
+        this.clave = clave;
+    }
+
+    public Libro(String titulo, String rutaImagen, String sinopsis, int anchoPanel, int altoPanel, String genero, int nPaginas) {
+        this.titulo = titulo;
         this.sinopsis = sinopsis;
-        this.image = redimensionarImagen("src/imagenes/" + rutaImagen, anchoPanel, altoPanel);
-
+        this.image = redimensionarImagen("/imagenes/" + rutaImagen, anchoPanel, altoPanel);
         this.genero = genero;
         this.nPaginas = nPaginas;
+        this.codigoPdf = nPaginas;
+    }
+
+    public Libro(String sinopsis, String genero, int numPags, int codigoPdf, String nombrePdf, byte[] archivopdf, int clave) {
+        this.titulo = nombrePdf;
+        this.sinopsis = sinopsis;
+        this.genero = genero;
+        this.nPaginas = numPags;
+        this.codigoPdf = codigoPdf;
+        this.nombrePdf = nombrePdf;
+        this.archivoPdf = archivopdf;
+        this.clave = clave;
+    }
+
+    public byte[] getArchivoPdf() {
+        return this.archivoPdf;
+    }
+
+    public void setArchivoPdf(byte[] archivoPdf) {
+        this.archivoPdf = archivoPdf;
+    }
+
+    public int getCodigoPdf() {
+        return this.codigoPdf;
+    }
+
+    public void setCodigoPdf(int codigoPdf) {
+        this.codigoPdf = codigoPdf;
+    }
+
+    public String getNombrePdf() {
+        return this.nombrePdf;
+    }
+
+    public void setNombrePdf(String nombrePdf) {
+        this.nombrePdf = nombrePdf;
     }
 
     public ImageIcon getImage() {

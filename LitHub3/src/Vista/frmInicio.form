@@ -58,7 +58,7 @@
                   <Color blue="35" green="23" red="24" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\ASUS\OneDrive\Desktop\proyectoModelamiento\LitHub\LitHub3\src\imagenes\usuario_2.png"/>
+                  <Image iconType="2" name="C:\Users\ASUS\OneDrive\Desktop\estructura clases\LitHub\LitHub3\src\imagenes\usuario_2.png"/>
                 </Property>
               </Properties>
               <Events>
@@ -94,7 +94,7 @@
                   <Color blue="35" green="23" red="24" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\ASUS\OneDrive\Desktop\proyectoModelamiento\LitHub\LitHub3\src\imagenes\favoritos.png"/>
+                  <Image iconType="2" name="C:\Users\ASUS\OneDrive\Desktop\estructura clases\LitHub\LitHub3\src\imagenes\favoritos.png"/>
                 </Property>
               </Properties>
               <Events>
@@ -130,7 +130,7 @@
                   <Color blue="35" green="23" red="24" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\ASUS\OneDrive\Desktop\proyectoModelamiento\LitHub\LitHub3\src\imagenes\mas_v2.png"/>
+                  <Image iconType="2" name="C:\Users\ASUS\OneDrive\Desktop\estructura clases\LitHub\LitHub3\src\imagenes\mas_v2.png"/>
                 </Property>
               </Properties>
               <Events>
@@ -166,7 +166,7 @@
                   <Color blue="35" green="23" red="24" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\ASUS\OneDrive\Desktop\proyectoModelamiento\LitHub\LitHub3\src\imagenes\libro_color.png"/>
+                  <Image iconType="2" name="C:\Users\ASUS\OneDrive\Desktop\estructura clases\LitHub\LitHub3\src\imagenes\libro_color.png"/>
                 </Property>
               </Properties>
               <Events>
@@ -183,7 +183,7 @@
         <Component class="javax.swing.JLabel" name="barra_label">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ASUS\OneDrive\Desktop\proyectoModelamiento\LitHub\LitHub3\src\imagenes\barra_menu.png"/>
+              <Image iconType="2" name="C:\Users\ASUS\OneDrive\Desktop\estructura clases\LitHub\LitHub3\src\imagenes\barra_menu.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -245,14 +245,14 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="347" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="373" max="32767" attributes="0"/>
+                      <EmptySpace pref="347" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="275" max="32767" attributes="0"/>
+                      <EmptySpace pref="274" max="32767" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="245" max="-2" attributes="0"/>
                   </Group>
@@ -332,7 +332,7 @@
                                               <Component id="lbidioam" min="-2" max="-2" attributes="0"/>
                                               <Component id="txtNPaginar" pref="139" max="32767" attributes="0"/>
                                               <Component id="lbNPaginas" min="-2" max="-2" attributes="0"/>
-                                              <Component id="txtAutor" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="txtClave" alignment="0" max="32767" attributes="0"/>
                                               <Component id="txtIdioma" alignment="0" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
@@ -340,7 +340,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="208" max="32767" attributes="0"/>
+                      <EmptySpace pref="161" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -357,7 +357,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="txtTitulo" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtAutor" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtClave" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -481,7 +481,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lbAutor">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Autor:"/>
+                <Property name="text" type="java.lang.String" value="Clave"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtFecha">
@@ -504,11 +504,19 @@
             <Component class="javax.swing.JComboBox" name="cbGenero">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
+                  <StringArray count="12">
+                    <StringItem index="0" value="_______"/>
+                    <StringItem index="1" value="Novela"/>
+                    <StringItem index="2" value="Romance"/>
+                    <StringItem index="3" value="Aventura"/>
+                    <StringItem index="4" value="Cuento"/>
+                    <StringItem index="5" value="Manga"/>
+                    <StringItem index="6" value="Ciencia Ficci&#xf3;n"/>
+                    <StringItem index="7" value="Relato Corto"/>
+                    <StringItem index="8" value="Fantasia"/>
+                    <StringItem index="9" value="Manga"/>
+                    <StringItem index="10" value="Poesia"/>
+                    <StringItem index="11" value="Drama"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -521,7 +529,7 @@
                 <Property name="text" type="java.lang.String" value="Fecha de Publicacion:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtAutor">
+            <Component class="javax.swing.JTextField" name="txtClave">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -570,7 +578,7 @@
             <Component class="javax.swing.JButton" name="btnGuardar">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\ASUS\OneDrive\Desktop\proyectoModelamiento\LitHub\LitHub3\src\imagenes\guardar_icon.png"/>
+                  <Image iconType="2" name="C:\Users\ASUS\OneDrive\Desktop\ProyectoMode\LitHub\LitHub3\src\imagenes\guardar_icon.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
@@ -581,15 +589,18 @@
             <Component class="javax.swing.JButton" name="btnCancelar">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\ASUS\OneDrive\Desktop\proyectoModelamiento\LitHub\LitHub3\src\imagenes\cancelar_icon.png"/>
+                  <Image iconType="2" name="C:\Users\ASUS\OneDrive\Desktop\ProyectoMode\LitHub\LitHub3\src\imagenes\cancelar_icon.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cancelar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnPdf">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\ASUS\OneDrive\Desktop\proyectoModelamiento\LitHub\LitHub3\src\imagenes\pdf_icon.png"/>
+                  <Image iconType="2" name="C:\Users\ASUS\OneDrive\Desktop\ProyectoMode\LitHub\LitHub3\src\imagenes\pdf_icon.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="PDF"/>
               </Properties>
@@ -619,14 +630,14 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="310" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="368" max="32767" attributes="0"/>
+                      <EmptySpace pref="337" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="301" max="32767" attributes="0"/>
+                      <EmptySpace pref="300" max="32767" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="219" max="-2" attributes="0"/>
                   </Group>
