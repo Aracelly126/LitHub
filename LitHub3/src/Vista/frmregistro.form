@@ -71,6 +71,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_nombre">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Nombre:"/>
           </Properties>
           <Constraints>
@@ -98,6 +101,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_apellido">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Apellido"/>
           </Properties>
           <Constraints>
@@ -125,6 +131,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_fechaNac">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Fecha de Nacimiento"/>
           </Properties>
           <Constraints>
@@ -148,6 +157,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_tipo">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Tipo"/>
           </Properties>
           <Constraints>
@@ -177,6 +189,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_pais">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Pa&#xed;s"/>
           </Properties>
           <Constraints>
@@ -204,6 +219,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_correo">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Correo:"/>
           </Properties>
           <Constraints>
@@ -231,6 +249,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_contrasenia">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Contrase&#xf1;a:"/>
           </Properties>
           <Constraints>
@@ -258,6 +279,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_confContrasenia">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Confirmar contrase&#xf1;a:"/>
           </Properties>
           <Constraints>
@@ -301,6 +325,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_inicio">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Ya tienes una cuenta?"/>
           </Properties>
           <Constraints>

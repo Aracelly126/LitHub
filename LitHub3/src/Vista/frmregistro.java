@@ -37,7 +37,7 @@ public class FrmRegistro extends javax.swing.JFrame {
 
         ManejoComp.crearVerPassword(this.txt_contrasenia, this.btn_verContrasenia);
         ManejoComp.crearVerPassword(this.txt_confContrasenia, this.btn_verConfContrasenia);
-        ManejoComp.crearlabel(this.lbl_izquierda, "imagenes/img_fondo2.png");
+        ManejoComp.crearlabel(this.lbl_izquierda, "SYSTEM/src/img_fondo2.png");
     }
 
     @SuppressWarnings("unchecked")
@@ -84,6 +84,7 @@ public class FrmRegistro extends javax.swing.JFrame {
         lbl_titulo.setText("Registro de Usuario");
         pnl_registro.add(lbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 240, 60));
 
+        lbl_nombre.setForeground(new java.awt.Color(0, 0, 0));
         lbl_nombre.setText("Nombre:");
         pnl_registro.add(lbl_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, -1, -1));
 
@@ -95,6 +96,7 @@ public class FrmRegistro extends javax.swing.JFrame {
         });
         pnl_registro.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 120, 30));
 
+        lbl_apellido.setForeground(new java.awt.Color(0, 0, 0));
         lbl_apellido.setText("Apellido");
         pnl_registro.add(lbl_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, -1, -1));
 
@@ -106,6 +108,7 @@ public class FrmRegistro extends javax.swing.JFrame {
         });
         pnl_registro.add(txt_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 120, 30));
 
+        lbl_fechaNac.setForeground(new java.awt.Color(0, 0, 0));
         lbl_fechaNac.setText("Fecha de Nacimiento");
         pnl_registro.add(lbl_fechaNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, -1, -1));
 
@@ -113,12 +116,14 @@ public class FrmRegistro extends javax.swing.JFrame {
         txt_fecNac.setMaxSelectableDate(new java.util.Date(1262235600000L));
         pnl_registro.add(txt_fecNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 120, 30));
 
+        lbl_tipo.setForeground(new java.awt.Color(0, 0, 0));
         lbl_tipo.setText("Tipo");
         pnl_registro.add(lbl_tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, -1));
 
         cmb_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMIN", "LECTOR", "AUTOR" }));
         pnl_registro.add(cmb_tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 120, 30));
 
+        lbl_pais.setForeground(new java.awt.Color(0, 0, 0));
         lbl_pais.setText("País");
         pnl_registro.add(lbl_pais, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, -1, -1));
 
@@ -130,6 +135,7 @@ public class FrmRegistro extends javax.swing.JFrame {
         });
         pnl_registro.add(txt_pais, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 250, 30));
 
+        lbl_correo.setForeground(new java.awt.Color(0, 0, 0));
         lbl_correo.setText("Correo:");
         pnl_registro.add(lbl_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, -1, -1));
 
@@ -141,6 +147,7 @@ public class FrmRegistro extends javax.swing.JFrame {
         });
         pnl_registro.add(txt_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, 250, 30));
 
+        lbl_contrasenia.setForeground(new java.awt.Color(0, 0, 0));
         lbl_contrasenia.setText("Contraseña:");
         pnl_registro.add(lbl_contrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, -1, -1));
 
@@ -152,6 +159,7 @@ public class FrmRegistro extends javax.swing.JFrame {
         });
         pnl_registro.add(txt_contrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 380, 250, 30));
 
+        lbl_confContrasenia.setForeground(new java.awt.Color(0, 0, 0));
         lbl_confContrasenia.setText("Confirmar contraseña:");
         pnl_registro.add(lbl_confContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, -1, -1));
 
@@ -172,6 +180,7 @@ public class FrmRegistro extends javax.swing.JFrame {
         });
         pnl_registro.add(btn_registrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 500, -1, -1));
 
+        lbl_inicio.setForeground(new java.awt.Color(0, 0, 0));
         lbl_inicio.setText("Ya tienes una cuenta?");
         pnl_registro.add(lbl_inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, -1, -1));
 
@@ -215,36 +224,36 @@ public class FrmRegistro extends javax.swing.JFrame {
         String contrasenia1 = ManejoComp.claveToString(this.txt_contrasenia);
         String contrasenia2 = ManejoComp.claveToString(this.txt_confContrasenia);
 
-        boolean llave = true;
+        boolean aux = true;
         if (Controles.cadenaVacia(nombre) || Controles.nombreUsuario(nombre)) {
             ManejoComp.colorBorderTxt(this.txt_nombre, Color.RED, Color.GREEN);
-            llave = false;
+            aux = false;
         }
         if (Controles.cadenaVacia(apellido)) {
             ManejoComp.colorBorderTxt(this.txt_apellido, Color.RED, Color.GREEN);
-            llave = false;
+            aux = false;
         }
         if (Controles.cadenaVacia(fecNac)) {
             ManejoComp.colorBorderCajaFecha(this.txt_fecNac, Color.RED, Color.GREEN);
-            llave = false;
+            aux = false;
         }
         if (Controles.cadenaVacia(pais)) {
             ManejoComp.colorBorderTxt(this.txt_pais, Color.RED, Color.GREEN);
-            llave = false;
+            aux = false;
         }
         if (Controles.cadenaVacia(correo) || Controles.correoElectronico(correo) == false) {
             ManejoComp.colorBorderTxt(this.txt_correo, Color.RED, Color.GREEN);
-            llave = false;
+            aux = false;
         }
         if (Controles.cadenaVacia(contrasenia1)) {
             ManejoComp.colorBorderPassword(this.txt_contrasenia, Color.RED, Color.GREEN);
-            llave = false;
+            aux = false;
         }
         if (Controles.cadenaVacia(contrasenia2) || contrasenia2.equals(contrasenia1) == false) {
             ManejoComp.colorBorderPassword(this.txt_confContrasenia, Color.RED, Color.GREEN);
-            llave = false;
+            aux = false;
         }
-        if (llave == false) {
+        if (aux == false) {
             this.con.desconectar();
             return;
         }

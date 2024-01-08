@@ -6,8 +6,10 @@ import java.awt.Color;
 
 public class FrmIniciarSesion extends javax.swing.JFrame {
 
-    private FrmRegistro registro = new FrmRegistro();
     private Conexion con = new Conexion();
+
+    private FrmRegistro frmRegistro = new FrmRegistro();
+    private FrmAdmin frmAdmin = new FrmAdmin();
 
     public FrmIniciarSesion() {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -34,16 +36,23 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
 
-        this.registro.btn_inicio.addMouseListener(new java.awt.event.MouseAdapter() {
+        this.frmRegistro.btn_inicio.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 setVisible(true);
-                registro.dispose();
+                frmRegistro.dispose();
             }
         });
-        
-        ManejoComp.crearlabel(this.lbl_izquierda, "imagenes/img_fondo1.png");
-        ManejoComp.crearlabel(this.lbl_logo, "imagenes/img_logo.png");
+        this.frmAdmin.lbl_btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                setVisible(true);
+                frmAdmin.cerrarSesion();
+            }
+        });
+
+        ManejoComp.crearlabel(this.lbl_izquierda, "SYSTEM/src/img_fondo1.png");
+        ManejoComp.crearlabel(this.lbl_logo, "SYSTEM/src/img_logo.png");
         ManejoComp.crearVerPassword(txt_contrasenia, btn_verContrasenia);
     }
 
@@ -66,7 +75,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         lblbaseDerecha = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LibHib | Iniciar Sesion");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -76,6 +85,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         pnl_derecha.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         pnl_derecha.add(lbl_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 120, 120));
 
+        lbl_usuario.setForeground(new java.awt.Color(0, 0, 0));
         lbl_usuario.setText("Usuario:");
         pnl_derecha.add(lbl_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, -1, -1));
 
@@ -87,6 +97,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         });
         pnl_derecha.add(txt_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, 190, 30));
 
+        lbl_contrasenia.setForeground(new java.awt.Color(0, 0, 0));
         lbl_contrasenia.setText("Contraseña:");
         pnl_derecha.add(lbl_contrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, -1, -1));
 
@@ -114,6 +125,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         });
         pnl_derecha.add(btn_iniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 330, -1, -1));
 
+        lbl_registro.setForeground(new java.awt.Color(0, 0, 0));
         lbl_registro.setText("No tienes una cuenta?");
         pnl_derecha.add(lbl_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 510, -1, -1));
 
@@ -160,22 +172,22 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
                 ManejoComp.colorBorderTxt(this.txt_contrasenia, Color.RED, Color.GREEN);
                 break;
             case 1:// ADMIN
-            FrmAdmin adminForm = new FrmAdmin();
-            adminForm.setVisible(true);
-            break;
-                //System.out.println("Bienvenido ADMIN "+usuario);
+                System.out.println("Bienvenido ADMIN " + usuario);
+                this.frmAdmin.iniciarVentana(usuario);
+                this.dispose();
+                break;
             case 2:// AUTOR        
-                System.out.println("Bienvenido AUTOR "+usuario);
+                System.out.println("Bienvenido AUTOR " + usuario);
                 break;
             case 3:// LECTOR
-                System.out.println("Bienvenido LECTOR "+usuario);
+                System.out.println("Bienvenido LECTOR " + usuario);
                 break;
         }
         this.con.desconectar();
     }//GEN-LAST:event_btn_iniciarSesionMouseClicked
 
     private void btn_registroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_registroMouseClicked
-        this.registro.setVisible(true);
+        this.frmRegistro.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_registroMouseClicked
 

@@ -45,9 +45,7 @@ public class GestorBD {
                                 resultSetEntidades.getString("AUTOR"),
                                 resultSetEntidades.getString("NOMBRE"),
                                 resultSetEntidades.getString("GENERO"),
-                                resultSetEntidades.getInt("NUM_PAG"),
-                                resultSetEntidades.getString("URL_FOTO"),
-                                resultSetEntidades.getString("URL_PDF")
+                                resultSetEntidades.getInt("NUM_PAG")
                         );
                         entidades.add(libro);
                     }
@@ -65,6 +63,17 @@ public class GestorBD {
                                 resultSetEntidades.getString("ESTADO")
                         );
                         entidades.add(prestamo);
+                    }
+                    break;
+                case "FAVORITOS":
+                    ArrayList<Favorito> favoritos = new ArrayList<>();
+                    while (resultSetEntidades.next()) {
+                        Favorito favorito = new Favorito(
+                                resultSetEntidades.getInt("CODIGO"),
+                                resultSetEntidades.getString("NOM_USU"),
+                                resultSetEntidades.getString("COD_LIB")
+                        );
+                        entidades.add(favorito);
                     }
                     break;
             }
@@ -132,6 +141,33 @@ public class GestorBD {
             this.con.desconectar();
             System.out.println("Error Metodo:cambiarClaveUsuario Clase:GestorBD\n" + e);
             System.out.println("Error al cambiar la clave del usuario en la base de datos");
+        }
+    }
+
+    public void insertarLibro(Libro libro) {
+        if (this.con.conectar() == false) {
+            this.con.desconectar();
+            return;
+        }
+        try {
+            // Insertar el libro en la base de datos
+            String consultaInsert = "INSERT INTO LIBROS (CODIGO, AUTOR, NOMBRE, GENERO, NUM_PAG) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = this.con.getConexion().prepareStatement(consultaInsert);
+            preparedStatement.setString(1, libro.getCodigo());
+            preparedStatement.setString(2, libro.getAutor());
+            preparedStatement.setString(3, libro.getNombre());
+            preparedStatement.setString(4, libro.getGenero());
+            preparedStatement.setInt(5, libro.getNumPag());
+            preparedStatement.executeUpdate();
+
+            // Insertar el usuario en el almacenamiento local (Almacen)
+            Almacen.getInstance().libros.add(libro);
+
+            preparedStatement.close();
+            this.con.desconectar();
+        } catch (Exception e) {
+            this.con.desconectar();
+            System.out.println("Error en el Método:insertarLibro Clase:GestorBD\n" + e);
         }
     }
 

@@ -7,20 +7,16 @@ public class Libro {
     private String nombre;
     private String genero;
     private int numPag;
-    private String urlFoto;
-    private String urlPdf;
 
     public Libro() {
     }
 
-    public Libro(String codigo, String autor, String nombre, String genero, int numPag, String urlFoto, String urlPdf) {
+    public Libro(String codigo, String autor, String nombre, String genero, int numPag) {
         this.codigo = codigo;
         this.autor = autor;
         this.nombre = nombre;
         this.genero = genero;
         this.numPag = numPag;
-        this.urlFoto = urlFoto;
-        this.urlPdf = urlPdf;
     }
 
     public void setCodigo(String codigo) {
@@ -61,21 +57,5 @@ public class Libro {
 
     public int getNumPag() {
         return this.numPag;
-    }
-
-    public void setUrlFoto(String urlFoto) {
-        this.urlFoto = urlFoto;
-    }
-
-    public String getUrlFoto() {
-        return this.urlFoto;
-    }
-
-    public void setUrlPdf(String urlPdf) {
-        this.urlPdf = urlPdf;
-    }
-
-    public String getUrlPdf() {
-        return this.urlPdf;
     }
 }
