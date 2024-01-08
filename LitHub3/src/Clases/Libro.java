@@ -32,6 +32,12 @@ public class Libro {
         this.codigoPdf = nPaginas;
     }
 
+    public Libro(ImageIcon image, byte[] archivoPdf) {
+        this.image = image;
+        this.archivoPdf = archivoPdf;
+    }
+    
+
     public Libro(String sinopsis, String genero, int numPags, int codigoPdf, String nombrePdf, byte[] archivopdf, int clave) {
         this.titulo = nombrePdf;
         this.sinopsis = sinopsis;

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Vista;
 
 import Clases.Autor;
@@ -34,15 +31,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-/**
- *
- * @author ASUS
- */
 public class frmInicio extends javax.swing.JFrame {
 
-    /**
-     * Creates new form frmInicio
-     */
     private JPanel panelLibros;
     ArrayList<Autor> autores = new ArrayList<>();
     private Autor pruebaautor = new Autor("Steeven");
@@ -51,7 +41,7 @@ public class frmInicio extends javax.swing.JFrame {
     String ruta;
     private FileInputStream fis;
     private int longitudBytes;
-    private  Mysql mi = new Mysql();
+    private Mysql mi = new Mysql();
 
     public frmInicio() {
         initComponents();
@@ -570,9 +560,23 @@ public class frmInicio extends javax.swing.JFrame {
         int clave = Integer.parseInt(this.txtClave.getText());
         int nPaginas = Integer.parseInt(this.txtNPaginar.getText());
         byte[] contenidoPdf = leerContenidoPDF(ruta);
-        libro = new Libro(sinopsis,genero,nPaginas,nPaginas, nombre, contenidoPdf,clave);
+        libro = new Libro(sinopsis, genero, nPaginas, nPaginas, nombre, contenidoPdf, clave);
         try {
-            agregarLibroBase(libro);
+            boolean aux = agregarLibroBase(libro);
+            if (aux) {
+                JOptionPane.showMessageDialog(null, "Se agregaron tú libro");
+                this.txtTitulo.setText("");
+                this.txtSinpsis.setText("");
+                this.cbGenero.setSelectedItem(1);
+                this.txtClave.setText("");
+                this.txtNPaginar.setText("");
+                this.txtFecha.setText("");
+                this.txtIdioma.setText("");
+                this.Portada.setIcon(null);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al insertar tu libro");
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(frmInicio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -583,7 +587,7 @@ public class frmInicio extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (respuesta == JOptionPane.YES_OPTION) {
             Menu_Inicio.setSelectedIndex(0);
-        } 
+        }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
@@ -661,32 +665,33 @@ public class frmInicio extends javax.swing.JFrame {
     private javax.swing.JTextArea txtSinpsis;
     private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
-public void agregarLibroBase(Libro libro) throws SQLException {
+public boolean agregarLibroBase(Libro libro) throws SQLException {
 
         try {
             boolean aux = mi.conectar();
             if (aux == true) {
                 String query = "INSERT INTO Libro (sinopsis,genero,numPags,nombreLi,codigopdf, nombrepdf, archivopdf,foto,clave) VALUES(?,?,?,?,?, ?, ?,?,?);";
                 PreparedStatement ps = con.prepareStatement(query);
-                ps.setString(1,libro.getSinopsis());
-                ps.setString(2,libro.getGenero());
-                ps.setInt(3,libro.getnPaginas());
-                ps.setString(4,libro.getNombre());
+                ps.setString(1, libro.getSinopsis());
+                ps.setString(2, libro.getGenero());
+                ps.setInt(3, libro.getnPaginas());
+                ps.setString(4, libro.getNombre());
                 ps.setInt(5, libro.getCodigoPdf());
                 ps.setString(6, libro.getNombrePdf());
                 ps.setBytes(7, libro.getArchivoPdf());
-                ps.setBlob(8,fis,longitudBytes);
-                ps.setInt(9,libro.getClave());
+                ps.setBlob(8, fis, longitudBytes);
+                ps.setInt(9, libro.getClave());
                 ps.executeUpdate();
+                return true;
+
             } else {
                 JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
-
+                return false;
             }
 
         } catch (SQLException e) {
-            // Manejo de excepciones
-            System.out.println("Fallos en la actualización" + e);
-
+            System.out.println("Fallos al subir el libro" + e);
+            return false;
         }
     }
 }

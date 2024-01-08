@@ -5,8 +5,16 @@
 package Mysql;
 
 import Almacen.Almacen;
+import Clases.Libro;
 import Clases.LoginMysql;
 import Clases.Usuarios;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,6 +22,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 /**
@@ -145,6 +157,39 @@ public class Mysql extends LoginMysql {
                 return aux = false;
             }
             return aux = false;
+        }
+    }
+
+    public ArrayList<Libro> bajarLibro() {
+        try {
+            ps = con.prepareStatement("select * from Libro");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Blob imagen = rs.getBlob(8);
+                byte[] pdf = rs.getBytes(7);
+                InputStream bos = new ByteArrayInputStream(pdf);
+//-------datos pdf transformalos
+                int tamanoInput = bos.available(b);
+                byte[] datosPDF = new byte[tamanoInput];
+                bos.read(datosPDF, 0, tamanoInput);
+
+                OutputStream out = new FileOutputStream("new.pdf");
+                out.write(datosPDF);
+                //--------Transforma los datos imagen----
+                byte[] data = imagen.getBytes(1, (int) imagen.length());
+                BufferedImage img = null;
+                try {
+                    img = ImageIO.read(new ByteArrayInputStream(data));
+                } catch (IOException e) {
+                    Logger.getLogger(Mysql.class.getName()).log(Level.SEVERE, null, e);
+                }
+                
+                ArrayList<Libro> listaLibros=new ArrayList<>();
+                
+            }
+        } catch (SQLException ex) {
+            //System.out.println(ex);
         }
     }
 }
