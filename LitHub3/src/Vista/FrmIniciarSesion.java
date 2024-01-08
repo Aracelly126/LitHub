@@ -8,7 +8,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
 
     private Conexion con = new Conexion();
 
-    private FrmRegistro frmRegistro = new FrmRegistro();
+    private frmregistro frmRegistro = new frmregistro();
     private FrmAdmin frmAdmin = new FrmAdmin();
 
     public FrmIniciarSesion() {
