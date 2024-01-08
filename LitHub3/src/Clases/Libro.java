@@ -1,71 +1,81 @@
 package Clases;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 public class Libro {
 
-    private String codigo;
-    private String autor;
-    private String nombre;
+    private String titulo;
+    private ImageIcon image;
+    private String sinopsis;
     private String genero;
-    private int numPag;
-    private String prestado;
+    private int nPaginas;
 
-    public Libro() {
-    }
+    public Libro(String nombre, String rutaImagen, String sinopsis, int anchoPanel, int altoPanel, String genero, int nPaginas) {
+        this.titulo = nombre;
+        this.sinopsis = sinopsis;
+        this.image = redimensionarImagen("src/imagenes/" + rutaImagen, anchoPanel, altoPanel);
 
-    public Libro(String codigo, String autor, String nombre, String genero, int numPag, String prestado) {
-        this.codigo = codigo;
-        this.autor = autor;
-        this.nombre = nombre;
         this.genero = genero;
-        this.numPag = numPag;
-        this.prestado = prestado;
+        this.nPaginas = nPaginas;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public ImageIcon getImage() {
+        return this.image;
     }
 
-    public String getCodigo() {
-        return this.codigo;
-    }
-
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-
-    public String getAutor() {
-        return this.autor;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setImage(ImageIcon image) {
+        this.image = image;
     }
 
     public String getNombre() {
-        return this.nombre;
+        return this.titulo;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
+    public void setNombre(String nombre) {
+        this.titulo = nombre;
+    }
+
+    public String getTitulo() {
+        return this.titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getSinopsis() {
+        return this.sinopsis;
+    }
+
+    public void setSinopsis(String sinopsis) {
+        this.sinopsis = sinopsis;
     }
 
     public String getGenero() {
         return this.genero;
     }
 
-    public void setNumPag(int numPag) {
-        this.numPag = numPag;
+    public void setGenero(String genero) {
+        this.genero = genero;
     }
 
-    public int getNumPag() {
-        return this.numPag;
+    public int getnPaginas() {
+        return this.nPaginas;
     }
 
-    public void setPrestado(String prestado) {
-        this.prestado = prestado;
+    public void setnPaginas(int nPaginas) {
+        this.nPaginas = nPaginas;
     }
 
-    public String getPrestado() {
-        return this.prestado;
+    private ImageIcon redimensionarImagen(String rutaImagen, int ancho, int alto) {
+        ImageIcon imagenIcon = new ImageIcon(rutaImagen);
+        Image imagen = imagenIcon.getImage();
+        Image imagenRedimensionada = imagen.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+        if (imagenRedimensionada == null) {
+            System.out.println("Sin imagen");
+        }
+        return new ImageIcon(imagenRedimensionada);
     }
+
 }
