@@ -494,12 +494,22 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_Usuarios.add(btn_usuGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 120, 100, 30));
 
         btn_usuActualizar.setText("Actualizar");
+        btn_usuActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_usuActualizarActionPerformed(evt);
+            }
+        });
         pnl_Usuarios.add(btn_usuActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 170, 100, 30));
 
         btn_usuEliminar.setText("Eliminar");
         pnl_Usuarios.add(btn_usuEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 220, 100, 30));
 
         btn_usuLimpiar.setText("Limpiar");
+        btn_usuLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_usuLimpiarActionPerformed(evt);
+            }
+        });
         pnl_Usuarios.add(btn_usuLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 270, 100, 30));
 
         txt_usuFecNac.setMaxSelectableDate(new java.util.Date(1262235600000L));
@@ -713,6 +723,16 @@ public class FrmAdmin extends javax.swing.JFrame {
     private void txt_usuCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usuCorreoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_usuCorreoActionPerformed
+
+    private void btn_usuLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuLimpiarActionPerformed
+        // TODO add your handling code here:
+        this.iniciarPnlUsuarios();
+        this.limpiarPnlUsuarios();
+    }//GEN-LAST:event_btn_usuLimpiarActionPerformed
+
+    private void btn_usuActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuActualizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_usuActualizarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_libActualizar;
