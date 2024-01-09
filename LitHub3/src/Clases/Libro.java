@@ -3,7 +3,7 @@ package Clases;
 public class Libro {
 
     private String codigo;
-    private String autor;
+    private String CORREO_USU;
     private String nombre;
     private String genero;
     private int numPag;
@@ -12,9 +12,9 @@ public class Libro {
     public Libro() {
     }
 
-    public Libro(String codigo, String autor, String nombre, String genero, int numPag, String prestado) {
+    public Libro(String codigo, String correo_usu, String nombre, String genero, int numPag, String prestado) {
         this.codigo = codigo;
-        this.autor = autor;
+        this.CORREO_USU = correo_usu;
         this.nombre = nombre;
         this.genero = genero;
         this.numPag = numPag;
@@ -30,11 +30,11 @@ public class Libro {
     }
 
     public void setAutor(String autor) {
-        this.autor = autor;
+        this.CORREO_USU = autor;
     }
 
-    public String getAutor() {
-        return this.autor;
+    public String getCorreoUsu() {
+        return this.CORREO_USU;
     }
 
     public void setNombre(String nombre) {

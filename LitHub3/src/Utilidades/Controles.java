@@ -24,36 +24,31 @@ public class Controles {
     }
 
     public static int credenciales(String user, String contrasenia) {
+        boolean UserExiste = false;
         for (Usuario usuario : Almacen.getInstance().usuarios) {
-            String nombre = usuario.getNombre();
+            String correo = usuario.getCorreo();
             String clave = usuario.getClave();
-            if (nombre.equals(user) && clave.equals(Seguridad.Encriptar(contrasenia))) {
-                switch (usuario.getTipo()) {
-                    case "ADMIN":
-                        return 1;
-                    case "AUTOR":
-                        return 2;
-                    case "LECTOR":
-                        return 3;
+            if (GestorPrograma.buscarUsuario(correo) != null) {
+                UserExiste = true;
+                if (clave.equals(Seguridad.Encriptar(contrasenia))) {
+                    switch (usuario.getTipo()) {
+                        case "ADMIN":
+                            return 1;
+                        case "AUTOR":
+                            return 2;
+                        case "LECTOR":
+                            return 3;
+                    }
+                    Controles.intentosIngresos = 0;
                 }
-                Controles.intentosIngresos = 0;
             }
         }
         //Si las credenciales son incorrectas empieza un contador para bloquearlo
-        if (Controles.intentoLogueo() == true && Controles.cadenaVacia(user) == false) {
+        if (Controles.intentoLogueo() == true && Controles.cadenaVacia(user) == false && UserExiste == true) {
             bloquearUsuario(user);
             return 0;//Si el usuario se bloquea regresa 0
         }
         return -1;//Si las credenciales son incorrectas devuelve -1
-    }
-
-    public static boolean nombreUsuario(String nombre) {
-        for (Usuario usuario : Almacen.getInstance().usuarios) {
-            if (usuario.getNombre().equals(nombre)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public static boolean cadenaVacia(String cadena) {

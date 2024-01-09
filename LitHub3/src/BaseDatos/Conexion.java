@@ -30,7 +30,6 @@ public class Conexion {
     public boolean conectar() {
         try {
             con = DriverManager.getConnection(url, user, clave);
-            System.out.println("Conexion a la bd establecida. . .\nMetodo: conectar Clase: Mysql");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al conectar a la BD, intentalo despues. . .");
             System.out.println("Conexion a la bd fallida. . .\nMetodo: conectar Clase: Mysql\n" + e);

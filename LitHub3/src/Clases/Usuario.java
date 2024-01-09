@@ -2,24 +2,24 @@ package Clases;
 
 public class Usuario {
 
+    private String correo;
     private String nombre;
     private String apellido;
     private String clave;
     private String pais;
     private String fecNac;
-    private String correo;
     private String tipo;
 
     public Usuario() {
     }
 
-    public Usuario(String nombre, String apellido, String clave, String pais, String fecNac, String correo, String tipo) {
+    public Usuario(String correo, String nombre, String apellido, String clave, String pais, String fecNac, String tipo) {
+        this.correo = correo;
         this.nombre = nombre;
         this.apellido = apellido;
         this.clave = clave;
         this.pais = pais;
         this.fecNac = fecNac;
-        this.correo = correo;
         this.tipo = tipo;
     }
 

@@ -225,7 +225,7 @@ public class frmregistro extends javax.swing.JFrame {
         String contrasenia2 = ManejoComp.claveToString(this.txt_confContrasenia);
 
         boolean aux = true;
-        if (Controles.cadenaVacia(nombre) || Controles.nombreUsuario(nombre)) {
+        if (Controles.cadenaVacia(nombre)) {
             ManejoComp.colorBorderTxt(this.txt_nombre, Color.RED, Color.GREEN);
             aux = false;
         }
@@ -241,7 +241,7 @@ public class frmregistro extends javax.swing.JFrame {
             ManejoComp.colorBorderTxt(this.txt_pais, Color.RED, Color.GREEN);
             aux = false;
         }
-        if (Controles.cadenaVacia(correo) || Controles.correoElectronico(correo) == false) {
+        if (Controles.cadenaVacia(correo) || Controles.correoElectronico(correo) == false || GestorPrograma.buscarUsuario(correo) != null) {
             ManejoComp.colorBorderTxt(this.txt_correo, Color.RED, Color.GREEN);
             aux = false;
         }
@@ -257,7 +257,7 @@ public class frmregistro extends javax.swing.JFrame {
             this.con.desconectar();
             return;
         }
-        GestorPrograma.crearUsuario(nombre,apellido,fecNac,tipo,pais,correo,contrasenia1);
+        GestorPrograma.crearUsuario(nombre, apellido, fecNac, tipo, pais, correo, contrasenia1);
         this.con.desconectar();
     }//GEN-LAST:event_btn_registrarMouseClicked
 

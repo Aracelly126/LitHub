@@ -2,24 +2,24 @@ package Clases;
 
 public class Favorito {
 
-    private int codigo;
+    private String codigo;
     private String nombreUsuario;
     private String codigoLibro;
 
     public Favorito() {
     }
 
-    public Favorito(int codigo, String nombreUsuario, String codigoLibro) {
+    public Favorito(String codigo, String nombreUsuario, String codigoLibro) {
         this.codigo = codigo;
         this.nombreUsuario = nombreUsuario;
         this.codigoLibro = codigoLibro;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
-    public int getCodigo() {
+    public String getCodigo() {
         return this.codigo;
     }
 

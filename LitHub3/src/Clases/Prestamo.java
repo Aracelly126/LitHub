@@ -2,7 +2,7 @@ package Clases;
 
 public class Prestamo {
 
-    private int codigo;
+    private String codigo;
     private String codLib;
     private String nomUsu;
     private String fecIni;
@@ -12,7 +12,7 @@ public class Prestamo {
     public Prestamo() {
     }
 
-    public Prestamo(int codigo, String codLib, String nomUsu, String fecIni, String fecDev, String estado) {
+    public Prestamo(String codigo, String codLib, String nomUsu, String fecIni, String fecDev, String estado) {
         this.codigo = codigo;
         this.codLib = codLib;
         this.nomUsu = nomUsu;
@@ -21,11 +21,11 @@ public class Prestamo {
         this.estado = estado;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
-    public int getCodigo() {
+    public String getCodigo() {
         return this.codigo;
     }
 

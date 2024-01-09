@@ -2,12 +2,13 @@ package Utilidades;
 
 import BaseDatos.Almacen;
 import BaseDatos.GestorBD;
-import Clases.Usuario;
+import Clases.*;
 import java.awt.HeadlessException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import javax.swing.JFileChooser;
@@ -22,13 +23,49 @@ public class GestorPrograma {
 
     }
 
+    public static Usuario buscarUsuario(String correo) {
+        for (Usuario usuario : Almacen.getInstance().usuarios) {
+            if (usuario.getCorreo().equals(correo)) {
+                return usuario;
+            }
+        }
+        return null;
+    }
+
+    public static Libro buscarLibro(String codigo) {
+        for (Libro libro : Almacen.getInstance().libros) {
+            if (libro.getCodigo().equals(codigo)) {
+                return libro;
+            }
+        }
+        return null;
+    }
+
+    public static Prestamo buscarPrestamo(String codigo) {
+        for (Prestamo prestamo : Almacen.getInstance().prestamos) {
+            if (prestamo.getCodigo().equals(codigo)) {
+                return prestamo;
+            }
+        }
+        return null;
+    }
+
+    public static Favorito buscarFavorito(String codigo) {
+        for (Favorito favorito : Almacen.getInstance().favoritos) {
+            if (favorito.getCodigo().equals(codigo)) {
+                return favorito;
+            }
+        }
+        return null;
+    }
+
     public static void crearUsuario(String nombre, String apellido, String fecNac, String tipo, String pais, String correo, String contrasenia) {
-        Usuario newUsuario = new Usuario(nombre,
+        Usuario newUsuario = new Usuario(correo,
+                nombre,
                 apellido,
                 Seguridad.Encriptar(contrasenia),
                 pais,
                 fecNac,
-                correo,
                 tipo);
         gestorBD.insertarUsuario(newUsuario);
     }
@@ -45,15 +82,6 @@ public class GestorPrograma {
             sb.append(caracteres.charAt(index));
         }
         return sb.toString();
-    }
-
-    public static Usuario buscarUsuario(String nombreUsuario) {
-        for (Usuario usuario : Almacen.getInstance().usuarios) {
-            if (usuario.getNombre().equals(nombreUsuario)) {
-                return usuario;
-            }
-        }
-        return null;
     }
 
     public static String transformarFecha(String fechaOriginal) {// EEE MMM dd HH:mm:ss z yyyy to dd/MM/yyyy
@@ -114,7 +142,7 @@ public class GestorPrograma {
             int opcion = jFileChooser.showOpenDialog(null);
 
             if (opcion != JFileChooser.APPROVE_OPTION) {
-                return ""; // El usuario canceló la operación
+                return "";
             }
 
             rutaPDF = jFileChooser.getSelectedFile().getPath();
@@ -143,13 +171,65 @@ public class GestorPrograma {
             Path origenPath = Paths.get(rutaPDF);
             Path destinoPath = Paths.get("SYSTEM/libros/", nombreArchivoDestino);
 
-            // Copiar el archivo a la carpeta destino
             Files.copy(origenPath, destinoPath);
 
             System.out.println("PDF almacenado con éxito en: " + destinoPath.toString());
         } catch (Exception e) {
             System.out.println("Error Metodo:almacenarPDF Clase:GestorPrograma rutaPDF:" + rutaPDF + "\n" + e);
         }
+    }
+
+    public static void eliminarImagen(String nombreArchivo) {
+        try {
+            Path path = Paths.get("SYSTEM/libros/", nombreArchivo);
+            Files.deleteIfExists(path);
+
+            System.out.println("Imagen eliminada con éxito: " + path.toString());
+        } catch (Exception e) {
+            System.out.println("Error en el Método: eliminarImagen Clase: GestorPrograma nombreArchivo:" + nombreArchivo + "\n" + e);
+        }
+    }
+
+    public static void eliminarPDF(String nombreArchivo) {
+        try {
+            Path path = Paths.get("SYSTEM/libros/", nombreArchivo);
+
+            // Eliminar el archivo de la carpeta destino
+            Files.deleteIfExists(path);
+
+            System.out.println("PDF eliminado con éxito: " + path.toString());
+        } catch (Exception e) {
+            System.out.println("Error en el Método: eliminarPDF Clase: GestorPrograma nombreArchivo:" + nombreArchivo + "\n" + e);
+        }
+    }
+
+    public static void eliminarPrestamosPorLibro(String codigoLibro) {
+        ArrayList<Prestamo> nuevosPrestamos = new ArrayList<>();
+
+        for (Prestamo prestamo : Almacen.getInstance().prestamos) {
+            if (!prestamo.getCodLib().equals(codigoLibro)) {
+                nuevosPrestamos.add(prestamo);
+            }
+        }
+
+        // Asignar la nueva lista de préstamos a la lista principal
+        Almacen.getInstance().prestamos = nuevosPrestamos;
+
+        System.out.println("Préstamos asociados al libro con código " + codigoLibro + " eliminados del almacen.");
+    }
+    public static void eliminarFavoritosPorLibro(String codigoLibro) {
+        ArrayList<Favorito> nuevosFavoritos = new ArrayList<>();
+
+        for (Favorito favorito : Almacen.getInstance().favoritos) {
+            if (!favorito.getCodigoLibro().equals(codigoLibro)) {
+                nuevosFavoritos.add(favorito);
+            }
+        }
+
+        // Asignar la nueva lista de favoritos a la lista principal
+        Almacen.getInstance().favoritos = nuevosFavoritos;
+
+        System.out.println("Favoritos asociados al libro con código " + codigoLibro + " eliminados del almacen.");
     }
 
 }

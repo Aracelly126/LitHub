@@ -22,6 +22,8 @@ public class FrmAdmin extends javax.swing.JFrame {
     private String urlPortada = "";
     private String urlPdf = "";
 
+    private Libro libroSeleccionado;
+
     public FrmAdmin() {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -83,7 +85,7 @@ public class FrmAdmin extends javax.swing.JFrame {
     public void iniciarVentana(String nombreUser) {
         this.usuarioActual = GestorPrograma.buscarUsuario(nombreUser);
 
-        llenarTablaLibros();
+        iniciarPnlLibros();
 
         this.setVisible(true);
     }
@@ -92,18 +94,46 @@ public class FrmAdmin extends javax.swing.JFrame {
         this.dispose();
     }
 
-    public void llenarTablaLibros() {
+    public void iniciarPnlLibros() {
         ManejoComp.vaciarTabla(this.tbl_libros, this.modelTblLibros);
         for (Libro libro : Almacen.getInstance().libros) {
             String[] registro = {
                 libro.getCodigo(),
-                libro.getAutor(),
+                libro.getCorreoUsu(),
                 libro.getNombre(),
                 libro.getGenero(),
                 String.valueOf(libro.getNumPag())
             };
             this.modelTblLibros.addRow(registro);
         }
+        this.cmb_libAutores.removeAllItems();
+        //llenar combo autores
+        for (Usuario usuario : Almacen.getInstance().usuarios) {
+            if (usuario.getTipo().equals("AUTOR")) {
+                this.cmb_libAutores.addItem(usuario.getCorreo() + " - " + usuario.getNombre() + " " + usuario.getApellido());
+            }
+        }
+
+        this.limpiarPnlLibros();
+
+    }
+
+    public void limpiarPnlLibros() {
+        this.urlPortada = "";
+        this.urlPdf = "";
+        ManejoComp.crearlabel(this.lbl_libPortada, "");
+        this.lbl_libNombreArchivoPdf.setText("");
+        this.txt_libCodigo.setText("");
+        this.cmb_libAutores.setSelectedIndex(0);
+        this.txt_libNombre.setText("");
+        this.cmb_libGeneros.setSelectedIndex(0);
+        this.txt_libNumPags.setText("");
+
+        this.btn_libGuardar.setEnabled(true);
+        this.btn_libAgregarPortada.setEnabled(true);
+        this.btn_libAgregarPdf.setEnabled(true);
+        this.btn_libEliminar.setEnabled(false);
+        this.btn_libActualizar.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -125,21 +155,21 @@ public class FrmAdmin extends javax.swing.JFrame {
         lbl_libCodigo = new javax.swing.JLabel();
         txt_libCodigo = new javax.swing.JTextField();
         lbl_libAutor = new javax.swing.JLabel();
-        txt_libAutor = new javax.swing.JTextField();
         lbl_libNombre = new javax.swing.JLabel();
         txt_libNombre = new javax.swing.JTextField();
         lbl_libGenero = new javax.swing.JLabel();
-        txt_libGenero = new javax.swing.JTextField();
         lbl_libNumPags = new javax.swing.JLabel();
         txt_libNumPags = new javax.swing.JTextField();
         btn_libGuardar = new javax.swing.JButton();
         btn_libActualizar = new javax.swing.JButton();
         btn_libEliminar = new javax.swing.JButton();
         btn_libLimpiar = new javax.swing.JButton();
-        lbl_nombreArchivoPdf = new javax.swing.JLabel();
+        lbl_libNombreArchivoPdf = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_libros = new javax.swing.JTable();
         btn_libNuevoCodigo = new javax.swing.JButton();
+        cmb_libGeneros = new javax.swing.JComboBox<>();
+        cmb_libAutores = new javax.swing.JComboBox<>();
         pnl_Usuarios = new javax.swing.JPanel();
         lbl_MensajeSeccion2 = new javax.swing.JLabel();
 
@@ -217,20 +247,18 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_Libros.add(lbl_libCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 100, 30));
 
         txt_libCodigo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txt_libCodigo.setEnabled(false);
         txt_libCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_libCodigoKeyTyped(evt);
             }
         });
-        pnl_Libros.add(txt_libCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 80, 200, 30));
+        pnl_Libros.add(txt_libCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 80, 300, 30));
 
         lbl_libAutor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_libAutor.setForeground(new java.awt.Color(0, 0, 0));
         lbl_libAutor.setText("Autor:");
         pnl_Libros.add(lbl_libAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 100, 30));
-
-        txt_libAutor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        pnl_Libros.add(txt_libAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 200, 30));
 
         lbl_libNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_libNombre.setForeground(new java.awt.Color(0, 0, 0));
@@ -238,15 +266,17 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_Libros.add(lbl_libNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, 100, 30));
 
         txt_libNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        pnl_Libros.add(txt_libNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, 200, 30));
+        txt_libNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_libNombreKeyTyped(evt);
+            }
+        });
+        pnl_Libros.add(txt_libNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, 300, 30));
 
         lbl_libGenero.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_libGenero.setForeground(new java.awt.Color(0, 0, 0));
         lbl_libGenero.setText("Genero:");
         pnl_Libros.add(lbl_libGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, 100, 30));
-
-        txt_libGenero.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        pnl_Libros.add(txt_libGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 230, 200, 30));
 
         lbl_libNumPags.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_libNumPags.setForeground(new java.awt.Color(0, 0, 0));
@@ -254,7 +284,12 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_Libros.add(lbl_libNumPags, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 100, 30));
 
         txt_libNumPags.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        pnl_Libros.add(txt_libNumPags, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 200, 30));
+        txt_libNumPags.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_libNumPagsKeyTyped(evt);
+            }
+        });
+        pnl_Libros.add(txt_libNumPags, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 300, 30));
 
         btn_libGuardar.setText("Guardar");
         btn_libGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -262,7 +297,7 @@ public class FrmAdmin extends javax.swing.JFrame {
                 btn_libGuardarMouseClicked(evt);
             }
         });
-        pnl_Libros.add(btn_libGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 110, 100, -1));
+        pnl_Libros.add(btn_libGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 110, 100, -1));
 
         btn_libActualizar.setText("Actualizar");
         btn_libActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -270,7 +305,7 @@ public class FrmAdmin extends javax.swing.JFrame {
                 btn_libActualizarMouseClicked(evt);
             }
         });
-        pnl_Libros.add(btn_libActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 160, 100, -1));
+        pnl_Libros.add(btn_libActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 160, 100, -1));
 
         btn_libEliminar.setText("Eliminar");
         btn_libEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -278,7 +313,7 @@ public class FrmAdmin extends javax.swing.JFrame {
                 btn_libEliminarMouseClicked(evt);
             }
         });
-        pnl_Libros.add(btn_libEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 210, 100, -1));
+        pnl_Libros.add(btn_libEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 210, 100, -1));
 
         btn_libLimpiar.setText("Limpiar");
         btn_libLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -286,8 +321,8 @@ public class FrmAdmin extends javax.swing.JFrame {
                 btn_libLimpiarMouseClicked(evt);
             }
         });
-        pnl_Libros.add(btn_libLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 260, 100, -1));
-        pnl_Libros.add(lbl_nombreArchivoPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, 200, 30));
+        pnl_Libros.add(btn_libLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 260, 100, -1));
+        pnl_Libros.add(lbl_libNombreArchivoPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, 200, 30));
 
         tbl_libros.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tbl_libros.setModel(this.modelTblLibros);
@@ -306,7 +341,13 @@ public class FrmAdmin extends javax.swing.JFrame {
                 btn_libNuevoCodigoMouseClicked(evt);
             }
         });
-        pnl_Libros.add(btn_libNuevoCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 70, 30));
+        pnl_Libros.add(btn_libNuevoCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 50, 70, 30));
+
+        cmb_libGeneros.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Drama", "Castigo", "Ficticio" }));
+        pnl_Libros.add(cmb_libGeneros, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 230, 300, 30));
+
+        cmb_libAutores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1" }));
+        pnl_Libros.add(cmb_libAutores, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 300, 30));
 
         pnlTb_Menu.addTab("", pnl_Libros);
 
@@ -348,15 +389,41 @@ public class FrmAdmin extends javax.swing.JFrame {
 
     private void tbl_librosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_librosMouseClicked
         int index = this.tbl_libros.getSelectedRow();
-        ManejoComp.crearlabel(this.lbl_libPortada, "SYSTEM/libros/"+Almacen.getInstance().libros.get(index).getCodigo() + ".png");
+
+        this.libroSeleccionado = GestorPrograma.buscarLibro((String) this.modelTblLibros.getValueAt(index, 0));
+        Usuario autor = GestorPrograma.buscarUsuario(this.libroSeleccionado.getCorreoUsu());
+
+        this.txt_libCodigo.setText(this.libroSeleccionado.getCodigo());
+        this.cmb_libAutores.setSelectedItem(autor.getCorreo() + " - " + autor.getNombre() + " " + autor.getApellido());
+        this.txt_libNombre.setText(this.libroSeleccionado.getNombre());
+        this.cmb_libGeneros.setSelectedItem(this.libroSeleccionado.getGenero());
+        this.txt_libNumPags.setText(String.valueOf(this.libroSeleccionado.getNumPag()));
+
+        ManejoComp.crearlabel(this.lbl_libPortada, "SYSTEM/libros/" + Almacen.getInstance().libros.get(index).getCodigo() + ".png");
+        this.btn_libGuardar.setEnabled(false);
+        this.btn_libAgregarPortada.setEnabled(false);
+        this.btn_libAgregarPdf.setEnabled(false);
+        this.btn_libEliminar.setEnabled(true);
+        this.btn_libActualizar.setEnabled(true);
     }//GEN-LAST:event_tbl_librosMouseClicked
 
     private void btn_libAgregarPortadaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libAgregarPortadaMouseClicked
+        if (this.btn_libAgregarPortada.isEnabled() == false) {
+            return;
+        }
         this.urlPortada = GestorPrograma.seleccionarImagen();
+        if (Controles.cadenaVacia(this.urlPortada)) {
+            return;
+        }
+        ManejoComp.crearlabel(this.lbl_libPortada, this.urlPortada);
     }//GEN-LAST:event_btn_libAgregarPortadaMouseClicked
 
     private void btn_libAgregarPdfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libAgregarPdfMouseClicked
+        if (this.btn_libAgregarPdf.isEnabled() == false) {
+            return;
+        }
         this.urlPdf = GestorPrograma.seleccionarPDF();
+        this.lbl_libNombreArchivoPdf.setText(this.urlPdf);
     }//GEN-LAST:event_btn_libAgregarPdfMouseClicked
 
     private void btn_libGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libGuardarMouseClicked
@@ -364,9 +431,9 @@ public class FrmAdmin extends javax.swing.JFrame {
             return;
         }
         if (Controles.cadenaVacia(this.txt_libCodigo.getText())
-                || Controles.cadenaVacia(this.txt_libAutor.getText())
+                || Controles.cadenaVacia(this.cmb_libAutores.getSelectedItem().toString())
                 || Controles.cadenaVacia(this.txt_libNombre.getText())
-                || Controles.cadenaVacia(this.txt_libGenero.getText())
+                || Controles.cadenaVacia(this.cmb_libGeneros.getSelectedItem().toString())
                 || Controles.cadenaVacia(this.txt_libNumPags.getText())) {
             JOptionPane.showMessageDialog(this, "Llena todos los campos primero. . .");
             return;
@@ -375,37 +442,76 @@ public class FrmAdmin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Portada o PDF faltantes, intenta de nuevo. . .");
             return;
         }
+        String selectedText = this.cmb_libAutores.getSelectedItem().toString();
+        String[] autorPartes = selectedText.split(" - ");// divide el correo del nombre
         Libro librito = new Libro(
                 this.txt_libCodigo.getText(),
-                this.txt_libAutor.getText(),
+                autorPartes[0],
                 this.txt_libNombre.getText(),
-                this.txt_libGenero.getText(),
+                this.cmb_libGeneros.getSelectedItem().toString(),
                 Integer.parseInt(this.txt_libNumPags.getText()),
                 "NO");
-        this.gestorBD.insertarLibro(librito);
+        this.gestorBD.agregarLibro(librito);
+        Almacen.getInstance().libros.add(librito);
         GestorPrograma.almacenarImagen(this.urlPortada, this.txt_libCodigo.getText() + ".png");
         GestorPrograma.almacenarPDF(this.urlPdf, this.txt_libCodigo.getText() + ".pdf");
 
+        this.iniciarPnlLibros();
     }//GEN-LAST:event_btn_libGuardarMouseClicked
 
     private void btn_libActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libActualizarMouseClicked
-        // TODO add your handling code here:
+        if (!this.btn_libActualizar.isEnabled()) {
+            return;
+        }
+        int index = this.tbl_libros.getSelectedRow();
+        if (Controles.cadenaVacia(this.txt_libCodigo.getText())
+                || Controles.cadenaVacia(this.cmb_libAutores.getSelectedItem().toString())
+                || Controles.cadenaVacia(this.txt_libNombre.getText())
+                || Controles.cadenaVacia(this.cmb_libGeneros.getSelectedItem().toString())
+                || Controles.cadenaVacia(this.txt_libNumPags.getText())) {
+            JOptionPane.showMessageDialog(this, "Llena todos los campos primero. . .");
+            return;
+        }
+        String selectedText = this.cmb_libAutores.getSelectedItem().toString();
+        String[] autorPartes = selectedText.split(" - ");// divide el correo del nombre
+        Libro librito = new Libro(
+                this.txt_libCodigo.getText(),
+                autorPartes[0],
+                this.txt_libNombre.getText(),
+                this.cmb_libGeneros.getSelectedItem().toString(),
+                Integer.parseInt(this.txt_libNumPags.getText()),
+                "NO");
+        gestorBD.actualizarLibro(librito);
+        Almacen.getInstance().libros.set(index, librito);
+
+        this.btn_libLimpiarMouseClicked(evt);
     }//GEN-LAST:event_btn_libActualizarMouseClicked
 
     private void btn_libEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libEliminarMouseClicked
-        // TODO add your handling code here:
+        if (this.btn_libEliminar.isEnabled() == false) {
+            return;
+        }
+        int index = this.tbl_libros.getSelectedRow();
+
+        gestorBD.eliminarLibro(this.libroSeleccionado.getCodigo());
+
+        // Eliminar el libro del almacenamiento local (Almacen)
+        Almacen.getInstance().libros.remove(index);
+        GestorPrograma.eliminarImagen(this.libroSeleccionado.getCodigo() + ".png");
+        GestorPrograma.eliminarPDF(this.libroSeleccionado.getCodigo() + ".pdf");
+
+        gestorBD.eliminarPrestamosPorLibro(this.libroSeleccionado.getCodigo());
+        GestorPrograma.eliminarPrestamosPorLibro(this.libroSeleccionado.getCodigo());
+        
+        gestorBD.eliminarFavoritosPorLibro(this.libroSeleccionado.getCodigo());
+        GestorPrograma.eliminarFavoritosPorLibro(this.libroSeleccionado.getCodigo());
+
+        this.iniciarPnlLibros();
     }//GEN-LAST:event_btn_libEliminarMouseClicked
 
     private void btn_libLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libLimpiarMouseClicked
-        this.llenarTablaLibros();
-        ManejoComp.crearlabel(this.lbl_libPortada, "");
-        this.urlPortada = "";
-        this.urlPdf = "";
-        this.txt_libCodigo.setText("");
-        this.txt_libAutor.setText("");
-        this.txt_libNombre.setText("");
-        this.txt_libGenero.setText("");
-        this.txt_libNumPags.setText("");
+        this.iniciarPnlLibros();
+        this.limpiarPnlLibros();
     }//GEN-LAST:event_btn_libLimpiarMouseClicked
 
     private void btn_libNuevoCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libNuevoCodigoMouseClicked
@@ -416,6 +522,14 @@ public class FrmAdmin extends javax.swing.JFrame {
         ManejoComp.txtLongitudCondicion(this.txt_libCodigo, evt, 10);
     }//GEN-LAST:event_txt_libCodigoKeyTyped
 
+    private void txt_libNumPagsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_libNumPagsKeyTyped
+        ManejoComp.txtOnlyNumbers(evt);
+    }//GEN-LAST:event_txt_libNumPagsKeyTyped
+
+    private void txt_libNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_libNombreKeyTyped
+        ManejoComp.txtLongitudCondicion(this.txt_libNombre, evt, 50);
+    }//GEN-LAST:event_txt_libNombreKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_libActualizar;
     private javax.swing.JButton btn_libAgregarPdf;
@@ -424,6 +538,8 @@ public class FrmAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btn_libGuardar;
     private javax.swing.JButton btn_libLimpiar;
     private javax.swing.JButton btn_libNuevoCodigo;
+    private javax.swing.JComboBox<String> cmb_libAutores;
+    private javax.swing.JComboBox<String> cmb_libGeneros;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_MensajeBienvenida;
     private javax.swing.JLabel lbl_MensajeSeccion1;
@@ -435,18 +551,16 @@ public class FrmAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_libCodigo;
     private javax.swing.JLabel lbl_libGenero;
     private javax.swing.JLabel lbl_libNombre;
+    private javax.swing.JLabel lbl_libNombreArchivoPdf;
     private javax.swing.JLabel lbl_libNumPags;
     private javax.swing.JLabel lbl_libPortada;
-    private javax.swing.JLabel lbl_nombreArchivoPdf;
     private javax.swing.JTabbedPane pnlTb_Menu;
     private javax.swing.JPanel pnl_Libros;
     private javax.swing.JPanel pnl_Usuarios;
     private javax.swing.JPanel pnl_base;
     private javax.swing.JPanel pnl_navBar;
     private javax.swing.JTable tbl_libros;
-    private javax.swing.JTextField txt_libAutor;
     private javax.swing.JTextField txt_libCodigo;
-    private javax.swing.JTextField txt_libGenero;
     private javax.swing.JTextField txt_libNombre;
     private javax.swing.JTextField txt_libNumPags;
     // End of variables declaration//GEN-END:variables

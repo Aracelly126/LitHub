@@ -26,12 +26,12 @@ public class GestorBD {
                 case "USUARIOS":
                     while (resultSetEntidades.next()) {
                         Usuario usuario = new Usuario(
+                                resultSetEntidades.getString("CORREO"),
                                 resultSetEntidades.getString("NOMBRE"),
                                 resultSetEntidades.getString("APELLIDO"),
                                 resultSetEntidades.getString("CLAVE"),
                                 resultSetEntidades.getString("PAIS"),
                                 resultSetEntidades.getString("FEC_NAC"),
-                                resultSetEntidades.getString("CORREO"),
                                 resultSetEntidades.getString("TIPO")
                         );
                         entidades.add(usuario);
@@ -42,7 +42,7 @@ public class GestorBD {
                     while (resultSetEntidades.next()) {
                         Libro libro = new Libro(
                                 resultSetEntidades.getString("CODIGO"),
-                                resultSetEntidades.getString("AUTOR"),
+                                resultSetEntidades.getString("CORREO_USU"),
                                 resultSetEntidades.getString("NOMBRE"),
                                 resultSetEntidades.getString("GENERO"),
                                 resultSetEntidades.getInt("NUM_PAG"),
@@ -56,9 +56,9 @@ public class GestorBD {
                     ArrayList<Prestamo> prestamos = new ArrayList<>();
                     while (resultSetEntidades.next()) {
                         Prestamo prestamo = new Prestamo(
-                                resultSetEntidades.getInt("CODIGO"),
+                                resultSetEntidades.getString("CODIGO"),
                                 resultSetEntidades.getString("COD_LIB"),
-                                resultSetEntidades.getString("NOM_USU"),
+                                resultSetEntidades.getString("CORREO_USU"),
                                 resultSetEntidades.getString("FEC_INI"),
                                 resultSetEntidades.getString("FEC_DEV"),
                                 resultSetEntidades.getString("ESTADO")
@@ -70,8 +70,8 @@ public class GestorBD {
                     ArrayList<Favorito> favoritos = new ArrayList<>();
                     while (resultSetEntidades.next()) {
                         Favorito favorito = new Favorito(
-                                resultSetEntidades.getInt("CODIGO"),
-                                resultSetEntidades.getString("NOM_USU"),
+                                resultSetEntidades.getString("CODIGO"),
+                                resultSetEntidades.getString("CORREO_USU"),
                                 resultSetEntidades.getString("COD_LIB")
                         );
                         entidades.add(favorito);
@@ -117,21 +117,21 @@ public class GestorBD {
         }
     }
 
-    public void cambiarClaveUsuario(String nombreUsuario, String nuevaClave) {
+    public void cambiarClaveUsuario(String corrreoUsuario, String nuevaClave) {
         if (!this.con.conectar()) {
             this.con.desconectar();
             return;
         }
 
         try {
-            String consultaUpdate = "UPDATE Usuarios SET CLAVE = ? WHERE NOMBRE = ?";
+            String consultaUpdate = "UPDATE Usuarios SET CLAVE = ? WHERE CORREO = ?";
             PreparedStatement preparedStatement = this.con.getConexion().prepareStatement(consultaUpdate);
             preparedStatement.setString(1, nuevaClave);
-            preparedStatement.setString(2, nombreUsuario);
+            preparedStatement.setString(2, corrreoUsuario);
             preparedStatement.executeUpdate();
 
             for (Usuario usuario : Almacen.getInstance().usuarios) {
-                if (usuario.getNombre().equals(nombreUsuario)) {
+                if (usuario.getNombre().equals(corrreoUsuario)) {
                     usuario.setClave(nuevaClave);
                     break;
                 }
@@ -145,30 +145,126 @@ public class GestorBD {
         }
     }
 
-    public void insertarLibro(Libro libro) {
+    public void agregarLibro(Libro libro) {
         if (this.con.conectar() == false) {
             this.con.desconectar();
             return;
         }
         try {
             // Insertar el libro en la base de datos
-            String consultaInsert = "INSERT INTO LIBROS (CODIGO, AUTOR, NOMBRE, GENERO, NUM_PAG) VALUES (?, ?, ?, ?, ?)";
+            String consultaInsert = "INSERT INTO LIBROS (CODIGO, CORREO_USU, NOMBRE, GENERO, NUM_PAG) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = this.con.getConexion().prepareStatement(consultaInsert);
             preparedStatement.setString(1, libro.getCodigo());
-            preparedStatement.setString(2, libro.getAutor());
+            preparedStatement.setString(2, libro.getCorreoUsu());
             preparedStatement.setString(3, libro.getNombre());
             preparedStatement.setString(4, libro.getGenero());
             preparedStatement.setInt(5, libro.getNumPag());
             preparedStatement.executeUpdate();
-
-            // Insertar el usuario en el almacenamiento local (Almacen)
-            Almacen.getInstance().libros.add(libro);
 
             preparedStatement.close();
             this.con.desconectar();
         } catch (Exception e) {
             this.con.desconectar();
             System.out.println("Error en el Método:insertarLibro Clase:GestorBD\n" + e);
+        }
+    }
+
+    public void actualizarLibro(Libro libro) {
+        if (this.con.conectar() == false) {
+            this.con.desconectar();
+            return;
+        }
+        try {
+            String consultaUpdate = "UPDATE Libros SET CORREO_USU = ?, NOMBRE = ?, GENERO = ?, NUM_PAG = ?, PRESTADO = ? WHERE CODIGO = ?";
+            PreparedStatement preparedStatement = this.con.getConexion().prepareStatement(consultaUpdate);
+            preparedStatement.setString(1, libro.getCorreoUsu());
+            preparedStatement.setString(2, libro.getNombre());
+            preparedStatement.setString(3, libro.getGenero());
+            preparedStatement.setInt(4, libro.getNumPag());
+            preparedStatement.setString(5, "NO");  // Asignar 'NO' como valor predeterminado para PRESTADO
+            preparedStatement.setString(6, libro.getCodigo());
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+            this.con.desconectar();
+        } catch (Exception e) {
+            this.con.desconectar();
+            System.out.println("Error en el Método: actualizarLibro Clase: GestorBD\n" + e);
+        }
+    }
+
+    public void eliminarLibro(String codigoLibro) {
+        if (this.con.conectar() == false) {
+            this.con.desconectar();
+            return;
+        }
+        try {
+            // Eliminar el libro de la base de datos
+            String consultaDelete = "DELETE FROM Libros WHERE CODIGO = ?";
+            PreparedStatement preparedStatement = this.con.getConexion().prepareStatement(consultaDelete);
+            preparedStatement.setString(1, codigoLibro);
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            // Verificar si se eliminó el libro
+            if (rowsAffected > 0) {
+                System.out.println("Libro eliminado correctamente de la base de datos");
+            } else {
+                System.out.println("No se encontró el libro con el código especificado en la base de datos");
+            }
+
+            preparedStatement.close();
+            this.con.desconectar();
+        } catch (Exception e) {
+            this.con.desconectar();
+            System.out.println("Error en el Método: eliminarLibro Clase: GestorBD\n" + e);
+        }
+    }
+
+    public void eliminarPrestamosPorLibro(String codigoLibro) {
+        if (this.con.conectar() == false) {
+            this.con.desconectar();
+            return;
+        }
+        try {
+            // Eliminar los préstamos asociados al libro de la base de datos
+            String consultaDelete = "DELETE FROM Prestamos WHERE COD_LIB = ?";
+            PreparedStatement preparedStatement = this.con.getConexion().prepareStatement(consultaDelete);
+            preparedStatement.setString(1, codigoLibro);
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+            this.con.desconectar();
+        } catch (Exception e) {
+            this.con.desconectar();
+            System.out.println("Error en el Método: eliminarPrestamosPorLibro Clase: GestorBD\n" + e);
+        }
+    }
+
+    public void eliminarFavoritosPorLibro(String codigoLibro) {
+        if (this.con.conectar() == false) {
+            this.con.desconectar();
+            return;
+        }
+
+        try {
+            // Eliminar los registros de Favoritos asociados al libro de la base de datos
+            String consultaDelete = "DELETE FROM Favoritos WHERE COD_LIB = ?";
+            PreparedStatement preparedStatement = this.con.getConexion().prepareStatement(consultaDelete);
+            preparedStatement.setString(1, codigoLibro);
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            // Verificar si se eliminaron favoritos
+            if (rowsAffected > 0) {
+                System.out.println("Favoritos asociados al libro con código " + codigoLibro + " eliminados de la base de datos");
+            } else {
+                System.out.println("No se encontraron favoritos asociados al libro en la base de datos");
+            }
+
+            preparedStatement.close();
+            this.con.desconectar();
+        } catch (Exception e) {
+            this.con.desconectar();
+            System.out.println("Error en el Método: eliminarFavoritosPorLibro Clase: GestorBD\n" + e);
         }
     }
 

@@ -156,31 +156,30 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
             this.con.desconectar();
             return;
         }
-        String usuario = this.txt_usuario.getText();
+        String correo = this.txt_usuario.getText();
         String contrasenia = ManejoComp.claveToString(this.txt_contrasenia);
-
-        int tipo = Controles.credenciales(usuario, contrasenia);
+        int tipo = Controles.credenciales(correo, contrasenia);
         switch (tipo) {
             case -1://si las credenciales son incorrectas
-                this.lbl_mensaje.setText("Usuario y/o Clave incorrectas");
+                this.lbl_mensaje.setText("Correo y/o Clave incorrectas");
                 ManejoComp.colorBorderTxt(this.txt_usuario, Color.RED, Color.GREEN);
                 ManejoComp.colorBorderTxt(this.txt_contrasenia, Color.RED, Color.GREEN);
                 break;
             case 0:// Usuario Bloqueado
-                this.lbl_mensaje.setText("Usuario Bloqueado, contacta a soporte. . .");
+                this.lbl_mensaje.setText("Cuenta Bloqueado, contacta a soporte. . .");
                 ManejoComp.colorBorderTxt(this.txt_usuario, Color.RED, Color.GREEN);
                 ManejoComp.colorBorderTxt(this.txt_contrasenia, Color.RED, Color.GREEN);
                 break;
             case 1:// ADMIN
-                System.out.println("Bienvenido ADMIN " + usuario);
-                this.frmAdmin.iniciarVentana(usuario);
+                System.out.println("Bienvenido ADMIN " + correo);
+                this.frmAdmin.iniciarVentana(correo);
                 this.dispose();
                 break;
             case 2:// AUTOR        
-                System.out.println("Bienvenido AUTOR " + usuario);
+                System.out.println("Bienvenido AUTOR " + correo);
                 break;
             case 3:// LECTOR
-                System.out.println("Bienvenido LECTOR " + usuario);
+                System.out.println("Bienvenido LECTOR " + correo);
                 break;
         }
         this.con.desconectar();
@@ -194,7 +193,6 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
     private void txt_usuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_usuarioKeyTyped
         this.lbl_mensaje.setText("");
         ManejoComp.txtLongitudCondicion(this.txt_usuario, evt, 20);
-        ManejoComp.txtOnlyLetters(evt);
     }//GEN-LAST:event_txt_usuarioKeyTyped
 
     private void txt_contraseniaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_contraseniaKeyTyped

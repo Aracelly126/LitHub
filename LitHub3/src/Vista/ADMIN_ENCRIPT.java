@@ -101,15 +101,15 @@ public class ADMIN_ENCRIPT extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         String cadena = this.txt_normal.getText();
         this.txt_encriptada.setText(Seguridad.Encriptar(cadena));
-        this.lbl_longitudNormal.setText("Longitud: "+this.txt_normal.getText().length());
-        this.lbl_longitudEncriptada.setText("Longitud: "+this.txt_encriptada.getText().length());
+        this.lbl_longitudNormal.setText("Longitud: " + this.txt_normal.getText().length());
+        this.lbl_longitudEncriptada.setText("Longitud: " + this.txt_encriptada.getText().length());
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         String cadena = this.txt_encriptada.getText();
         this.txt_normal.setText(Seguridad.Desencriptar(cadena));
-        this.lbl_longitudEncriptada.setText("Longitud: "+this.txt_encriptada.getText().length());
-        this.lbl_longitudNormal.setText("Longitud: "+this.txt_normal.getText().length());
+        this.lbl_longitudEncriptada.setText("Longitud: " + this.txt_encriptada.getText().length());
+        this.lbl_longitudNormal.setText("Longitud: " + this.txt_normal.getText().length());
     }//GEN-LAST:event_jButton2MouseClicked
 
     public static void main(String args[]) {
