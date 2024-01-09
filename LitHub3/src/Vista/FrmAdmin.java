@@ -254,7 +254,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_navBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_btnLibros.setBackground(new java.awt.Color(36, 35, 53));
-        lbl_btnLibros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_btnLibros.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_btnLibros.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_btnLibrosMouseClicked(evt);
@@ -263,7 +263,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_navBar.add(lbl_btnLibros, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 60, 50, 50));
 
         lbl_btnUsuarios.setBackground(new java.awt.Color(36, 35, 53));
-        lbl_btnUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_btnUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_btnUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_btnUsuariosMouseClicked(evt);
@@ -272,7 +272,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_navBar.add(lbl_btnUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 130, 50, 50));
 
         lbl_btnCerrarSesion.setBackground(new java.awt.Color(36, 35, 53));
-        lbl_btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnl_navBar.add(lbl_btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 590, 50, 50));
 
         pnl_base.add(pnl_navBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 650));
@@ -465,7 +465,11 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_Usuarios.add(lbl_usuTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, 80, 30));
 
         txt_usuCorreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txt_usuCorreo.setEnabled(false);
+        txt_usuCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_usuCorreoActionPerformed(evt);
+            }
+        });
         pnl_Usuarios.add(txt_usuCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 200, 30));
 
         txt_usuNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -482,6 +486,11 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_Usuarios.add(cmb_usuTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 230, 200, 30));
 
         btn_usuGuardar.setText("Guardar");
+        btn_usuGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_usuGuardarActionPerformed(evt);
+            }
+        });
         pnl_Usuarios.add(btn_usuGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 120, 100, 30));
 
         btn_usuActualizar.setText("Actualizar");
@@ -493,7 +502,6 @@ public class FrmAdmin extends javax.swing.JFrame {
         btn_usuLimpiar.setText("Limpiar");
         pnl_Usuarios.add(btn_usuLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 270, 100, 30));
 
-        txt_usuFecNac.setDateFormatString("dd/MM/yyyy");
         txt_usuFecNac.setMaxSelectableDate(new java.util.Date(1262235600000L));
         pnl_Usuarios.add(txt_usuFecNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, 200, 30));
 
@@ -669,6 +677,42 @@ public class FrmAdmin extends javax.swing.JFrame {
     private void txt_libNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_libNombreKeyTyped
         ManejoComp.txtLongitudCondicion(this.txt_libNombre, evt, 50);
     }//GEN-LAST:event_txt_libNombreKeyTyped
+
+    private void btn_usuGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuGuardarActionPerformed
+        // TODO add your handling code here:
+         if (!this.btn_usuGuardar.isEnabled()) {
+            return;
+        }
+        if ( Controles.cadenaVacia(this.txt_usuCorreo.getText()) 
+                || Controles.cadenaVacia(this.cmb_usuTipo.getSelectedItem().toString())
+                || Controles.cadenaVacia(this.txt_usuNombre.getText())
+                || Controles.cadenaVacia(this.txt_usuPais.getText())
+                || Controles.cadenaVacia(this.txt_usuFecNac.getDate().toString())
+                || Controles.cadenaVacia(this.txt_usuApellido.getText())) {
+            JOptionPane.showMessageDialog(this, "Llena todos los campos primero. . .");
+            return;
+        }
+        String fecNac = "";
+        try {
+            fecNac = GestorPrograma.transformarFecha(this.txt_usuFecNac.getDate().toString());
+        } catch (Exception e) {
+            fecNac = "";
+        }
+        
+        Usuario usuarios = new Usuario(
+                        this.txt_usuCorreo.getText(),this.txt_usuNombre.getText(),
+                        this.txt_usuApellido.getText()," ",this.txt_usuPais.getText(),
+                        fecNac, this.cmb_usuTipo.getSelectedItem().toString()
+        );
+        this.gestorBD.insertarUsuario(usuarios);
+        Almacen.getInstance().usuarios.add(usuarios);
+
+        this.iniciarPnlUsuarios();
+    }//GEN-LAST:event_btn_usuGuardarActionPerformed
+
+    private void txt_usuCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usuCorreoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_usuCorreoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_libActualizar;
