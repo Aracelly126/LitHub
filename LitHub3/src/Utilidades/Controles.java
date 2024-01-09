@@ -52,7 +52,7 @@ public class Controles {
     }
 
     public static boolean cadenaVacia(String cadena) {
-        return cadena.isBlank() || cadena.isEmpty();
+        return cadena.length() == 0 || cadena.equals("") || cadena.isEmpty();
     }
 
     public static boolean correoElectronico(String email) {
