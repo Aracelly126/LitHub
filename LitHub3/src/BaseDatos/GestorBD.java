@@ -106,9 +106,6 @@ public class GestorBD {
             preparedStatement.setString(7, usuario.getTipo());
             preparedStatement.executeUpdate();
 
-            // Insertar el usuario en el almacenamiento local (Almacen)
-            Almacen.getInstance().usuarios.add(usuario);
-
             preparedStatement.close();
             this.con.desconectar();
         } catch (Exception e) {
@@ -193,6 +190,36 @@ public class GestorBD {
         }
     }
 
+    public void actualizarUsuario(Usuario usuario) {
+        if (this.con.conectar() == false) {
+            this.con.desconectar();
+            return;
+        }
+
+        try {
+            String consultaUpdate = "UPDATE Usuarios SET NOMBRE = ?, APELLIDO = ?, PAIS = ?, FEC_NAC = ?, TIPO = ? WHERE CORREO = ?";
+            PreparedStatement preparedStatement = this.con.getConexion().prepareStatement(consultaUpdate);
+
+            
+            preparedStatement.setString(1, usuario.getNombre());
+            preparedStatement.setString(2, usuario.getApellido());
+            preparedStatement.setString(3, usuario.getPais());
+            preparedStatement.setString(4, usuario.getFecNac());
+            preparedStatement.setString(5, usuario.getTipo());
+            preparedStatement.setString(6, usuario.getCorreo());
+
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+            this.con.desconectar();
+        } catch (Exception e) {
+            this.con.desconectar();
+            System.out.println("Error en el Método: actualizarUsuario Clase: GestorBD\n" + e);
+        }
+    }
+
+    
+
     public void eliminarLibro(String codigoLibro) {
         if (this.con.conectar() == false) {
             this.con.desconectar();
@@ -217,6 +244,34 @@ public class GestorBD {
         } catch (Exception e) {
             this.con.desconectar();
             System.out.println("Error en el Método: eliminarLibro Clase: GestorBD\n" + e);
+        }
+    }
+
+    public void eliminarUsuario(String correoUsuario) {
+        if (this.con.conectar() == false) {
+            this.con.desconectar();
+            return;
+        }
+
+        try {
+            // Eliminar el usuario de la base de datos
+            String consultaDelete = "DELETE FROM Usuarios WHERE CORREO = ?";
+            PreparedStatement preparedStatement = this.con.getConexion().prepareStatement(consultaDelete);
+            preparedStatement.setString(1, correoUsuario);
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            // Verificar si se eliminó el usuario
+            if (rowsAffected > 0) {
+                System.out.println("Usuario eliminado correctamente de la base de datos");
+            } else {
+                System.out.println("No se encontró el usuario con el correo especificado en la base de datos");
+            }
+
+            preparedStatement.close();
+            this.con.desconectar();
+        } catch (Exception e) {
+            this.con.desconectar();
+            System.out.println("Error en el Método: eliminarUsuario Clase: GestorBD\n" + e);
         }
     }
 

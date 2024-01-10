@@ -96,16 +96,17 @@ public class GestorPrograma {
             return null;
         }
     }
-
-    public static String transformarFechaInverso(String fechaOriginal) {// dd/MM/yyyy to EEE MMM dd HH:mm:ss z yyyy
+  
+    public static Date transformarFechaInverso(String fechaOriginal) {
         try {
             SimpleDateFormat formatoOriginal = new SimpleDateFormat("dd/MM/yyyy");
             Date fecha = formatoOriginal.parse(fechaOriginal + " 00:00:00");
 
             SimpleDateFormat formatoNuevo = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
-            return formatoNuevo.format(fecha);
+            String fechaFormateada = formatoNuevo.format(fecha);
+            return formatoNuevo.parse(fechaFormateada);
         } catch (Exception e) {
-            System.out.println("Error Metodo:transformarFechaInverso Clase:GestorPrograma\n" + e);
+            System.out.println("Error Metodo:transformarFechaInverso Clase:TuClase\n" + e);
             return null;
         }
     }
@@ -230,6 +231,20 @@ public class GestorPrograma {
         Almacen.getInstance().favoritos = nuevosFavoritos;
 
         System.out.println("Favoritos asociados al libro con código " + codigoLibro + " eliminados del almacen.");
+    }
+    
+    public static void eliminarLibrosPorAutor(String correo){
+        ArrayList<Libro> nuevosLibros = new ArrayList<>();
+        
+        for (Libro libro : Almacen.getInstance().libros) {
+            if (!libro.getCorreoUsu().equals(correo)) {
+                nuevosLibros.add(libro);
+            }
+            
+        }
+        
+        Almacen.getInstance().libros = nuevosLibros;
+        
     }
 
 }

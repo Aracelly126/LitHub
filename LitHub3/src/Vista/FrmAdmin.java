@@ -237,7 +237,6 @@ public class FrmAdmin extends javax.swing.JFrame {
         txt_usuApellido = new javax.swing.JTextField();
         txt_usuPais = new javax.swing.JTextField();
         cmb_usuTipo = new javax.swing.JComboBox<>();
-        btn_usuGuardar = new javax.swing.JButton();
         btn_usuActualizar = new javax.swing.JButton();
         btn_usuEliminar = new javax.swing.JButton();
         btn_usuLimpiar = new javax.swing.JButton();
@@ -430,6 +429,11 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_Usuarios.add(lbl_MensajeSeccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 40, -1, -1));
 
         tbl_usuarios.setModel(this.modelTblUsuarioss);
+        tbl_usuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_usuariosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbl_usuarios);
 
         pnl_Usuarios.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 890, 280));
@@ -437,32 +441,32 @@ public class FrmAdmin extends javax.swing.JFrame {
         lbl_usuCorreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_usuCorreo.setForeground(new java.awt.Color(0, 0, 0));
         lbl_usuCorreo.setText("Correo: ");
-        pnl_Usuarios.add(lbl_usuCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 80, 30));
+        pnl_Usuarios.add(lbl_usuCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 80, 30));
 
         lbl_usuNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_usuNombre.setForeground(new java.awt.Color(0, 0, 0));
         lbl_usuNombre.setText("Nombre:");
-        pnl_Usuarios.add(lbl_usuNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 80, 30));
+        pnl_Usuarios.add(lbl_usuNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 80, 30));
 
         lbl_usuApellido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_usuApellido.setForeground(new java.awt.Color(0, 0, 0));
         lbl_usuApellido.setText("Apellido:");
-        pnl_Usuarios.add(lbl_usuApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 80, 30));
+        pnl_Usuarios.add(lbl_usuApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 80, 30));
 
         lbl_usuPais.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_usuPais.setForeground(new java.awt.Color(0, 0, 0));
         lbl_usuPais.setText("Pais:");
-        pnl_Usuarios.add(lbl_usuPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, 80, 30));
+        pnl_Usuarios.add(lbl_usuPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, 80, 30));
 
         lbl_usuFecNac.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_usuFecNac.setForeground(new java.awt.Color(0, 0, 0));
         lbl_usuFecNac.setText("Fecha Nac:");
-        pnl_Usuarios.add(lbl_usuFecNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 190, 80, 30));
+        pnl_Usuarios.add(lbl_usuFecNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 180, 80, 30));
 
         lbl_usuTipo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_usuTipo.setForeground(new java.awt.Color(0, 0, 0));
         lbl_usuTipo.setText("Tipo:");
-        pnl_Usuarios.add(lbl_usuTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, 80, 30));
+        pnl_Usuarios.add(lbl_usuTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 220, 80, 30));
 
         txt_usuCorreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_usuCorreo.addActionListener(new java.awt.event.ActionListener() {
@@ -470,28 +474,20 @@ public class FrmAdmin extends javax.swing.JFrame {
                 txt_usuCorreoActionPerformed(evt);
             }
         });
-        pnl_Usuarios.add(txt_usuCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 200, 30));
+        pnl_Usuarios.add(txt_usuCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 200, 30));
 
         txt_usuNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        pnl_Usuarios.add(txt_usuNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 200, 30));
+        pnl_Usuarios.add(txt_usuNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 200, 30));
 
         txt_usuApellido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        pnl_Usuarios.add(txt_usuApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, 200, 30));
+        pnl_Usuarios.add(txt_usuApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 200, 30));
 
         txt_usuPais.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        pnl_Usuarios.add(txt_usuPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, 200, 30));
+        pnl_Usuarios.add(txt_usuPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, 200, 30));
 
         cmb_usuTipo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmb_usuTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMIN", "AUTOR", "LECTOR" }));
-        pnl_Usuarios.add(cmb_usuTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 230, 200, 30));
-
-        btn_usuGuardar.setText("Guardar");
-        btn_usuGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_usuGuardarActionPerformed(evt);
-            }
-        });
-        pnl_Usuarios.add(btn_usuGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 120, 100, 30));
+        pnl_Usuarios.add(cmb_usuTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, 200, 30));
 
         btn_usuActualizar.setText("Actualizar");
         btn_usuActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -499,10 +495,15 @@ public class FrmAdmin extends javax.swing.JFrame {
                 btn_usuActualizarActionPerformed(evt);
             }
         });
-        pnl_Usuarios.add(btn_usuActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 170, 100, 30));
+        pnl_Usuarios.add(btn_usuActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 130, 100, 30));
 
         btn_usuEliminar.setText("Eliminar");
-        pnl_Usuarios.add(btn_usuEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 220, 100, 30));
+        btn_usuEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_usuEliminarActionPerformed(evt);
+            }
+        });
+        pnl_Usuarios.add(btn_usuEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 180, 100, 30));
 
         btn_usuLimpiar.setText("Limpiar");
         btn_usuLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -510,10 +511,10 @@ public class FrmAdmin extends javax.swing.JFrame {
                 btn_usuLimpiarActionPerformed(evt);
             }
         });
-        pnl_Usuarios.add(btn_usuLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 270, 100, 30));
+        pnl_Usuarios.add(btn_usuLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 230, 100, 30));
 
         txt_usuFecNac.setMaxSelectableDate(new java.util.Date(1262235600000L));
-        pnl_Usuarios.add(txt_usuFecNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, 200, 30));
+        pnl_Usuarios.add(txt_usuFecNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 180, 200, 30));
 
         pnlTb_Menu.addTab("", pnl_Usuarios);
 
@@ -688,12 +689,23 @@ public class FrmAdmin extends javax.swing.JFrame {
         ManejoComp.txtLongitudCondicion(this.txt_libNombre, evt, 50);
     }//GEN-LAST:event_txt_libNombreKeyTyped
 
-    private void btn_usuGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuGuardarActionPerformed
+    private void txt_usuCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usuCorreoActionPerformed
         // TODO add your handling code here:
-         if (!this.btn_usuGuardar.isEnabled()) {
+    }//GEN-LAST:event_txt_usuCorreoActionPerformed
+
+    private void btn_usuLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuLimpiarActionPerformed
+        // TODO add your handling code here:
+        this.iniciarPnlUsuarios();
+        this.limpiarPnlUsuarios();
+    }//GEN-LAST:event_btn_usuLimpiarActionPerformed
+
+    private void btn_usuActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuActualizarActionPerformed
+        // TODO add your handling code here:
+          if (!this.btn_usuActualizar.isEnabled()) {
             return;
         }
-        if ( Controles.cadenaVacia(this.txt_usuCorreo.getText()) 
+        int index = this.tbl_usuarios.getSelectedRow();
+        if (Controles.cadenaVacia(this.txt_usuCorreo.getText()) 
                 || Controles.cadenaVacia(this.cmb_usuTipo.getSelectedItem().toString())
                 || Controles.cadenaVacia(this.txt_usuNombre.getText())
                 || Controles.cadenaVacia(this.txt_usuPais.getText())
@@ -714,25 +726,49 @@ public class FrmAdmin extends javax.swing.JFrame {
                         this.txt_usuApellido.getText()," ",this.txt_usuPais.getText(),
                         fecNac, this.cmb_usuTipo.getSelectedItem().toString()
         );
-        this.gestorBD.insertarUsuario(usuarios);
-        Almacen.getInstance().usuarios.add(usuarios);
+        this.gestorBD.actualizarUsuario(usuarios);
+        Almacen.getInstance().usuarios.set(index, usuarios);
 
-        this.iniciarPnlUsuarios();
-    }//GEN-LAST:event_btn_usuGuardarActionPerformed
-
-    private void txt_usuCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usuCorreoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_usuCorreoActionPerformed
-
-    private void btn_usuLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuLimpiarActionPerformed
-        // TODO add your handling code here:
-        this.iniciarPnlUsuarios();
-        this.limpiarPnlUsuarios();
-    }//GEN-LAST:event_btn_usuLimpiarActionPerformed
-
-    private void btn_usuActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuActualizarActionPerformed
-        // TODO add your handling code here:
+        this.btn_usuLimpiarActionPerformed(evt);
     }//GEN-LAST:event_btn_usuActualizarActionPerformed
+
+    private void tbl_usuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_usuariosMouseClicked
+        // TODO add your handling code here:
+        int index = this.tbl_usuarios.getSelectedRow();
+
+        this.usuarioSeleccionado = GestorPrograma.buscarUsuario((String) this.modelTblUsuarioss.getValueAt(index, 0));
+        //Usuario autor = GestorPrograma.buscarUsuario(this.libroSeleccionado.getCorreoUsu());
+
+        this.txt_usuCorreo.setText(this.usuarioSeleccionado.getCorreo());
+        this.cmb_usuTipo.setSelectedItem(this.usuarioSeleccionado.getTipo());
+        this.txt_usuNombre.setText(this.usuarioSeleccionado.getNombre());
+        this.txt_usuApellido.setText(this.usuarioSeleccionado.getApellido());
+        this.txt_usuPais.setText(this.usuarioSeleccionado.getPais());
+        this.txt_usuFecNac.setDate(GestorPrograma.transformarFechaInverso(this.usuarioSeleccionado.getFecNac()));
+
+       // ManejoComp.crearlabel(this.lbl_libPortada, "SYSTEM/libros/" + Almacen.getInstance().libros.get(index).getCodigo() + ".png");
+        this.btn_usuEliminar.setEnabled(true);
+        this.btn_usuActualizar.setEnabled(true);
+        this.btn_usuLimpiar.setEnabled(false);
+    }//GEN-LAST:event_tbl_usuariosMouseClicked
+
+    private void btn_usuEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuEliminarActionPerformed
+        // TODO add your handling code here:
+        if (this.btn_usuEliminar.isEnabled() == false) {
+            return;
+        }
+        int index = this.tbl_usuarios.getSelectedRow();
+
+        gestorBD.eliminarUsuario(this.usuarioSeleccionado.getCorreo());
+        
+        // Eliminar el libro del almacenamiento local (Almacen)
+        Almacen.getInstance().usuarios.remove(index);
+        GestorPrograma.eliminarLibrosPorAutor(this.usuarioSeleccionado.getCorreo());
+        this.usuarioSeleccionado = null;
+
+        this.iniciarPnlUsuarios();
+        this.iniciarPnlLibros();
+    }//GEN-LAST:event_btn_usuEliminarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_libActualizar;
@@ -744,7 +780,6 @@ public class FrmAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btn_libNuevoCodigo;
     private javax.swing.JButton btn_usuActualizar;
     private javax.swing.JButton btn_usuEliminar;
-    private javax.swing.JButton btn_usuGuardar;
     private javax.swing.JButton btn_usuLimpiar;
     private javax.swing.JComboBox<String> cmb_libAutores;
     private javax.swing.JComboBox<String> cmb_libGeneros;
