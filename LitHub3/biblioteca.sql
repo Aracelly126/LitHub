@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3387
--- Tiempo de generación: 09-01-2024 a las 02:36:19
+-- Servidor: localhost
+-- Tiempo de generación: 10-01-2024 a las 23:57:15
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -44,9 +44,16 @@ CREATE TABLE `libros` (
   `CORREO_USU` varchar(30) DEFAULT NULL,
   `NOMBRE` varchar(50) DEFAULT NULL,
   `GENERO` varchar(20) DEFAULT NULL,
-  `NUM_PAG` int(11) DEFAULT NULL CHECK (`NUM_PAG` <= 500),
+  `NUM_PAG` int(11) DEFAULT NULL,
   `PRESTADO` varchar(2) DEFAULT NULL CHECK (`PRESTADO` in ('SI','NO'))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `libros`
+--
+
+INSERT INTO `libros` (`CODIGO`, `CORREO_USU`, `NOMBRE`, `GENERO`, `NUM_PAG`, `PRESTADO`) VALUES
+('3676690304', 'autor@root.com', 'NoEliminar', 'Castigo', 5000, 'NO');
 
 -- --------------------------------------------------------
 
@@ -84,9 +91,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`CORREO`, `NOMBRE`, `APELLIDO`, `CLAVE`, `PAIS`, `FEC_NAC`, `TIPO`) VALUES
-('autor@gmail.com', 'Autorsito', 'Apellido', 'jwsOqUAUo34LypnjDIeAzQ==', 'Ecuador', '02/05/2003', 'AUTOR'),
-('correo2@gmail.com', 'Autorsote', 'XD', '1/FeoAyrgIfTGqDwTyrSZA==', 'Ecuador', '02/02/2002', 'AUTOR'),
-('pepito@gmail.com', 'Anuel', NULL, 'lruxImViiJZybBeV1xN/zQ==', NULL, '05/02/2003', 'ADMIN');
+('admin@root.com', 'admin', 'NoEliminar', 'lruxImViiJZybBeV1xN/zQ==', 'LaLuna', '31/01/2009', 'ADMIN'),
+('autor@root.com', 'Autor', 'NoEliminar', 'lruxImViiJZybBeV1xN/zQ==', 'Peru', '01/01/2000', 'AUTOR'),
+('lector@root.com', 'lector', 'NoEliminar', 'lruxImViiJZybBeV1xN/zQ==', 'Lectolandia', '25/01/2006', 'LECTOR');
 
 --
 -- Índices para tablas volcadas
