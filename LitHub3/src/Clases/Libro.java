@@ -5,9 +5,15 @@ import javax.swing.ImageIcon;
 
 public class Libro {
 
+<<<<<<< HEAD
     private String titulo;
     private ImageIcon image;
     private String sinopsis;
+=======
+    private String codigo;
+    private String CORREO_USU;
+    private String nombre;
+>>>>>>> copiaSeguridad
     private String genero;
     private int nPaginas;
     private int codigoPdf;
@@ -19,6 +25,7 @@ public class Libro {
         return this.clave;
     }
 
+<<<<<<< HEAD
     public void setClave(int clave) {
         this.clave = clave;
     }
@@ -27,6 +34,12 @@ public class Libro {
         this.titulo = titulo;
         this.sinopsis = sinopsis;
         this.image = redimensionarImagen("/imagenes/" + rutaImagen, anchoPanel, altoPanel);
+=======
+    public Libro(String codigo, String correo_usu, String nombre, String genero, int numPag, String prestado) {
+        this.codigo = codigo;
+        this.CORREO_USU = correo_usu;
+        this.nombre = nombre;
+>>>>>>> copiaSeguridad
         this.genero = genero;
         this.nPaginas = nPaginas;
         this.codigoPdf = nPaginas;
@@ -53,12 +66,21 @@ public class Libro {
         return this.archivoPdf;
     }
 
+<<<<<<< HEAD
     public void setArchivoPdf(byte[] archivoPdf) {
         this.archivoPdf = archivoPdf;
     }
 
     public int getCodigoPdf() {
         return this.codigoPdf;
+=======
+    public void setAutor(String autor) {
+        this.CORREO_USU = autor;
+    }
+
+    public String getCorreoUsu() {
+        return this.CORREO_USU;
+>>>>>>> copiaSeguridad
     }
 
     public void setCodigoPdf(int codigoPdf) {

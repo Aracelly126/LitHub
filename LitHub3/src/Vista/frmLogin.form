@@ -125,13 +125,18 @@
             </Constraint>
           </Constraints>
         </Component>
+<<<<<<< HEAD:LitHub3/src/Vista/frmLogin.form
         <Component class="javax.swing.JTextField" name="txtUsuario">
+=======
+        <Component class="javax.swing.JLabel" name="lbl_correo">
+>>>>>>> copiaSeguridad:LitHub3/build/classes/Vista/FrmIniciarSesion.form
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                 <LineBorder/>
               </Border>
             </Property>
+<<<<<<< HEAD:LitHub3/src/Vista/frmLogin.form
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -163,6 +168,9 @@
         <Component class="javax.swing.JLabel" name="label_usuario">
           <Properties>
             <Property name="text" type="java.lang.String" value="Usuario:"/>
+=======
+            <Property name="text" type="java.lang.String" value="Correo:"/>
+>>>>>>> copiaSeguridad:LitHub3/build/classes/Vista/FrmIniciarSesion.form
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -170,8 +178,33 @@
             </Constraint>
           </Constraints>
         </Component>
+<<<<<<< HEAD:LitHub3/src/Vista/frmLogin.form
         <Component class="javax.swing.JLabel" name="label_contrase&#xf1;a">
           <Properties>
+=======
+        <Component class="javax.swing.JTextField" name="txt_correo">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_correoKeyTyped"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="90" y="200" width="190" height="30"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbl_contrasenia">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+>>>>>>> copiaSeguridad:LitHub3/build/classes/Vista/FrmIniciarSesion.form
             <Property name="text" type="java.lang.String" value="Contrase&#xf1;a:"/>
           </Properties>
           <Constraints>
