@@ -6,20 +6,12 @@ import javax.swing.JOptionPane;
 
 public class Conexion {
 
-    //PUERTO PARA ARACELLY
-    private String puerto = "3387";
-    //PUERTO PARA LOS DEMAS
-    //private String puerto = "3306";
+    private String puerto = "3415";
 
-    //URL DE LA BD
     private String url = "jdbc:mysql://localhost:" + puerto + "/biblioteca";
 
-    //USUARIO
     private String user = "root";
-    //CLAVE PARA ARACELLY
     private String clave = "";
-    //CLAVE PARA LOS DEMAS
-    //private String clave = "root";
 
     private Connection con;
 

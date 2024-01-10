@@ -28,7 +28,7 @@ public class Controles {
         for (Usuario usuario : Almacen.getInstance().usuarios) {
             String correo = usuario.getCorreo();
             String clave = usuario.getClave();
-            if (GestorPrograma.buscarUsuario(correo) != null) {
+            if (GestorPrograma.buscarUsuario(user) != null) {
                 UserExiste = true;
                 if (clave.equals(Seguridad.Encriptar(contrasenia))) {
                     switch (usuario.getTipo()) {

@@ -1,10 +1,13 @@
 package Vista;
 
+import BaseDatos.Almacen;
 import BaseDatos.Conexion;
+import Clases.Usuario;
 import Utilidades.Controles;
 import Utilidades.GestorPrograma;
 import Utilidades.ManejoComp;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 public class frmregistro extends javax.swing.JFrame {
 
@@ -38,6 +41,16 @@ public class frmregistro extends javax.swing.JFrame {
         ManejoComp.crearVerPassword(this.txt_contrasenia, this.btn_verContrasenia);
         ManejoComp.crearVerPassword(this.txt_confContrasenia, this.btn_verConfContrasenia);
         ManejoComp.crearlabel(this.lbl_izquierda, "SYSTEM/src/img_fondo2.png");
+    }
+    
+    public void limpiarPanel(){
+        this.txt_nombre.setText("");
+        this.txt_apellido.setText("");
+        this.cmb_tipo.setSelectedIndex(0);
+        this.txt_pais.setText("");
+        this.txt_correo.setText("");
+        this.txt_contrasenia.setText("");
+        this.txt_confContrasenia.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -112,6 +125,7 @@ public class frmregistro extends javax.swing.JFrame {
         lbl_fechaNac.setText("Fecha de Nacimiento");
         pnl_registro.add(lbl_fechaNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, -1, -1));
 
+        txt_fecNac.setDateFormatString("dd/MM/yyyy");
         txt_fecNac.setMaxSelectableDate(new java.util.Date(1262235600000L));
         pnl_registro.add(txt_fecNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 120, 30));
 
@@ -171,15 +185,10 @@ public class frmregistro extends javax.swing.JFrame {
         pnl_registro.add(txt_confContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 440, 250, 30));
 
         btn_registrar.setText("Registrarse");
-        btn_registrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_registrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_registrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_registrarMouseClicked(evt);
-            }
-        });
-        btn_registrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_registrarActionPerformed(evt);
             }
         });
         pnl_registro.add(btn_registrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 500, -1, -1));
@@ -192,15 +201,15 @@ public class frmregistro extends javax.swing.JFrame {
         btn_inicio.setText("iniciar sesion");
         btn_inicio.setBorder(null);
         btn_inicio.setContentAreaFilled(false);
-        btn_inicio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_inicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnl_registro.add(btn_inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 550, -1, -1));
 
         btn_verConfContrasenia.setText("Ver");
-        btn_verConfContrasenia.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_verConfContrasenia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnl_registro.add(btn_verConfContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 445, 55, 20));
 
         btn_verContrasenia.setText("Ver");
-        btn_verContrasenia.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_verContrasenia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnl_registro.add(btn_verContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 385, 55, 20));
 
         getContentPane().add(pnl_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 510, 590));
@@ -261,8 +270,10 @@ public class frmregistro extends javax.swing.JFrame {
             this.con.desconectar();
             return;
         }
-        GestorPrograma.crearUsuario(nombre, apellido, fecNac, tipo, pais, correo, contrasenia1);
+        GestorPrograma.agregarNuevoUsuario( correo, nombre, apellido, fecNac, tipo, pais, contrasenia1);
         this.con.desconectar();
+        JOptionPane.showMessageDialog(this, "Nuevo " + this.cmb_tipo.getSelectedItem().toString() + " creado. . .");
+        this.limpiarPanel();
     }//GEN-LAST:event_btn_registrarMouseClicked
 
     private void txt_nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nombreKeyTyped
@@ -276,25 +287,21 @@ public class frmregistro extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_apellidoKeyTyped
 
     private void txt_paisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_paisKeyTyped
-        ManejoComp.txtLongitudCondicion(this.txt_nombre, evt, 20);
+        ManejoComp.txtLongitudCondicion(this.txt_pais, evt, 20);
         ManejoComp.txtOnlyLetters(evt);
     }//GEN-LAST:event_txt_paisKeyTyped
 
     private void txt_correoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_correoKeyTyped
-        // TODO add your handling code here:
+        ManejoComp.txtLongitudCondicion(this.txt_correo, evt, 30);
     }//GEN-LAST:event_txt_correoKeyTyped
 
     private void txt_contraseniaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_contraseniaKeyTyped
-        ManejoComp.txtLongitudCondicion(this.txt_contrasenia, evt, 20);
+        ManejoComp.txtLongitudCondicion(this.txt_contrasenia, evt, 15);
     }//GEN-LAST:event_txt_contraseniaKeyTyped
 
     private void txt_confContraseniaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_confContraseniaKeyTyped
-        ManejoComp.txtLongitudCondicion(this.txt_contrasenia, evt, 20);
+        ManejoComp.txtLongitudCondicion(this.txt_contrasenia, evt, 15);
     }//GEN-LAST:event_txt_confContraseniaKeyTyped
-
-    private void btn_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_registrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btn_inicio;

@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class FrmAdmin extends javax.swing.JFrame {
 
-    private Usuario usuarioActual = new Usuario();
+    private Usuario SesionActual = new Usuario();
     private GestorBD gestorBD = new GestorBD();
 
     private String[] tblLibrosTitulos = {"CODIGO", "AUTOR", "NOMBRE", "GENERO", "NUMERO PAGS"};
@@ -102,8 +102,9 @@ public class FrmAdmin extends javax.swing.JFrame {
         //</editor-fold>
     }
 
-    public void iniciarVentana(String nombreUser) {
-        this.usuarioActual = GestorPrograma.buscarUsuario(nombreUser);
+    public void iniciarVentana(String correoUser) {
+        this.SesionActual = GestorPrograma.buscarUsuario(correoUser);
+        System.out.println("Bienvenido: " + this.SesionActual.getNombre());
 
         iniciarPnlLibros();
         iniciarPnlUsuarios();
@@ -173,6 +174,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         this.btn_libAgregarPdf.setEnabled(true);
         this.btn_libEliminar.setEnabled(false);
         this.btn_libActualizar.setEnabled(false);
+        this.btn_libNuevoCodigo.setEnabled(true);
     }
     
     public void limpiarPnlUsuarios(){
@@ -181,6 +183,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         this.txt_usuCorreo.setText("");
         this.txt_usuNombre.setText("");
         this.txt_usuApellido.setText("");
+        this.txt_usuPais.setText("");
         this.txt_usuFecNac.setDate(null);
         this.cmb_usuTipo.setSelectedIndex(0);
         
@@ -295,6 +298,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_Libros.add(lbl_libPortada, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 170, 210));
 
         btn_libAgregarPortada.setText("Agregar portada");
+        btn_libAgregarPortada.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_libAgregarPortada.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_libAgregarPortadaMouseClicked(evt);
@@ -303,6 +307,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_Libros.add(btn_libAgregarPortada, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 170, 30));
 
         btn_libAgregarPdf.setText("Agregar pdf");
+        btn_libAgregarPdf.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_libAgregarPdf.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_libAgregarPdfMouseClicked(evt);
@@ -361,6 +366,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_Libros.add(txt_libNumPags, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 300, 30));
 
         btn_libGuardar.setText("Guardar");
+        btn_libGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_libGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_libGuardarMouseClicked(evt);
@@ -369,6 +375,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_Libros.add(btn_libGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 110, 100, 30));
 
         btn_libActualizar.setText("Actualizar");
+        btn_libActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_libActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_libActualizarMouseClicked(evt);
@@ -377,6 +384,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_Libros.add(btn_libActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 160, 100, 30));
 
         btn_libEliminar.setText("Eliminar");
+        btn_libEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_libEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_libEliminarMouseClicked(evt);
@@ -385,6 +393,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_Libros.add(btn_libEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 210, 100, 30));
 
         btn_libLimpiar.setText("Limpiar");
+        btn_libLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_libLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_libLimpiarMouseClicked(evt);
@@ -405,6 +414,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_Libros.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 890, 270));
 
         btn_libNuevoCodigo.setText("Nuevo");
+        btn_libNuevoCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_libNuevoCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_libNuevoCodigoMouseClicked(evt);
@@ -469,20 +479,36 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_Usuarios.add(lbl_usuTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 220, 80, 30));
 
         txt_usuCorreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txt_usuCorreo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_usuCorreoActionPerformed(evt);
+        txt_usuCorreo.setEnabled(false);
+        txt_usuCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_usuCorreoKeyTyped(evt);
             }
         });
         pnl_Usuarios.add(txt_usuCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 200, 30));
 
         txt_usuNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txt_usuNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_usuNombreKeyTyped(evt);
+            }
+        });
         pnl_Usuarios.add(txt_usuNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 200, 30));
 
         txt_usuApellido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txt_usuApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_usuApellidoKeyTyped(evt);
+            }
+        });
         pnl_Usuarios.add(txt_usuApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 200, 30));
 
         txt_usuPais.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txt_usuPais.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_usuPaisKeyTyped(evt);
+            }
+        });
         pnl_Usuarios.add(txt_usuPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, 200, 30));
 
         cmb_usuTipo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -490,14 +516,19 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_Usuarios.add(cmb_usuTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, 200, 30));
 
         btn_usuActualizar.setText("Actualizar");
-        btn_usuActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_usuActualizarActionPerformed(evt);
+        btn_usuActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_usuActualizarMouseClicked(evt);
             }
         });
         pnl_Usuarios.add(btn_usuActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 130, 100, 30));
 
         btn_usuEliminar.setText("Eliminar");
+        btn_usuEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_usuEliminarMouseClicked(evt);
+            }
+        });
         btn_usuEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_usuEliminarActionPerformed(evt);
@@ -513,6 +544,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         });
         pnl_Usuarios.add(btn_usuLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 230, 100, 30));
 
+        txt_usuFecNac.setDateFormatString("dd/MM/yyyy");
         txt_usuFecNac.setMaxSelectableDate(new java.util.Date(1262235600000L));
         pnl_Usuarios.add(txt_usuFecNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 180, 200, 30));
 
@@ -562,6 +594,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         this.btn_libAgregarPdf.setEnabled(false);
         this.btn_libEliminar.setEnabled(true);
         this.btn_libActualizar.setEnabled(true);
+        this.btn_libNuevoCodigo.setEnabled(false);
     }//GEN-LAST:event_tbl_librosMouseClicked
 
     private void btn_libAgregarPortadaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libAgregarPortadaMouseClicked
@@ -573,6 +606,7 @@ public class FrmAdmin extends javax.swing.JFrame {
             return;
         }
         ManejoComp.crearlabel(this.lbl_libPortada, this.urlPortada);
+        this.btn_libAgregarPortada.setEnabled(false);
     }//GEN-LAST:event_btn_libAgregarPortadaMouseClicked
 
     private void btn_libAgregarPdfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libAgregarPdfMouseClicked
@@ -581,6 +615,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         }
         this.urlPdf = GestorPrograma.seleccionarPDF();
         this.lbl_libNombreArchivoPdf.setText(this.urlPdf);
+        this.btn_libAgregarPdf.setEnabled(false);
     }//GEN-LAST:event_btn_libAgregarPdfMouseClicked
 
     private void btn_libGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libGuardarMouseClicked
@@ -597,6 +632,10 @@ public class FrmAdmin extends javax.swing.JFrame {
         }
         if (Controles.cadenaVacia(this.urlPortada) || Controles.cadenaVacia(this.urlPdf)) {
             JOptionPane.showMessageDialog(this, "Portada o PDF faltantes, intenta de nuevo. . .");
+            return;
+        }
+        if(Integer.parseInt(this.txt_libNumPags.getText()) > 5000){
+            JOptionPane.showMessageDialog(this, "Libros con mas de 5000 paginas no aceptados");
             return;
         }
         String selectedText = this.cmb_libAutores.getSelectedItem().toString();
@@ -627,6 +666,10 @@ public class FrmAdmin extends javax.swing.JFrame {
                 || Controles.cadenaVacia(this.cmb_libGeneros.getSelectedItem().toString())
                 || Controles.cadenaVacia(this.txt_libNumPags.getText())) {
             JOptionPane.showMessageDialog(this, "Llena todos los campos primero. . .");
+            return;
+        }
+        if(Integer.parseInt(this.txt_libNumPags.getText()) > 5000){
+            JOptionPane.showMessageDialog(this, "Libros con mas de 5000 paginas no aceptados");
             return;
         }
         String selectedText = this.cmb_libAutores.getSelectedItem().toString();
@@ -674,6 +717,9 @@ public class FrmAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_libLimpiarMouseClicked
 
     private void btn_libNuevoCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libNuevoCodigoMouseClicked
+        if(this.btn_libNuevoCodigo.isEnabled() == false){
+            return;
+        }
         this.txt_libCodigo.setText(GestorPrograma.generarCadenaNumAleatoria(10));
     }//GEN-LAST:event_btn_libNuevoCodigoMouseClicked
 
@@ -683,15 +729,13 @@ public class FrmAdmin extends javax.swing.JFrame {
 
     private void txt_libNumPagsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_libNumPagsKeyTyped
         ManejoComp.txtOnlyNumbers(evt);
+        ManejoComp.txtLongitudCondicion(this.txt_libNumPags, evt, 4);
+        
     }//GEN-LAST:event_txt_libNumPagsKeyTyped
 
     private void txt_libNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_libNombreKeyTyped
         ManejoComp.txtLongitudCondicion(this.txt_libNombre, evt, 50);
     }//GEN-LAST:event_txt_libNombreKeyTyped
-
-    private void txt_usuCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usuCorreoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_usuCorreoActionPerformed
 
     private void btn_usuLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuLimpiarActionPerformed
         // TODO add your handling code here:
@@ -699,8 +743,70 @@ public class FrmAdmin extends javax.swing.JFrame {
         this.limpiarPnlUsuarios();
     }//GEN-LAST:event_btn_usuLimpiarActionPerformed
 
-    private void btn_usuActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuActualizarActionPerformed
+    private void tbl_usuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_usuariosMouseClicked
         // TODO add your handling code here:
+        int index = this.tbl_usuarios.getSelectedRow();
+
+        this.usuarioSeleccionado = GestorPrograma.buscarUsuario((String) this.modelTblUsuarioss.getValueAt(index, 0));
+        //Usuario autor = GestorPrograma.buscarUsuario(this.libroSeleccionado.getCorreoUsu());
+
+        this.txt_usuCorreo.setText(this.usuarioSeleccionado.getCorreo());
+        this.cmb_usuTipo.setSelectedItem(this.usuarioSeleccionado.getTipo());
+        this.txt_usuNombre.setText(this.usuarioSeleccionado.getNombre());
+        this.txt_usuApellido.setText(this.usuarioSeleccionado.getApellido());
+        this.txt_usuPais.setText(this.usuarioSeleccionado.getPais());
+        this.txt_usuFecNac.setDate(GestorPrograma.transformarFechaInverso(this.usuarioSeleccionado.getFecNac()));
+
+       // ManejoComp.crearlabel(this.lbl_libPortada, "SYSTEM/libros/" + Almacen.getInstance().libros.get(index).getCodigo() + ".png");
+        this.btn_usuEliminar.setEnabled(true);
+        this.btn_usuActualizar.setEnabled(true);
+    }//GEN-LAST:event_tbl_usuariosMouseClicked
+
+    private void btn_usuEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuEliminarActionPerformed
+        
+    }//GEN-LAST:event_btn_usuEliminarActionPerformed
+
+    private void txt_usuCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_usuCorreoKeyTyped
+        ManejoComp.txtLongitudCondicion(this.txt_usuCorreo, evt, 30);
+    }//GEN-LAST:event_txt_usuCorreoKeyTyped
+
+    private void txt_usuNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_usuNombreKeyTyped
+        ManejoComp.txtLongitudCondicion(this.txt_usuNombre, evt, 20);
+        ManejoComp.txtOnlyLetters(evt);
+    }//GEN-LAST:event_txt_usuNombreKeyTyped
+
+    private void txt_usuApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_usuApellidoKeyTyped
+        ManejoComp.txtLongitudCondicion(this.txt_usuApellido, evt, 20);
+        ManejoComp.txtOnlyLetters(evt);
+    }//GEN-LAST:event_txt_usuApellidoKeyTyped
+
+    private void txt_usuPaisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_usuPaisKeyTyped
+        ManejoComp.txtLongitudCondicion(this.txt_usuNombre, evt, 20);
+        ManejoComp.txtOnlyLetters(evt);
+    }//GEN-LAST:event_txt_usuPaisKeyTyped
+
+    private void btn_usuEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_usuEliminarMouseClicked
+        if (this.btn_usuEliminar.isEnabled() == false) {
+            return;
+        }
+        if(this.txt_usuCorreo.getText().equals(this.SesionActual.getCorreo())){
+            JOptionPane.showMessageDialog(this, "No puedes autoDarte de baja\nContacta a otro administrador. . .");
+            return;
+        }
+        int index = this.tbl_usuarios.getSelectedRow();
+
+        gestorBD.eliminarUsuario(this.usuarioSeleccionado.getCorreo());
+        
+        // Eliminar el libro del almacenamiento local (Almacen)
+        Almacen.getInstance().usuarios.remove(index);
+        GestorPrograma.eliminarLibrosPorAutor(this.usuarioSeleccionado.getCorreo());
+        this.usuarioSeleccionado = null;
+
+        this.iniciarPnlUsuarios();
+        this.iniciarPnlLibros();
+    }//GEN-LAST:event_btn_usuEliminarMouseClicked
+
+    private void btn_usuActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_usuActualizarMouseClicked
           if (!this.btn_usuActualizar.isEnabled()) {
             return;
         }
@@ -729,46 +835,8 @@ public class FrmAdmin extends javax.swing.JFrame {
         this.gestorBD.actualizarUsuario(usuarios);
         Almacen.getInstance().usuarios.set(index, usuarios);
 
-        this.btn_usuLimpiarActionPerformed(evt);
-    }//GEN-LAST:event_btn_usuActualizarActionPerformed
-
-    private void tbl_usuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_usuariosMouseClicked
-        // TODO add your handling code here:
-        int index = this.tbl_usuarios.getSelectedRow();
-
-        this.usuarioSeleccionado = GestorPrograma.buscarUsuario((String) this.modelTblUsuarioss.getValueAt(index, 0));
-        //Usuario autor = GestorPrograma.buscarUsuario(this.libroSeleccionado.getCorreoUsu());
-
-        this.txt_usuCorreo.setText(this.usuarioSeleccionado.getCorreo());
-        this.cmb_usuTipo.setSelectedItem(this.usuarioSeleccionado.getTipo());
-        this.txt_usuNombre.setText(this.usuarioSeleccionado.getNombre());
-        this.txt_usuApellido.setText(this.usuarioSeleccionado.getApellido());
-        this.txt_usuPais.setText(this.usuarioSeleccionado.getPais());
-        this.txt_usuFecNac.setDate(GestorPrograma.transformarFechaInverso(this.usuarioSeleccionado.getFecNac()));
-
-       // ManejoComp.crearlabel(this.lbl_libPortada, "SYSTEM/libros/" + Almacen.getInstance().libros.get(index).getCodigo() + ".png");
-        this.btn_usuEliminar.setEnabled(true);
-        this.btn_usuActualizar.setEnabled(true);
-        this.btn_usuLimpiar.setEnabled(false);
-    }//GEN-LAST:event_tbl_usuariosMouseClicked
-
-    private void btn_usuEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuEliminarActionPerformed
-        // TODO add your handling code here:
-        if (this.btn_usuEliminar.isEnabled() == false) {
-            return;
-        }
-        int index = this.tbl_usuarios.getSelectedRow();
-
-        gestorBD.eliminarUsuario(this.usuarioSeleccionado.getCorreo());
-        
-        // Eliminar el libro del almacenamiento local (Almacen)
-        Almacen.getInstance().usuarios.remove(index);
-        GestorPrograma.eliminarLibrosPorAutor(this.usuarioSeleccionado.getCorreo());
-        this.usuarioSeleccionado = null;
-
-        this.iniciarPnlUsuarios();
-        this.iniciarPnlLibros();
-    }//GEN-LAST:event_btn_usuEliminarActionPerformed
+        this.btn_usuLimpiarActionPerformed(null);
+    }//GEN-LAST:event_btn_usuActualizarMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_libActualizar;

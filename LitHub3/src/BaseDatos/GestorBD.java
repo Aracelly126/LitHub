@@ -95,14 +95,14 @@ public class GestorBD {
         }
         try {
             // Insertar el usuario en la base de datos
-            String consultaInsert = "INSERT INTO USUARIOS (NOMBRE, APELLIDO, CLAVE, PAIS, FEC_NAC, CORREO, TIPO) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String consultaInsert = "INSERT INTO USUARIOS (CORREO, NOMBRE, APELLIDO, CLAVE, PAIS, FEC_NAC, TIPO) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = this.con.getConexion().prepareStatement(consultaInsert);
-            preparedStatement.setString(1, usuario.getNombre());
-            preparedStatement.setString(2, usuario.getApellido());
-            preparedStatement.setString(3, usuario.getClave());
-            preparedStatement.setString(4, usuario.getPais());
-            preparedStatement.setString(5, usuario.getFecNac());
-            preparedStatement.setString(6, usuario.getCorreo());
+            preparedStatement.setString(1, usuario.getCorreo());
+            preparedStatement.setString(2, usuario.getNombre());
+            preparedStatement.setString(3, usuario.getApellido());
+            preparedStatement.setString(4, usuario.getClave());
+            preparedStatement.setString(5, usuario.getPais());
+            preparedStatement.setString(6, usuario.getFecNac());
             preparedStatement.setString(7, usuario.getTipo());
             preparedStatement.executeUpdate();
 
@@ -222,7 +222,6 @@ public class GestorBD {
 
     public void eliminarLibro(String codigoLibro) {
         if (this.con.conectar() == false) {
-            this.con.desconectar();
             return;
         }
         try {

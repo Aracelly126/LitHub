@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class GestorPrograma {
@@ -59,8 +58,9 @@ public class GestorPrograma {
         return null;
     }
 
-    public static void crearUsuario(String nombre, String apellido, String fecNac, String tipo, String pais, String correo, String contrasenia) {
-        Usuario newUsuario = new Usuario(correo,
+    public static void agregarNuevoUsuario(String correo, String nombre, String apellido, String fecNac, String tipo, String pais, String contrasenia) {
+        Usuario newUsuario = new Usuario(
+                correo,
                 nombre,
                 apellido,
                 Seguridad.Encriptar(contrasenia),
@@ -68,6 +68,7 @@ public class GestorPrograma {
                 fecNac,
                 tipo);
         gestorBD.insertarUsuario(newUsuario);
+        Almacen.getInstance().usuarios.add(newUsuario);
     }
 
     public static void bloquearUsuario(String user) {

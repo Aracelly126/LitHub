@@ -63,8 +63,8 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         lbl_izquierda = new javax.swing.JLabel();
         pnl_derecha = new javax.swing.JPanel();
         lbl_logo = new javax.swing.JLabel();
-        lbl_usuario = new javax.swing.JLabel();
-        txt_usuario = new javax.swing.JTextField();
+        lbl_correo = new javax.swing.JLabel();
+        txt_correo = new javax.swing.JTextField();
         lbl_contrasenia = new javax.swing.JLabel();
         txt_contrasenia = new javax.swing.JPasswordField();
         btn_verContrasenia = new javax.swing.JToggleButton();
@@ -85,17 +85,17 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         pnl_derecha.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         pnl_derecha.add(lbl_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 120, 120));
 
-        lbl_usuario.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_usuario.setText("Usuario:");
-        pnl_derecha.add(lbl_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, -1, -1));
+        lbl_correo.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_correo.setText("Correo:");
+        pnl_derecha.add(lbl_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, -1, -1));
 
-        txt_usuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        txt_usuario.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_correo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txt_correo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_usuarioKeyTyped(evt);
+                txt_correoKeyTyped(evt);
             }
         });
-        pnl_derecha.add(txt_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, 190, 30));
+        pnl_derecha.add(txt_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, 190, 30));
 
         lbl_contrasenia.setForeground(new java.awt.Color(0, 0, 0));
         lbl_contrasenia.setText("Contraseña:");
@@ -156,22 +156,21 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
             this.con.desconectar();
             return;
         }
-        String correo = this.txt_usuario.getText();
+        String correo = this.txt_correo.getText();
         String contrasenia = ManejoComp.claveToString(this.txt_contrasenia);
         int tipo = Controles.credenciales(correo, contrasenia);
         switch (tipo) {
             case -1://si las credenciales son incorrectas
                 this.lbl_mensaje.setText("Correo y/o Clave incorrectas");
-                ManejoComp.colorBorderTxt(this.txt_usuario, Color.RED, Color.GREEN);
+                ManejoComp.colorBorderTxt(this.txt_correo, Color.RED, Color.GREEN);
                 ManejoComp.colorBorderTxt(this.txt_contrasenia, Color.RED, Color.GREEN);
                 break;
             case 0:// Usuario Bloqueado
                 this.lbl_mensaje.setText("Cuenta Bloqueado, contacta a soporte. . .");
-                ManejoComp.colorBorderTxt(this.txt_usuario, Color.RED, Color.GREEN);
+                ManejoComp.colorBorderTxt(this.txt_correo, Color.RED, Color.GREEN);
                 ManejoComp.colorBorderTxt(this.txt_contrasenia, Color.RED, Color.GREEN);
                 break;
             case 1:// ADMIN
-                System.out.println("Bienvenido ADMIN " + correo);
                 this.frmAdmin.iniciarVentana(correo);
                 this.dispose();
                 break;
@@ -190,10 +189,10 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_registroMouseClicked
 
-    private void txt_usuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_usuarioKeyTyped
+    private void txt_correoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_correoKeyTyped
         this.lbl_mensaje.setText("");
-        ManejoComp.txtLongitudCondicion(this.txt_usuario, evt, 20);
-    }//GEN-LAST:event_txt_usuarioKeyTyped
+        ManejoComp.txtLongitudCondicion(this.txt_correo, evt, 30);
+    }//GEN-LAST:event_txt_correoKeyTyped
 
     private void txt_contraseniaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_contraseniaKeyTyped
         this.lbl_mensaje.setText("");
@@ -206,14 +205,14 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
     private javax.swing.JToggleButton btn_verContrasenia;
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel lbl_contrasenia;
+    private javax.swing.JLabel lbl_correo;
     private javax.swing.JLabel lbl_izquierda;
     private javax.swing.JLabel lbl_logo;
     private javax.swing.JLabel lbl_mensaje;
     private javax.swing.JLabel lbl_registro;
-    private javax.swing.JLabel lbl_usuario;
     private javax.swing.JLabel lblbaseDerecha;
     private javax.swing.JPanel pnl_derecha;
     private javax.swing.JPasswordField txt_contrasenia;
-    private javax.swing.JTextField txt_usuario;
+    private javax.swing.JTextField txt_correo;
     // End of variables declaration//GEN-END:variables
 }
