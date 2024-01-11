@@ -23,14 +23,14 @@ public class Controles {
         return false;
     }
 
-    public static int credenciales(String user, String contrasenia) {
+    public static int credenciales(String userCorreo, String contrasenia) {
         boolean UserExiste = false;
         for (Usuario usuario : Almacen.getInstance().usuarios) {
             String correo = usuario.getCorreo();
             String clave = usuario.getClave();
-            if (GestorPrograma.buscarUsuario(user) != null) {
+            if (GestorPrograma.buscarUsuario(userCorreo) != null) {
                 UserExiste = true;
-                if (clave.equals(Seguridad.Encriptar(contrasenia))) {
+                if (correo.equals(userCorreo) && clave.equals(Seguridad.Encriptar(contrasenia))) {
                     switch (usuario.getTipo()) {
                         case "ADMIN":
                             return 1;
@@ -44,8 +44,8 @@ public class Controles {
             }
         }
         //Si las credenciales son incorrectas empieza un contador para bloquearlo
-        if (Controles.intentoLogueo() == true && Controles.cadenaVacia(user) == false && UserExiste == true) {
-            bloquearUsuario(user);
+        if (Controles.intentoLogueo() == true && Controles.cadenaVacia(userCorreo) == false && UserExiste == true) {
+            bloquearUsuario(userCorreo);
             return 0;//Si el usuario se bloquea regresa 0
         }
         return -1;//Si las credenciales son incorrectas devuelve -1

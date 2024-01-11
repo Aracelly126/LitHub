@@ -26,8 +26,8 @@ public class ManejoComp {
         // Private constructor to prevent instantiation
     }
 
-    public static void crearlabel(JLabel label, String nombreImg) {
-        label.setIcon(redimensionarImagen(nombreImg, label.getWidth(), label.getHeight()));
+    public static void crearlabel(JLabel label, String urlImg) {
+        label.setIcon(redimensionarImagen(urlImg, label.getWidth(), label.getHeight()));
     }
 
     public static void crearPanel(JPanel panel, String nombreImg) {
@@ -43,6 +43,16 @@ public class ManejoComp {
 
         panel.revalidate();
         panel.repaint();
+    }
+
+    public static ImageIcon redimensionarImagen(String rutaImagen, int ancho, int alto) {
+        ImageIcon imagenIcon = new ImageIcon(rutaImagen);
+        Image imagen = imagenIcon.getImage();
+        Image imagenRedimensionada = imagen.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+        if (imagenRedimensionada == null) {
+            System.out.println("Sin imagen");
+        }
+        return new ImageIcon(imagenRedimensionada);
     }
 
     public static void crearVerPassword(JPasswordField pas, JToggleButton btn) {
@@ -224,16 +234,6 @@ public class ManejoComp {
     public static String claveToString(JPasswordField p) {
         char[] passwordChars = p.getPassword();
         return new String(passwordChars);
-    }
-
-    public static ImageIcon redimensionarImagen(String rutaImagen, int ancho, int alto) {
-        ImageIcon imagenIcon = new ImageIcon(rutaImagen);
-        Image imagen = imagenIcon.getImage();
-        Image imagenRedimensionada = imagen.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
-        if (imagenRedimensionada == null) {
-            System.out.println("Sin imagen");
-        }
-        return new ImageIcon(imagenRedimensionada);
     }
 
     public static ImageIcon imageTopIcon(String ruta) {

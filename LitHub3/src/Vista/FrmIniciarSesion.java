@@ -10,6 +10,8 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
 
     private frmregistro frmRegistro = new frmregistro();
     private FrmAdmin frmAdmin = new FrmAdmin();
+    private FrmAutor frmAutor = new FrmAutor();
+    private FrmLector frmLector = new FrmLector();
 
     public FrmIniciarSesion() {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -48,6 +50,20 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 setVisible(true);
                 frmAdmin.cerrarSesion();
+            }
+        });
+        this.frmAutor.lbl_btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                setVisible(true);
+                frmAutor.cerrarSesion();
+            }
+        });
+        this.frmLector.lbl_btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                setVisible(true);
+                frmLector.cerrarSesion();
             }
         });
 
@@ -153,7 +169,6 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
 
     private void btn_iniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_iniciarSesionMouseClicked
         if (this.con.conectar() == false) {
-            this.con.desconectar();
             return;
         }
         String correo = this.txt_correo.getText();
@@ -174,11 +189,13 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
                 this.frmAdmin.iniciarVentana(correo);
                 this.dispose();
                 break;
-            case 2:// AUTOR        
-                System.out.println("Bienvenido AUTOR " + correo);
+            case 2:// AUTOR     
+                this.frmAutor.iniciarVentana(correo);
+                this.dispose();
                 break;
             case 3:// LECTOR
-                System.out.println("Bienvenido LECTOR " + correo);
+                this.frmLector.iniciarVentana(correo);
+                this.dispose();
                 break;
         }
         this.con.desconectar();

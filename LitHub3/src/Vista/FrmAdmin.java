@@ -57,16 +57,6 @@ public class FrmAdmin extends javax.swing.JFrame {
         ManejoComp.crearlabel(lbl_btnCerrarSesion, "SYSTEM/src/ico_cerrarsesion.png");
 
         //<editor-fold defaultstate="collapsed" desc="DISEÑO PESTANIA LIBROS">      
-        this.tbl_libros.getColumnModel().getColumn(0).setPreferredWidth(1);
-        this.tbl_libros.getColumnModel().getColumn(0).setResizable(false);
-        this.tbl_libros.getColumnModel().getColumn(1).setPreferredWidth(100);
-        this.tbl_libros.getColumnModel().getColumn(1).setResizable(false);
-        this.tbl_libros.getColumnModel().getColumn(2).setPreferredWidth(100);
-        this.tbl_libros.getColumnModel().getColumn(2).setResizable(false);
-        this.tbl_libros.getColumnModel().getColumn(3).setPreferredWidth(100);
-        this.tbl_libros.getColumnModel().getColumn(3).setResizable(false);
-        this.tbl_libros.getColumnModel().getColumn(4).setPreferredWidth(1);
-        this.tbl_libros.getColumnModel().getColumn(4).setResizable(false);
         DefaultTableCellRenderer cellRenderer1 = new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
@@ -139,7 +129,8 @@ public class FrmAdmin extends javax.swing.JFrame {
         this.limpiarPnlLibros();
 
     }
-    public void iniciarPnlUsuarios(){
+
+    public void iniciarPnlUsuarios() {
         ManejoComp.vaciarTabla(this.tbl_usuarios, this.modelTblUsuarioss);
         for (Usuario usuario : Almacen.getInstance().usuarios) {
             String[] registro = {
@@ -152,13 +143,13 @@ public class FrmAdmin extends javax.swing.JFrame {
             };
             this.modelTblUsuarioss.addRow(registro);
         }
-        
+
         this.limpiarPnlUsuarios();
     }
 
     public void limpiarPnlLibros() {
         this.libroSeleccionado = null;
-        
+
         this.urlPortada = "";
         this.urlPdf = "";
         ManejoComp.crearlabel(this.lbl_libPortada, "");
@@ -176,17 +167,17 @@ public class FrmAdmin extends javax.swing.JFrame {
         this.btn_libActualizar.setEnabled(false);
         this.btn_libNuevoCodigo.setEnabled(true);
     }
-    
-    public void limpiarPnlUsuarios(){
+
+    public void limpiarPnlUsuarios() {
         this.usuarioSeleccionado = null;
-        
+
         this.txt_usuCorreo.setText("");
         this.txt_usuNombre.setText("");
         this.txt_usuApellido.setText("");
         this.txt_usuPais.setText("");
         this.txt_usuFecNac.setDate(null);
         this.cmb_usuTipo.setSelectedIndex(0);
-        
+
         this.btn_usuActualizar.setEnabled(false);
         this.btn_usuEliminar.setEnabled(false);
     }
@@ -274,7 +265,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_navBar.add(lbl_btnUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 130, 50, 50));
 
         lbl_btnCerrarSesion.setBackground(new java.awt.Color(36, 35, 53));
-        lbl_btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lbl_btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnl_navBar.add(lbl_btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 590, 50, 50));
 
         pnl_base.add(pnl_navBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 650));
@@ -438,6 +429,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         lbl_MensajeSeccion2.setText("Seccion Usuarios");
         pnl_Usuarios.add(lbl_MensajeSeccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 40, -1, -1));
 
+        tbl_usuarios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tbl_usuarios.setModel(this.modelTblUsuarioss);
         tbl_usuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -634,7 +626,7 @@ public class FrmAdmin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Portada o PDF faltantes, intenta de nuevo. . .");
             return;
         }
-        if(Integer.parseInt(this.txt_libNumPags.getText()) > 5000){
+        if (Integer.parseInt(this.txt_libNumPags.getText()) > 5000) {
             JOptionPane.showMessageDialog(this, "Libros con mas de 5000 paginas no aceptados");
             return;
         }
@@ -668,7 +660,7 @@ public class FrmAdmin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Llena todos los campos primero. . .");
             return;
         }
-        if(Integer.parseInt(this.txt_libNumPags.getText()) > 5000){
+        if (Integer.parseInt(this.txt_libNumPags.getText()) > 5000) {
             JOptionPane.showMessageDialog(this, "Libros con mas de 5000 paginas no aceptados");
             return;
         }
@@ -717,7 +709,7 @@ public class FrmAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_libLimpiarMouseClicked
 
     private void btn_libNuevoCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libNuevoCodigoMouseClicked
-        if(this.btn_libNuevoCodigo.isEnabled() == false){
+        if (this.btn_libNuevoCodigo.isEnabled() == false) {
             return;
         }
         this.txt_libCodigo.setText(GestorPrograma.generarCadenaNumAleatoria(10));
@@ -730,7 +722,7 @@ public class FrmAdmin extends javax.swing.JFrame {
     private void txt_libNumPagsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_libNumPagsKeyTyped
         ManejoComp.txtOnlyNumbers(evt);
         ManejoComp.txtLongitudCondicion(this.txt_libNumPags, evt, 4);
-        
+
     }//GEN-LAST:event_txt_libNumPagsKeyTyped
 
     private void txt_libNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_libNombreKeyTyped
@@ -757,13 +749,13 @@ public class FrmAdmin extends javax.swing.JFrame {
         this.txt_usuPais.setText(this.usuarioSeleccionado.getPais());
         this.txt_usuFecNac.setDate(GestorPrograma.transformarFechaInverso(this.usuarioSeleccionado.getFecNac()));
 
-       // ManejoComp.crearlabel(this.lbl_libPortada, "SYSTEM/libros/" + Almacen.getInstance().libros.get(index).getCodigo() + ".png");
+        // ManejoComp.crearlabel(this.lbl_libPortada, "SYSTEM/libros/" + Almacen.getInstance().libros.get(index).getCodigo() + ".png");
         this.btn_usuEliminar.setEnabled(true);
         this.btn_usuActualizar.setEnabled(true);
     }//GEN-LAST:event_tbl_usuariosMouseClicked
 
     private void btn_usuEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuEliminarActionPerformed
-        
+
     }//GEN-LAST:event_btn_usuEliminarActionPerformed
 
     private void txt_usuCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_usuCorreoKeyTyped
@@ -789,14 +781,14 @@ public class FrmAdmin extends javax.swing.JFrame {
         if (this.btn_usuEliminar.isEnabled() == false) {
             return;
         }
-        if(this.txt_usuCorreo.getText().equals(this.SesionActual.getCorreo())){
+        if (this.txt_usuCorreo.getText().equals(this.SesionActual.getCorreo())) {
             JOptionPane.showMessageDialog(this, "No puedes autoDarte de baja\nContacta a otro administrador. . .");
             return;
         }
         int index = this.tbl_usuarios.getSelectedRow();
 
         gestorBD.eliminarUsuario(this.usuarioSeleccionado.getCorreo());
-        
+
         // Eliminar el libro del almacenamiento local (Almacen)
         Almacen.getInstance().usuarios.remove(index);
         GestorPrograma.eliminarLibrosPorAutor(this.usuarioSeleccionado.getCorreo());
@@ -807,11 +799,11 @@ public class FrmAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_usuEliminarMouseClicked
 
     private void btn_usuActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_usuActualizarMouseClicked
-          if (!this.btn_usuActualizar.isEnabled()) {
+        if (!this.btn_usuActualizar.isEnabled()) {
             return;
         }
         int index = this.tbl_usuarios.getSelectedRow();
-        if (Controles.cadenaVacia(this.txt_usuCorreo.getText()) 
+        if (Controles.cadenaVacia(this.txt_usuCorreo.getText())
                 || Controles.cadenaVacia(this.cmb_usuTipo.getSelectedItem().toString())
                 || Controles.cadenaVacia(this.txt_usuNombre.getText())
                 || Controles.cadenaVacia(this.txt_usuPais.getText())
@@ -826,11 +818,11 @@ public class FrmAdmin extends javax.swing.JFrame {
         } catch (Exception e) {
             fecNac = "";
         }
-        
+
         Usuario usuarios = new Usuario(
-                        this.txt_usuCorreo.getText(),this.txt_usuNombre.getText(),
-                        this.txt_usuApellido.getText()," ",this.txt_usuPais.getText(),
-                        fecNac, this.cmb_usuTipo.getSelectedItem().toString()
+                this.txt_usuCorreo.getText(), this.txt_usuNombre.getText(),
+                this.txt_usuApellido.getText(), " ", this.txt_usuPais.getText(),
+                fecNac, this.cmb_usuTipo.getSelectedItem().toString()
         );
         this.gestorBD.actualizarUsuario(usuarios);
         Almacen.getInstance().usuarios.set(index, usuarios);
