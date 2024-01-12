@@ -26,9 +26,16 @@ public class ManejoComp {
         // Private constructor to prevent instantiation
     }
 
-    public static void crearlabel(JLabel label, String urlImg) {
+   public static boolean crearlabel(JLabel label, String urlImg) {
+    if (urlImg != null && !urlImg.isEmpty()) {
         label.setIcon(redimensionarImagen(urlImg, label.getWidth(), label.getHeight()));
+        return true;
+    } else {
+        label.setIcon(null);  // Limpiar la imagen del JLabel
+        return false;
     }
+}
+
 
     public static void crearPanel(JPanel panel, String nombreImg) {
         ImageIcon imagen = redimensionarImagen(nombreImg, panel.getWidth(), panel.getHeight());

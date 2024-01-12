@@ -98,7 +98,6 @@ public class FrmAdmin extends javax.swing.JFrame {
 
         iniciarPnlLibros();
         iniciarPnlUsuarios();
-
         this.setVisible(true);
     }
 

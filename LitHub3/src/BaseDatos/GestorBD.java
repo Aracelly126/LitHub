@@ -181,7 +181,6 @@ public class GestorBD {
             preparedStatement.setString(5, "NO");  // Asignar 'NO' como valor predeterminado para PRESTADO
             preparedStatement.setString(6, libro.getCodigo());
             preparedStatement.executeUpdate();
-
             preparedStatement.close();
             this.con.desconectar();
         } catch (Exception e) {
@@ -321,5 +320,5 @@ public class GestorBD {
             System.out.println("Error en el Método: eliminarFavoritosPorLibro Clase: GestorBD\n" + e);
         }
     }
-
+    
 }

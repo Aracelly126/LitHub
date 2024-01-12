@@ -247,5 +247,19 @@ public class GestorPrograma {
         Almacen.getInstance().libros = nuevosLibros;
         
     }
+    public static void almacenarImagenAutores(String urlImagen, String nombreArchivoDestino) {
+        try {
+            Path origenPath = Paths.get(urlImagen);
+            Path destinoPath = Paths.get("SYSTEM/Autores/", nombreArchivoDestino);
+
+            // Copiar el archivo a la carpeta destino
+            Files.copy(origenPath, destinoPath);
+
+            System.out.println("Imagen almacenada con éxito en: " + destinoPath.toString());
+        } catch (Exception e) {
+            System.out.println("Error Metodo:almacenarImagen Clase:GestorPrograma urlImagen:" + urlImagen + "\n" + e);
+        }
+    }
+    
 
 }
