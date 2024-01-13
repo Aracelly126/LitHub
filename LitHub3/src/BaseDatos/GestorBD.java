@@ -219,7 +219,6 @@ public class GestorBD {
             String consultaUpdate = "UPDATE Usuarios SET NOMBRE = ?, APELLIDO = ?, PAIS = ?, FEC_NAC = ?, TIPO = ? WHERE CORREO = ?";
             PreparedStatement preparedStatement = this.con.getConexion().prepareStatement(consultaUpdate);
 
-            
             preparedStatement.setString(1, usuario.getNombre());
             preparedStatement.setString(2, usuario.getApellido());
             preparedStatement.setString(3, usuario.getPais());
@@ -236,8 +235,6 @@ public class GestorBD {
             System.out.println("Error en el Método: actualizarUsuario Clase: GestorBD\n" + e);
         }
     }
-
-    
 
     public void eliminarLibro(String codigoLibro) {
         if (this.con.conectar() == false) {
@@ -340,5 +337,39 @@ public class GestorBD {
             System.out.println("Error en el Método: eliminarFavoritosPorLibro Clase: GestorBD\n" + e);
         }
     }
-    
+    public ArrayList<Libro> obtenerTodosLosLibros() {
+        if (this.con.conectar() == false) {
+            this.con.desconectar();
+            return new ArrayList<>();
+        }
+
+        ArrayList<Libro> todosLosLibros = new ArrayList<>();
+        try {
+            Statement statement = this.con.getConexion().createStatement();
+            String consultaSQL = "SELECT * FROM LIBROS";
+            ResultSet resultSetLibros = statement.executeQuery(consultaSQL);
+
+            while (resultSetLibros.next()) {
+                Libro libro = new Libro(
+                        resultSetLibros.getString("CODIGO"),
+                        resultSetLibros.getString("CORREO_USU"),
+                        resultSetLibros.getString("NOMBRE"),
+                        resultSetLibros.getString("GENERO"),
+                        resultSetLibros.getInt("NUM_PAG"),
+                        resultSetLibros.getString("PRESTADO")
+                );
+
+                todosLosLibros.add(libro);
+            }
+
+            statement.close();
+            this.con.desconectar();
+        } catch (Exception e) {
+            this.con.desconectar();
+            System.out.println("Error en el Método: obtenerTodosLosLibros Clase: GestorBD\n" + e);
+        }
+
+        return todosLosLibros;
+    }
+
 }
