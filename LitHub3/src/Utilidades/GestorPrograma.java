@@ -13,6 +13,9 @@ import java.util.Date;
 import java.util.Locale;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 
 public class GestorPrograma {
 
@@ -49,9 +52,9 @@ public class GestorPrograma {
         return null;
     }
 
-    public static Favorito buscarFavorito(String codigo) {
+    public static Favorito buscarFavorito(String codigo, String correo) {
         for (Favorito favorito : Almacen.getInstance().favoritos) {
-            if (favorito.getCodigo().equals(codigo)) {
+            if (favorito.getCodigoLibro().equals(codigo) && favorito.getCorreoUsuario().equals(correo)) {
                 return favorito;
             }
         }
@@ -97,7 +100,7 @@ public class GestorPrograma {
             return null;
         }
     }
-  
+
     public static Date transformarFechaInverso(String fechaOriginal) {
         try {
             SimpleDateFormat formatoOriginal = new SimpleDateFormat("dd/MM/yyyy");
@@ -219,6 +222,7 @@ public class GestorPrograma {
 
         System.out.println("Préstamos asociados al libro con código " + codigoLibro + " eliminados del almacen.");
     }
+
     public static void eliminarFavoritosPorLibro(String codigoLibro) {
         ArrayList<Favorito> nuevosFavoritos = new ArrayList<>();
 
@@ -233,20 +237,21 @@ public class GestorPrograma {
 
         System.out.println("Favoritos asociados al libro con código " + codigoLibro + " eliminados del almacen.");
     }
-    
-    public static void eliminarLibrosPorAutor(String correo){
+
+    public static void eliminarLibrosPorAutor(String correo) {
         ArrayList<Libro> nuevosLibros = new ArrayList<>();
-        
+
         for (Libro libro : Almacen.getInstance().libros) {
             if (!libro.getCorreoUsu().equals(correo)) {
                 nuevosLibros.add(libro);
             }
-            
+
         }
-        
+
         Almacen.getInstance().libros = nuevosLibros;
-        
+
     }
+
     public static void almacenarImagenAutores(String urlImagen, String nombreArchivoDestino) {
         try {
             Path origenPath = Paths.get(urlImagen);
@@ -260,6 +265,31 @@ public class GestorPrograma {
             System.out.println("Error Metodo:almacenarImagen Clase:GestorPrograma urlImagen:" + urlImagen + "\n" + e);
         }
     }
-    
+
+    public static  void abrirPDF(String rutaArchivo) {
+        try {
+            File archivoPDF = new File(rutaArchivo);
+            if (archivoPDF.exists()) {
+                if (Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().open(archivoPDF);
+                } else {
+                    System.out.println("No se puede abrir el archivo PDF, el escritorio no es compatible.");
+                }
+            } else {
+                System.out.println("El archivo no existe.");
+            }
+        } catch (IOException ex) {
+            System.out.println("Error al abrir el archivo PDF: " + ex.getMessage());
+        }
+    }
+    public static void eliminarLibro(String codigo){
+        for (int i = 0; i < Almacen.getInstance().libros.size(); i++) {
+            if (Almacen.getInstance().libros.get(i).getCodigo().equals(codigo)) {
+                Almacen.getInstance().libros.remove(i);
+                break;
+            }
+        }
+        
+    }
 
 }

@@ -165,6 +165,26 @@ public class GestorBD {
             System.out.println("Error en el Método:insertarLibro Clase:GestorBD\n" + e);
         }
     }
+    public void agregarLibroFavoritos(Favorito fav) {
+        if (this.con.conectar() == false) {
+            this.con.desconectar();
+            return;
+        }
+        try {
+            // Insertar el libro en la base de datos
+            String consultaInsert = "INSERT INTO favoritos (CORREO_USU, COD_LIB) VALUES ( ?, ?) ";
+            PreparedStatement preparedStatement = this.con.getConexion().prepareStatement(consultaInsert);
+            preparedStatement.setString(1, fav.getCorreoUsuario());
+            System.out.println(fav.getCodigoLibro());
+            preparedStatement.setString(2, fav.getCodigoLibro());
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            this.con.desconectar();
+        } catch (Exception e) {
+            this.con.desconectar();
+            System.out.println("Error en el Método:agregarLibroFavoritos Clase:GestorBD\n" + e);
+        }
+    }
 
     public void actualizarLibro(Libro libro) {
         if (this.con.conectar() == false) {

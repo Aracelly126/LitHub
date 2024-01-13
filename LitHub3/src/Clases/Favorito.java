@@ -3,7 +3,7 @@ package Clases;
 public class Favorito {
 
     private String codigo;
-    private String nombreUsuario;
+    private String correoUsuario;
     private String codigoLibro;
 
     public Favorito() {
@@ -11,9 +11,15 @@ public class Favorito {
 
     public Favorito(String codigo, String nombreUsuario, String codigoLibro) {
         this.codigo = codigo;
-        this.nombreUsuario = nombreUsuario;
+        this.correoUsuario = nombreUsuario;
         this.codigoLibro = codigoLibro;
     }
+
+    public Favorito(String nombreUsuario, String codigoLibro) {
+        this.correoUsuario = nombreUsuario;
+        this.codigoLibro = codigoLibro;
+    }
+    
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
@@ -23,14 +29,6 @@ public class Favorito {
         return this.codigo;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
-    }
-
-    public String getNombreUsuario() {
-        return this.nombreUsuario;
-    }
-
     public void setCodigoLibro(String codigoLibro) {
         this.codigoLibro = codigoLibro;
     }
@@ -38,4 +36,12 @@ public class Favorito {
     public String getCodigoLibro() {
         return this.codigoLibro;
     }
+
+    public String getCorreoUsuario() {
+        return this.correoUsuario;
+    }
+    public void setCorreoUsuario(String coreoUsuario) {
+        this.correoUsuario = coreoUsuario;
+    }
+    
 }

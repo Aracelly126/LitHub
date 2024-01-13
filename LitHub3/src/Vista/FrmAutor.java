@@ -2,6 +2,7 @@ package Vista;
 
 import BaseDatos.Almacen;
 import BaseDatos.GestorBD;
+import Clases.Favorito;
 import Clases.Libro;
 import Clases.Usuario;
 import Utilidades.Controles;
@@ -9,12 +10,16 @@ import Utilidades.DetallesLibro;
 import Utilidades.GestorPrograma;
 import Utilidades.ManejoComp;
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashSet;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -69,66 +74,160 @@ public class FrmAutor extends javax.swing.JFrame {
         ManejoComp.crearlabel(this.lbl_btnSubirLibros, "SYSTEM/src/icon_SubirLibro.png");
 
         panelLibros = new JPanel();
-        panelLibros.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 75));
-        pnl_Libros.setLayout(new BorderLayout());
-        pnl_Libros.add(panelLibros, BorderLayout.CENTER);
-        
+        pnl_LibrosAll.setLayout(new BorderLayout());
+        pnl_LibrosAll.add(panelLibros, BorderLayout.CENTER);
 
         //--------Libros Favoritos
         panelLibrosFav = new JPanel();
-        panelLibrosFav.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 75));
-        pnl_Favoritos.setLayout(new BorderLayout());
-        pnl_Favoritos.add(panelLibrosFav, BorderLayout.CENTER);
+        pnl_LibrosAllFav.setLayout(new BorderLayout());
+        pnl_LibrosAllFav.add(panelLibrosFav, BorderLayout.CENTER);
     }
 
     public void iniciarVentana(String correoUser) {
         this.lbl_portadaLibroAutores.setIcon(null);
         this.SesionActual = GestorPrograma.buscarUsuario(correoUser);
         System.out.println("Bienvenido: " + this.SesionActual.getNombre());
-        iniciarPnlLibrosAutor(this.SesionActual);
+        iniciarPnlLibrosAutor();
         inicialPnlAutor(this.SesionActual);
-
         iniciarPnlTodosLibros(this.SesionActual);
+
+        iniciarPnlLibrosFav(SesionActual);
 
         this.setVisible(true);
     }
 
+    private void iniciarPnlLibrosFav(Usuario SesionActual) {
+        int numeroDeColumnas = 4; // Por ejemplo, 3 columnas
+        panelLibrosFav.setLayout(new GridLayout(0, numeroDeColumnas));
+        panelLibrosFav.removeAll();
+        int i = 1;
+        for (Favorito fav : Almacen.getInstance().favoritos) {
+            if (fav.getCorreoUsuario().equals(this.SesionActual.getCorreo())) {
+                JLabel labelLibro = new JLabel(String.valueOf(i));
+                labelLibro.setHorizontalAlignment(JLabel.CENTER); // Centrar el texto
+                JLabel labelImagen = new JLabel(ManejoComp.redimensionarImagen("SYSTEM/libros/" + fav.getCodigoLibro() + ".png", 160, 200));
+                // Crear panel para el libro
+                JPanel panelLibroFav = new JPanel(new BorderLayout());
+                panelLibroFav.add(labelImagen, BorderLayout.CENTER);
+
+                // Crear panel para botones y label de descripción
+                JPanel panelBotones = new JPanel(new FlowLayout());
+
+                // Botón para agregar a favoritos
+                JButton btnFavoritos = new JButton("Eliminar de Favoritos");
+                btnFavoritos.addActionListener(e -> {
+                    this.gestorBD.eliminarFavoritosPorLibro(fav.getCodigoLibro());
+                    Almacen.getInstance().favoritos.remove(fav);
+                    JOptionPane.showMessageDialog(panelLibroFav, " Ha sido eliminado tu libro de favoritos.");
+                    iniciarPnlLibrosFav(SesionActual);
+                });
+                JLabel lblDescripcion = new JLabel("Leer Ahora");
+                lblDescripcion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                lblDescripcion.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        GestorPrograma.abrirPDF("SYSTEM/libros/" + fav.getCodigoLibro() + ".pdf");
+                    }
+                });
+
+                // Añadir botón y label al panel de botones
+                panelBotones.add(lblDescripcion);
+
+                // Añadir botón y label al panel de botones
+                panelBotones.add(btnFavoritos);
+
+                // Crear un panel secundario para agrupar el label del libro y los botones
+                JPanel panelInferior = new JPanel(new BorderLayout());
+                panelInferior.add(labelLibro, BorderLayout.NORTH);
+                panelInferior.add(panelBotones, BorderLayout.SOUTH);
+
+                // Añadir el panel inferior al panel del libro
+                panelLibroFav.add(panelInferior, BorderLayout.SOUTH);
+
+                panelLibrosFav.add(panelLibroFav);
+                i++;
+            }
+            panelLibrosFav.setLocation(panelLibrosFav.getX(), 0);
+
+            revalidate();
+            repaint();
+        }
+
+    }
+
     private void iniciarPnlTodosLibros(Usuario SesionActual) {
+        int numeroDeColumnas = 4; // Por ejemplo, 3 columnas
+        panelLibros.setLayout(new GridLayout(0, numeroDeColumnas));
         panelLibros.removeAll();
         for (Libro libro : Almacen.getInstance().libros) {
-            JLabel labelLibro = new JLabel(libro.getNombre());
+            JLabel labelLibro = new JLabel(libro.getNombre().toUpperCase());
+            labelLibro.setHorizontalAlignment(JLabel.CENTER); // Centrar el texto
             JLabel labelImagen = new JLabel(ManejoComp.redimensionarImagen("SYSTEM/libros/" + libro.getCodigo() + ".png", 160, 200));
 
+            // Crear panel para el libro
             JPanel panelLibro = new JPanel(new BorderLayout());
             panelLibro.add(labelImagen, BorderLayout.CENTER);
-            panelLibro.add(labelLibro, BorderLayout.SOUTH);
 
-//            panelLibro.addMouseListener(new MouseAdapter() {
-//                @Override
-//                public void mouseEntered(MouseEvent e) {
-//                    mostrarDetalleLibro(libro);
-//                }
-//
-//                @Override
-//                public void mouseExited(MouseEvent e) {
-//                    // Cerrar la ventana de detalles cuando el mouse sale del panel
-//                    if (detalleFrame != null) {
-//                        detalleFrame.dispose();
-//                    }
-//                }
-//            });
+            // Crear panel para botones y label de descripción
+            JPanel panelBotones = new JPanel(new FlowLayout());
+
+            // Botón para agregar a favoritos
+            JButton btnFavoritos = new JButton("Agregar a Favoritos");
+            btnFavoritos.addActionListener(e -> {
+                Favorito fav = new Favorito(this.SesionActual.getCorreo(), libro.getCodigo());
+                Favorito favoritoBuscado = GestorPrograma.buscarFavorito(libro.getCodigo(), this.SesionActual.getCorreo());
+                if (favoritoBuscado == null) {
+                    this.gestorBD.agregarLibroFavoritos(fav);
+                    Almacen.getInstance().favoritos.add(fav);
+                    JOptionPane.showMessageDialog(panelLibro, libro.getNombre() + " ha sido agregado a favoritos.");
+                    iniciarPnlLibrosFav(SesionActual);
+                    return;
+                }
+                JOptionPane.showMessageDialog(panelLibro, libro.getNombre().toUpperCase() + " ya lo tienes en favoritos.");
+
+            });
+
+            // Label para mostrar descripción
+            JLabel lblDescripcion = new JLabel("Ver Descripción");
+            lblDescripcion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            lblDescripcion.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    mostrarDetalleLibro(libro);
+                }
+            });
+
+            // Añadir botón y label al panel de botones
+            panelBotones.add(btnFavoritos);
+            panelBotones.add(lblDescripcion);
+
+            // Crear un panel secundario para agrupar el label del libro y los botones
+            JPanel panelInferior = new JPanel(new BorderLayout());
+            panelInferior.add(labelLibro, BorderLayout.NORTH);
+            panelInferior.add(panelBotones, BorderLayout.SOUTH);
+
+            // Añadir el panel inferior al panel del libro
+            panelLibro.add(panelInferior, BorderLayout.SOUTH);
 
             panelLibros.add(panelLibro);
-
         }
         panelLibros.setLocation(panelLibros.getX(), 0);
 
         revalidate();
         repaint();
-
     }
 
- 
+    private void mostrarDetalleLibro(Libro libro) {
+        JFrame detalleFrame = new JFrame("Detalles del Libro");
+        detalleFrame.setSize(300, 200);
+        // Crear y agregar el panel de detalles
+        DetallesLibro detallePanel = new DetallesLibro(libro.getNombre(), libro.getGenero());
+        detalleFrame.add(detallePanel);
+
+        detalleFrame.setLocationRelativeTo(null);
+        detalleFrame.setVisible(true);
+    }
+
     private void inicialPnlAutor(Usuario user) {
         this.lbl_autoNombreSalida.setText(user.getNombre().toUpperCase());
         this.lbl_autoApellSalida1.setText(user.getApellido().toUpperCase());
@@ -142,10 +241,10 @@ public class FrmAutor extends javax.swing.JFrame {
 
     }
 
-    private void iniciarPnlLibrosAutor(Usuario SesionActual) {
+    private void iniciarPnlLibrosAutor() {
         ManejoComp.vaciarTabla(this.tbl_librosAutor, this.modelTblLibrosAutor);
         for (Libro libro : Almacen.getInstance().libros) {
-            if (libro.getCorreoUsu().equals(SesionActual.getCorreo())) {
+            if (libro.getCorreoUsu().equals(this.SesionActual.getCorreo())) {
 //                System.out.println("CORREO RELACIONADO CON EL LIBRO " + libro.getCorreoUsu() + SesionActual.getCorreo());
                 String[] registro = {
                     libro.getCodigo(),
@@ -179,8 +278,8 @@ public class FrmAutor extends javax.swing.JFrame {
         pnl_Libros = new javax.swing.JPanel();
         lbl_MensajeSeccion2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        pnl_Favoritos = new javax.swing.JPanel();
-        lbl_MensajeSeccion3 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        pnl_LibrosAll = new javax.swing.JPanel();
         pnl_Prestamos = new javax.swing.JPanel();
         lbl_MensajeSeccion4 = new javax.swing.JLabel();
         pnl_Perfil = new javax.swing.JPanel();
@@ -226,6 +325,14 @@ public class FrmAutor extends javax.swing.JFrame {
         btn_libNuevoCodigo = new javax.swing.JButton();
         cmb_libGenerosAutor = new javax.swing.JComboBox<>();
         txt_libCodigoAutor = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtSinpsis = new javax.swing.JTextArea();
+        lbl_libNumPags1 = new javax.swing.JLabel();
+        pnl_Favoritos = new javax.swing.JPanel();
+        lbl_MensajeSeccion3 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        pnl_LibrosAllFav = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LibHub | Autor");
@@ -300,17 +407,19 @@ public class FrmAutor extends javax.swing.JFrame {
         jSeparator1.setForeground(new java.awt.Color(0, 153, 153));
         pnl_Libros.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 64, 1184, -1));
 
+        jScrollPane4.setBorder(null);
+        jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        pnl_LibrosAll.setBackground(new java.awt.Color(255, 255, 255));
+        pnl_LibrosAll.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        pnl_LibrosAll.setMinimumSize(new java.awt.Dimension(1216, 720));
+        pnl_LibrosAll.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jScrollPane4.setViewportView(pnl_LibrosAll);
+
+        pnl_Libros.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 80, 1200, 640));
+
         pnlTb_MenuAutor.addTab("", pnl_Libros);
-
-        pnl_Favoritos.setBackground(new java.awt.Color(255, 255, 255));
-        pnl_Favoritos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lbl_MensajeSeccion3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lbl_MensajeSeccion3.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_MensajeSeccion3.setText("Seccion Favoritos");
-        pnl_Favoritos.add(lbl_MensajeSeccion3, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 40, -1, -1));
-
-        pnlTb_MenuAutor.addTab("", pnl_Favoritos);
 
         pnl_Prestamos.setBackground(new java.awt.Color(255, 255, 255));
         pnl_Prestamos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -519,7 +628,7 @@ public class FrmAutor extends javax.swing.JFrame {
                 btn_libGuardarAutorMouseClicked(evt);
             }
         });
-        pnl_subirLibrosAutor.add(btn_libGuardarAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 110, 100, 30));
+        pnl_subirLibrosAutor.add(btn_libGuardarAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 80, 100, 30));
 
         btn_libActualizarAuto.setText("Actualizar");
         btn_libActualizarAuto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -528,7 +637,7 @@ public class FrmAutor extends javax.swing.JFrame {
                 btn_libActualizarAutoMouseClicked(evt);
             }
         });
-        pnl_subirLibrosAutor.add(btn_libActualizarAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 160, 100, 30));
+        pnl_subirLibrosAutor.add(btn_libActualizarAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 128, 100, 30));
 
         btn_libEliminarAuto.setText("Eliminar");
         btn_libEliminarAuto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -537,7 +646,7 @@ public class FrmAutor extends javax.swing.JFrame {
                 btn_libEliminarAutoMouseClicked(evt);
             }
         });
-        pnl_subirLibrosAutor.add(btn_libEliminarAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 210, 100, 30));
+        pnl_subirLibrosAutor.add(btn_libEliminarAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 176, 100, 30));
 
         btn_libLimpiarAuto.setText("Limpiar");
         btn_libLimpiarAuto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -546,7 +655,7 @@ public class FrmAutor extends javax.swing.JFrame {
                 btn_libLimpiarAutoMouseClicked(evt);
             }
         });
-        pnl_subirLibrosAutor.add(btn_libLimpiarAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 260, 100, 30));
+        pnl_subirLibrosAutor.add(btn_libLimpiarAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 224, 100, 30));
         pnl_subirLibrosAutor.add(lbl_libNombreArchivoPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, 200, 30));
 
         tbl_librosAutoSubidos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -581,7 +690,45 @@ public class FrmAutor extends javax.swing.JFrame {
         });
         pnl_subirLibrosAutor.add(txt_libCodigoAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 80, 300, 30));
 
+        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        txtSinpsis.setColumns(20);
+        txtSinpsis.setLineWrap(true);
+        txtSinpsis.setRows(5);
+        jScrollPane3.setViewportView(txtSinpsis);
+
+        pnl_subirLibrosAutor.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(752, 80, 272, 224));
+
+        lbl_libNumPags1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_libNumPags1.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_libNumPags1.setText("Sinopsis");
+        pnl_subirLibrosAutor.add(lbl_libNumPags1, new org.netbeans.lib.awtextra.AbsoluteConstraints(752, 48, 100, 30));
+
         pnlTb_MenuAutor.addTab("", pnl_subirLibrosAutor);
+
+        pnl_Favoritos.setBackground(new java.awt.Color(255, 255, 255));
+        pnl_Favoritos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lbl_MensajeSeccion3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbl_MensajeSeccion3.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_MensajeSeccion3.setText("Seccion Favoritos");
+        pnl_Favoritos.add(lbl_MensajeSeccion3, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 16, -1, -1));
+        pnl_Favoritos.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 64, 1216, 80));
+
+        jScrollPane5.setBorder(null);
+        jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane5.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        pnl_LibrosAllFav.setBackground(new java.awt.Color(255, 255, 255));
+        pnl_LibrosAllFav.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        pnl_LibrosAllFav.setMinimumSize(new java.awt.Dimension(1216, 720));
+        pnl_LibrosAllFav.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jScrollPane5.setViewportView(pnl_LibrosAllFav);
+
+        pnl_Favoritos.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 64, 1200, 640));
+
+        pnlTb_MenuAutor.addTab("", pnl_Favoritos);
 
         pnl_base.add(pnlTb_MenuAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 1250, 720));
 
@@ -600,7 +747,7 @@ public class FrmAutor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbl_btnPerfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_btnPerfilMouseClicked
-        this.pnlTb_MenuAutor.setSelectedIndex(3);
+        this.pnlTb_MenuAutor.setSelectedIndex(2);
     }//GEN-LAST:event_lbl_btnPerfilMouseClicked
 
     private void lbl_btnLibrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_btnLibrosMouseClicked
@@ -608,11 +755,11 @@ public class FrmAutor extends javax.swing.JFrame {
     }//GEN-LAST:event_lbl_btnLibrosMouseClicked
 
     private void lbl_btnPrestamosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_btnPrestamosMouseClicked
-        this.pnlTb_MenuAutor.setSelectedIndex(2);
+        this.pnlTb_MenuAutor.setSelectedIndex(1);
     }//GEN-LAST:event_lbl_btnPrestamosMouseClicked
 
     private void lbl_btnFavoritosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_btnFavoritosMouseClicked
-        this.pnlTb_MenuAutor.setSelectedIndex(1);
+        this.pnlTb_MenuAutor.setSelectedIndex(4);
     }//GEN-LAST:event_lbl_btnFavoritosMouseClicked
 
     private void btn_libAgregarPortadaAutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libAgregarPortadaAutorMouseClicked
@@ -635,7 +782,9 @@ public class FrmAutor extends javax.swing.JFrame {
 
     private void tbl_librosAutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_librosAutorMouseClicked
         int index = this.tbl_librosAutor.getSelectedRow();
-        ManejoComp.crearlabel(this.lbl_portadaLibroAutores, "SYSTEM/libros/" + Almacen.getInstance().libros.get(index).getCodigo() + ".png");
+        String codigoLibro = this.tbl_librosAutor.getModel().getValueAt(index, 0).toString();
+        //System.out.println("El codigo del Libro atrapado de la tabla de que esta en Perfil de autor es: "+codigoLibro);
+        ManejoComp.crearlabel(this.lbl_portadaLibroAutores, "SYSTEM/libros/" + codigoLibro + ".png");
     }//GEN-LAST:event_tbl_librosAutorMouseClicked
 
     private void txt_libCodigoAutorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_libCodigoAutorKeyTyped
@@ -643,7 +792,8 @@ public class FrmAutor extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_libCodigoAutorKeyTyped
 
     private void lbl_btnSubirLibrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_btnSubirLibrosMouseClicked
-        this.pnlTb_MenuAutor.setSelectedIndex(4);
+        this.pnlTb_MenuAutor.setSelectedIndex(3);
+
     }//GEN-LAST:event_lbl_btnSubirLibrosMouseClicked
 
     private void pnl_subirLibrosAutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnl_subirLibrosAutorMouseClicked
@@ -701,13 +851,13 @@ public class FrmAutor extends javax.swing.JFrame {
         this.txt_libCodigoAutor.setText(this.libroSeleccionado.getCodigo());
         this.txt_nombreAutor.setText(this.libroSeleccionado.getCorreoUsu());
 
-        ManejoComp.crearlabel(this.lbl_libPortadaAuto, "SYSTEM/libros/" + Almacen.getInstance().libros.get(index).getCodigo() + ".png");
+        ManejoComp.crearlabel(this.lbl_libPortadaAuto, "SYSTEM/libros/" + this.txt_libCodigoAutor.getText() + ".png");
+        //System.out.println("El codigo del libro es este para buscar y mostrar en el lbl tbLibrosAutoSubidos"+Almacen.getInstance().libros.get(index).getCodigo());
         this.btn_libEliminarAuto.setEnabled(true);
         this.btn_libActualizarAuto.setEnabled(true);
     }//GEN-LAST:event_tbl_librosAutoSubidosMouseClicked
     public void limpiarPnlLibrosAutores() {
         this.libroSeleccionado = null;
-
         this.urlPortadaAutorSubir = "";
         this.urlPdfAutor = "";
         ManejoComp.crearlabel(this.lbl_libPortadaAuto, "");
@@ -758,7 +908,7 @@ public class FrmAutor extends javax.swing.JFrame {
         GestorPrograma.almacenarImagen(this.urlPortadaAutorSubir, this.txt_libCodigoAutor.getText() + ".png");
         GestorPrograma.almacenarPDF(this.urlPdfAutor, this.txt_libCodigoAutor.getText() + ".pdf");
 
-        this.iniciarPnlLibrosAutor(this.SesionActual);
+        this.iniciarPnlLibrosAutor();
         this.iniciarPnlTodosLibros(SesionActual);
     }//GEN-LAST:event_btn_libGuardarAutorMouseClicked
 
@@ -787,8 +937,8 @@ public class FrmAutor extends javax.swing.JFrame {
                 "NO");
         gestorBD.actualizarLibro(librito);
         Almacen.getInstance().libros.set(index, librito);
-        this.iniciarPnlLibrosAutor(this.SesionActual);
-        this.iniciarPnlTodosLibros(SesionActual);
+        this.iniciarPnlLibrosAutor();
+        this.iniciarPnlTodosLibros(this.SesionActual);
         this.btn_libLimpiarAutoMouseClicked(evt);
     }//GEN-LAST:event_btn_libActualizarAutoMouseClicked
 
@@ -798,9 +948,9 @@ public class FrmAutor extends javax.swing.JFrame {
         }
         int index = this.tbl_librosAutoSubidos.getSelectedRow();
         gestorBD.eliminarLibro(this.libroSeleccionado.getCodigo());
-
+        
         // Eliminar el libro del almacenamiento local (Almacen)
-        Almacen.getInstance().libros.remove(index);
+        GestorPrograma.eliminarLibro(this.txt_libCodigoAutor.getText());
         GestorPrograma.eliminarImagen(this.libroSeleccionado.getCodigo() + ".png");
         GestorPrograma.eliminarPDF(this.libroSeleccionado.getCodigo() + ".pdf");
 
@@ -812,8 +962,9 @@ public class FrmAutor extends javax.swing.JFrame {
         gestorBD.eliminarFavoritosPorLibro(this.libroSeleccionado.getCodigo());
         GestorPrograma.eliminarFavoritosPorLibro(this.libroSeleccionado.getCodigo());
 
-        this.iniciarPnlLibrosAutor(this.SesionActual);
+        this.iniciarPnlLibrosAutor();
         this.iniciarPnlTodosLibros(SesionActual);
+        this.iniciarPnlLibrosFav(SesionActual);
     }//GEN-LAST:event_btn_libEliminarAutoMouseClicked
 
     private void btn_libLimpiarAutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libLimpiarAutoMouseClicked
@@ -832,7 +983,11 @@ public class FrmAutor extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmb_libGenerosAutor;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lbl_Libro;
     private javax.swing.JLabel lbl_MensajeBienvenida;
     private javax.swing.JLabel lbl_MensajeSeccion1;
@@ -863,12 +1018,15 @@ public class FrmAutor extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_libNombre;
     private javax.swing.JLabel lbl_libNombreArchivoPdf;
     private javax.swing.JLabel lbl_libNumPags;
+    private javax.swing.JLabel lbl_libNumPags1;
     private javax.swing.JLabel lbl_libPortadaAuto;
     public javax.swing.JLabel lbl_libPortadaAutor;
     public javax.swing.JLabel lbl_portadaLibroAutores;
     private javax.swing.JTabbedPane pnlTb_MenuAutor;
     private javax.swing.JPanel pnl_Favoritos;
     private javax.swing.JPanel pnl_Libros;
+    private javax.swing.JPanel pnl_LibrosAll;
+    private javax.swing.JPanel pnl_LibrosAllFav;
     private javax.swing.JPanel pnl_Perfil;
     private javax.swing.JPanel pnl_Prestamos;
     private javax.swing.JPanel pnl_base;
@@ -876,6 +1034,7 @@ public class FrmAutor extends javax.swing.JFrame {
     private javax.swing.JPanel pnl_subirLibrosAutor;
     private javax.swing.JTable tbl_librosAutoSubidos;
     private javax.swing.JTable tbl_librosAutor;
+    private javax.swing.JTextArea txtSinpsis;
     private javax.swing.JTextField txt_libCodigoAutor;
     private javax.swing.JTextField txt_libNombreAuto;
     private javax.swing.JTextField txt_libNumPagsAuto;
