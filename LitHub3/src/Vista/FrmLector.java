@@ -79,6 +79,9 @@ public class FrmLector extends javax.swing.JFrame {
         mostrarGenero = new javax.swing.JLabel();
         lbNumPaginas = new javax.swing.JLabel();
         mostrarNumPaginas = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         pnl_Perfil = new javax.swing.JPanel();
         lbl_MensajeSeccion1 = new javax.swing.JLabel();
         lbNombre = new javax.swing.JLabel();
@@ -202,6 +205,15 @@ public class FrmLector extends javax.swing.JFrame {
         mostrarNumPaginas.setText("jLabel8");
         pnl_Prestamos.add(mostrarNumPaginas, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, -1, -1));
 
+        jLabel1.setText("Sinopsis:");
+        pnl_Prestamos.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, -1, -1));
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
+
+        pnl_Prestamos.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 400, 110));
+
         pnlTb_Menu.addTab("", pnl_Prestamos);
 
         pnl_Perfil.setBackground(new java.awt.Color(255, 255, 255));
@@ -324,8 +336,11 @@ public class FrmLector extends javax.swing.JFrame {
     private javax.swing.JPanel PanelImg;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbApellido;
     private javax.swing.JLabel lbAutorLibro;
     private javax.swing.JLabel lbCorreo;
