@@ -40,7 +40,6 @@ public class FrmLector extends javax.swing.JFrame {
         ManejoComp.crearlabel(this.lbl_btnPerfil, "SYSTEM/src/ico_usuario.png");
         ManejoComp.crearlabel(this.lbl_btnLibros, "SYSTEM/src/ico_libro.png");
         ManejoComp.crearlabel(this.lbl_btnFavoritos, "SYSTEM/src/ico_favoritos.png");
-        ManejoComp.crearlabel(this.lbl_btnPrestamos, "SYSTEM/src/ico_prestamo.png");
         ManejoComp.crearlabel(this.lbl_btnCerrarSesion, "SYSTEM/src/ico_cerrarsesion.png");
     }
 
@@ -64,24 +63,8 @@ public class FrmLector extends javax.swing.JFrame {
         lbl_btnPerfil = new javax.swing.JLabel();
         lbl_btnLibros = new javax.swing.JLabel();
         lbl_btnFavoritos = new javax.swing.JLabel();
-        lbl_btnPrestamos = new javax.swing.JLabel();
         lbl_btnCerrarSesion = new javax.swing.JLabel();
         pnlTb_Menu = new javax.swing.JTabbedPane();
-        pnl_Libros = new javax.swing.JPanel();
-        pnl_Favoritos = new javax.swing.JPanel();
-        lbl_MensajeSeccion3 = new javax.swing.JLabel();
-        pnl_Prestamos = new javax.swing.JPanel();
-        PanelImg = new javax.swing.JPanel();
-        lbNombreLibro = new javax.swing.JLabel();
-        lbAutorLibro = new javax.swing.JLabel();
-        mostrarAutor = new javax.swing.JLabel();
-        lbGenero = new javax.swing.JLabel();
-        mostrarGenero = new javax.swing.JLabel();
-        lbNumPaginas = new javax.swing.JLabel();
-        mostrarNumPaginas = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         pnl_Perfil = new javax.swing.JPanel();
         lbl_MensajeSeccion1 = new javax.swing.JLabel();
         lbNombre = new javax.swing.JLabel();
@@ -98,10 +81,12 @@ public class FrmLector extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        pnl_Libros = new javax.swing.JPanel();
+        pnl_Favoritos = new javax.swing.JPanel();
+        lbl_MensajeSeccion3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LibHub | Lector");
-        setPreferredSize(new java.awt.Dimension(1000, 6500));
         setResizable(false);
 
         pnl_base.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -136,15 +121,6 @@ public class FrmLector extends javax.swing.JFrame {
         });
         pnl_navBar.add(lbl_btnFavoritos, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 200, 50, 50));
 
-        lbl_btnPrestamos.setBackground(new java.awt.Color(36, 35, 53));
-        lbl_btnPrestamos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        lbl_btnPrestamos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lbl_btnPrestamosMouseClicked(evt);
-            }
-        });
-        pnl_navBar.add(lbl_btnPrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 270, 50, 50));
-
         lbl_btnCerrarSesion.setBackground(new java.awt.Color(36, 35, 53));
         lbl_btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnl_navBar.add(lbl_btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 665, 50, 50));
@@ -152,69 +128,6 @@ public class FrmLector extends javax.swing.JFrame {
         pnl_base.add(pnl_navBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 720));
 
         pnlTb_Menu.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-
-        pnl_Libros.setBackground(new java.awt.Color(255, 255, 255));
-        pnl_Libros.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        pnlTb_Menu.addTab("", pnl_Libros);
-
-        pnl_Favoritos.setBackground(new java.awt.Color(255, 255, 255));
-        pnl_Favoritos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lbl_MensajeSeccion3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lbl_MensajeSeccion3.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_MensajeSeccion3.setText("Seccion Favoritos");
-        pnl_Favoritos.add(lbl_MensajeSeccion3, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 40, -1, -1));
-
-        pnlTb_Menu.addTab("", pnl_Favoritos);
-
-        pnl_Prestamos.setBackground(new java.awt.Color(255, 255, 255));
-        pnl_Prestamos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        javax.swing.GroupLayout PanelImgLayout = new javax.swing.GroupLayout(PanelImg);
-        PanelImg.setLayout(PanelImgLayout);
-        PanelImgLayout.setHorizontalGroup(
-            PanelImgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 130, Short.MAX_VALUE)
-        );
-        PanelImgLayout.setVerticalGroup(
-            PanelImgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 170, Short.MAX_VALUE)
-        );
-
-        pnl_Prestamos.add(PanelImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 130, 170));
-
-        lbNombreLibro.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        lbNombreLibro.setText("NOMBRE");
-        pnl_Prestamos.add(lbNombreLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, -1, -1));
-
-        lbAutorLibro.setText("Autor:");
-        pnl_Prestamos.add(lbAutorLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, -1, -1));
-
-        mostrarAutor.setText("jLabel3");
-        pnl_Prestamos.add(mostrarAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, -1, -1));
-
-        lbGenero.setText("Genero:");
-        pnl_Prestamos.add(lbGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, -1, -1));
-
-        mostrarGenero.setText("jLabel6");
-        pnl_Prestamos.add(mostrarGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, -1, -1));
-
-        lbNumPaginas.setText("Numero de Paginas:");
-        pnl_Prestamos.add(lbNumPaginas, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, -1, -1));
-
-        mostrarNumPaginas.setText("jLabel8");
-        pnl_Prestamos.add(mostrarNumPaginas, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, -1, -1));
-
-        jLabel1.setText("Sinopsis:");
-        pnl_Prestamos.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, -1, -1));
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
-
-        pnl_Prestamos.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 400, 110));
-
-        pnlTb_Menu.addTab("", pnl_Prestamos);
 
         pnl_Perfil.setBackground(new java.awt.Color(255, 255, 255));
         pnl_Perfil.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -276,6 +189,20 @@ public class FrmLector extends javax.swing.JFrame {
 
         pnlTb_Menu.addTab("", pnl_Perfil);
 
+        pnl_Libros.setBackground(new java.awt.Color(255, 255, 255));
+        pnl_Libros.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlTb_Menu.addTab("", pnl_Libros);
+
+        pnl_Favoritos.setBackground(new java.awt.Color(255, 255, 255));
+        pnl_Favoritos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lbl_MensajeSeccion3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbl_MensajeSeccion3.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_MensajeSeccion3.setText("Seccion Favoritos");
+        pnl_Favoritos.add(lbl_MensajeSeccion3, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 40, -1, -1));
+
+        pnlTb_Menu.addTab("", pnl_Favoritos);
+
         pnl_base.add(pnlTb_Menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 1250, 720));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -284,18 +211,16 @@ public class FrmLector extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1280, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(pnl_base, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(pnl_base, javax.swing.GroupLayout.PREFERRED_SIZE, 1280, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 720, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(pnl_base, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnl_base, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -303,15 +228,15 @@ public class FrmLector extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbl_btnPerfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_btnPerfilMouseClicked
-        this.pnlTb_Menu.setSelectedIndex(3);
+        this.pnlTb_Menu.setSelectedIndex(0);
     }//GEN-LAST:event_lbl_btnPerfilMouseClicked
 
     private void lbl_btnLibrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_btnLibrosMouseClicked
-        this.pnlTb_Menu.setSelectedIndex(0);
+        this.pnlTb_Menu.setSelectedIndex(1);
         InfoLibros inf = new InfoLibros();
         JPanel panelLibros = new JPanel();
         panelLibros.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
-        inf.mostrarLibros(panelLibros,PanelImg,lbNombreLibro, mostrarAutor, mostrarGenero, mostrarNumPaginas, pnlTb_Menu);
+        //inf.mostrarLibros(panelLibros,PanelImg,lbNombreLibro, mostrarAutor, mostrarGenero, mostrarNumPaginas, pnlTb_Menu);
         
         this.pnl_Libros.setLayout(new BorderLayout());
         this.pnl_Libros.add(panelLibros, BorderLayout.CENTER);
@@ -321,34 +246,22 @@ public class FrmLector extends javax.swing.JFrame {
     }//GEN-LAST:event_lbl_btnLibrosMouseClicked
 
     private void lbl_btnFavoritosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_btnFavoritosMouseClicked
-        this.pnlTb_Menu.setSelectedIndex(1);
+        this.pnlTb_Menu.setSelectedIndex(2);
     }//GEN-LAST:event_lbl_btnFavoritosMouseClicked
-
-    private void lbl_btnPrestamosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_btnPrestamosMouseClicked
-        //this.pnlTb_Menu.setSelectedIndex(2);
-    }//GEN-LAST:event_lbl_btnPrestamosMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel PanelImg;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbApellido;
-    private javax.swing.JLabel lbAutorLibro;
     private javax.swing.JLabel lbCorreo;
     private javax.swing.JLabel lbFechaNacimiento;
-    private javax.swing.JLabel lbGenero;
     private javax.swing.JLabel lbNombre;
-    private javax.swing.JLabel lbNombreLibro;
-    private javax.swing.JLabel lbNumPaginas;
     private javax.swing.JLabel lbPais;
     private javax.swing.JLabel lbl_MensajeSeccion1;
     private javax.swing.JLabel lbl_MensajeSeccion3;
@@ -356,15 +269,10 @@ public class FrmLector extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_btnFavoritos;
     private javax.swing.JLabel lbl_btnLibros;
     private javax.swing.JLabel lbl_btnPerfil;
-    private javax.swing.JLabel lbl_btnPrestamos;
-    private javax.swing.JLabel mostrarAutor;
-    private javax.swing.JLabel mostrarGenero;
-    private javax.swing.JLabel mostrarNumPaginas;
     private javax.swing.JTabbedPane pnlTb_Menu;
     private javax.swing.JPanel pnl_Favoritos;
     private javax.swing.JPanel pnl_Libros;
     private javax.swing.JPanel pnl_Perfil;
-    private javax.swing.JPanel pnl_Prestamos;
     private javax.swing.JPanel pnl_base;
     private javax.swing.JPanel pnl_navBar;
     private javax.swing.JTextField txtApellido;
