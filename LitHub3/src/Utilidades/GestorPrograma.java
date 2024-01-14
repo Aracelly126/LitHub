@@ -16,6 +16,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 
 public class GestorPrograma {
 
@@ -228,12 +229,19 @@ public class GestorPrograma {
 
     }
 
-    public static void almacenarImagenAutores(String urlImagen, String nombreArchivoDestino) {
+    public static void almacenarImagenUsuarios(String urlImagen, String nombreArchivoDestino) {
         try {
             Path origenPath = Paths.get(urlImagen);
-            Path destinoPath = Paths.get("SYSTEM/autores/", nombreArchivoDestino);
+            Path destinoPath = Paths.get("SYSTEM/usuarios/", nombreArchivoDestino);
 
-            // Copiar el archivo a la carpeta destino
+            // Verificar si ya existe un archivo con el mismo nombre en la carpeta destino
+            if (Files.exists(destinoPath)) {
+                // Si existe, eliminar el archivo anterior
+                Files.delete(destinoPath);
+                System.out.println("Archivo anterior eliminado: " + destinoPath.toString());
+            }
+
+            // Copiar el nuevo archivo a la carpeta destino
             Files.copy(origenPath, destinoPath);
 
             System.out.println("Imagen almacenada con éxito en: " + destinoPath.toString());
@@ -242,7 +250,7 @@ public class GestorPrograma {
         }
     }
 
-    public static  void abrirPDF(String rutaArchivo) {
+    public static void abrirPDF(String rutaArchivo) {
         try {
             File archivoPDF = new File(rutaArchivo);
             if (archivoPDF.exists()) {
@@ -258,14 +266,31 @@ public class GestorPrograma {
             System.out.println("Error al abrir el archivo PDF: " + ex.getMessage());
         }
     }
-    public static void eliminarLibro(String codigo){
+
+    public static void eliminarLibro(String codigo) {
         for (int i = 0; i < Almacen.getInstance().libros.size(); i++) {
             if (Almacen.getInstance().libros.get(i).getCodigo().equals(codigo)) {
                 Almacen.getInstance().libros.remove(i);
                 break;
             }
         }
-        
+
+    }
+
+    public static void actualizarUsuario(Usuario nuevoUsuario) {
+        // Iterar sobre la lista de usuarios
+        for (int i = 0; i < Almacen.getInstance().usuarios.size(); i++) {
+            Usuario usuarioActual = Almacen.getInstance().usuarios.get(i);
+
+            // Verificar si el correo del usuario actual es igual al correo del nuevo usuario
+            if (usuarioActual.getCorreo().equals(nuevoUsuario.getCorreo())) {
+                // Reemplazar el usuario antiguo con el nuevo usuario
+                Almacen.getInstance().usuarios.set(i, nuevoUsuario);
+
+                JOptionPane.showMessageDialog(null, "Usuario actualizado con éxito.");
+                return; // Salir del bucle una vez actualizado
+            }
+        }
     }
 
 }

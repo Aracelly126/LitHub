@@ -56,11 +56,11 @@ public class FrmLector extends javax.swing.JFrame {
         //</editor-fold>
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
         panelLibros = new JPanel();
         pnl_LibrosAll.setLayout(new BorderLayout());
         pnl_LibrosAll.add(panelLibros, BorderLayout.CENTER);
-        
+
         //--------Libros Favoritos
         panelLibrosFav = new JPanel();
         pnl_LibrosAllFav.setLayout(new BorderLayout());
@@ -75,7 +75,7 @@ public class FrmLector extends javax.swing.JFrame {
     public void iniciarVentana(String correoUser) {
         this.SesionActual = GestorPrograma.buscarUsuario(correoUser);
         System.out.println("Bienvenido: " + this.SesionActual.getNombre());
-        
+
         iniciarPnlPerfil();
         iniciarPnlTodosLibros();
         iniciarPnlLibrosFav();
@@ -86,79 +86,24 @@ public class FrmLector extends javax.swing.JFrame {
     public void cerrarSesion() {
         this.dispose();
     }
-    
+
     private void iniciarPnlPerfil() {
-        this.lbl_autoNombreSalida.setText(this.SesionActual.getNombre().toUpperCase());
-        this.lbl_autoApellSalida1.setText(this.SesionActual.getApellido().toUpperCase());
-        this.lbl_autoFechaNacSalida4.setText(this.SesionActual.getFecNac());
-        this.lbl_autoCantObrasSalida2.setText("12");
-        this.lbl_autoPaisSalida3.setText(this.SesionActual.getPais().toUpperCase());
-        boolean aux2 = ManejoComp.crearlabel(this.lbl_libPortadaAutor, "SYSTEM/Autores/" + this.SesionActual.getCorreo() + ".png");
-        if (aux2 == false) {
-            btn_libAgregarPortadaAutor.setEnabled(false);
-        }
+        ManejoComp.crearlabel(this.lbl_perImagen, "SYSTEM/usuarios/" + this.SesionActual.getCorreo() + ".png");
 
+        this.lbl_perCorreo2.setText(this.SesionActual.getCorreo());
+        this.txt_perNombre.setText(this.SesionActual.getNombre());
+        this.txt_perApellido.setText(this.SesionActual.getApellido());
+        this.txt_perPais.setText(this.SesionActual.getPais());
+        this.lbl_perFecNac2.setText(this.SesionActual.getFecNac());
     }
-    
-    private void iniciarPnlLibrosFav() {
-        int numeroDeColumnas = 4; // Por ejemplo, 3 columnas
-        panelLibrosFav.setLayout(new GridLayout(0, numeroDeColumnas));
-        panelLibrosFav.removeAll();
-        int i = 1;
-        for (Favorito fav : Almacen.getInstance().favoritos) {
-            if (fav.getCorreoUsuario().equals(this.SesionActual.getCorreo())) {
-                JLabel labelLibro = new JLabel(String.valueOf(i));
-                labelLibro.setHorizontalAlignment(JLabel.CENTER); // Centrar el texto
-                JLabel labelImagen = new JLabel(ManejoComp.redimensionarImagen("SYSTEM/libros/" + fav.getCodigoLibro() + ".png", 160, 200));
-                // Crear panel para el libro
-                JPanel panelLibroFav = new JPanel(new BorderLayout());
-                panelLibroFav.add(labelImagen, BorderLayout.CENTER);
+    public void limpiarPnlPerfil() {
+        this.lbl_perCambioNombre.setText("");
+        this.lbl_perCambioApellido.setText("");
+        this.lbl_perCambioPais.setText("");
 
-                // Crear panel para botones y label de descripción
-                JPanel panelBotones = new JPanel(new FlowLayout());
-
-                // Botón para agregar a favoritos
-                JButton btnFavoritos = new JButton("Eliminar de Favoritos");
-                btnFavoritos.addActionListener(e -> {
-                    this.gestorBD.eliminarFavoritosPorLibro(fav.getCodigoLibro());
-                    Almacen.getInstance().favoritos.remove(fav);
-                    JOptionPane.showMessageDialog(panelLibroFav, " Ha sido eliminado tu libro de favoritos.");
-                    iniciarPnlLibrosFav();
-                });
-                JLabel lblDescripcion = new JLabel("Leer Ahora");
-                lblDescripcion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                lblDescripcion.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        GestorPrograma.abrirPDF("SYSTEM/libros/" + fav.getCodigoLibro() + ".pdf");
-                    }
-                });
-
-                // Añadir botón y label al panel de botones
-                panelBotones.add(lblDescripcion);
-
-                // Añadir botón y label al panel de botones
-                panelBotones.add(btnFavoritos);
-
-                // Crear un panel secundario para agrupar el label del libro y los botones
-                JPanel panelInferior = new JPanel(new BorderLayout());
-                panelInferior.add(labelLibro, BorderLayout.NORTH);
-                panelInferior.add(panelBotones, BorderLayout.SOUTH);
-
-                // Añadir el panel inferior al panel del libro
-                panelLibroFav.add(panelInferior, BorderLayout.SOUTH);
-
-                panelLibrosFav.add(panelLibroFav);
-                i++;
-            }
-            panelLibrosFav.setLocation(panelLibrosFav.getX(), 0);
-
-            revalidate();
-            repaint();
-        }
-
+        this.btn_perActualizar.setEnabled(false);
     }
-    
+
     private void iniciarPnlTodosLibros() {
         int numeroDeColumnas = 4; // Por ejemplo, 3 columnas
         panelLibros.setLayout(new GridLayout(0, numeroDeColumnas));
@@ -220,6 +165,66 @@ public class FrmLector extends javax.swing.JFrame {
         revalidate();
         repaint();
     }
+
+    private void iniciarPnlLibrosFav() {
+        int numeroDeColumnas = 4; // Por ejemplo, 3 columnas
+        panelLibrosFav.setLayout(new GridLayout(0, numeroDeColumnas));
+        panelLibrosFav.removeAll();
+        int i = 1;
+        for (Favorito fav : Almacen.getInstance().favoritos) {
+            if (fav.getCorreoUsuario().equals(this.SesionActual.getCorreo())) {
+                JLabel labelLibro = new JLabel(String.valueOf(i));
+                labelLibro.setHorizontalAlignment(JLabel.CENTER); // Centrar el texto
+                JLabel labelImagen = new JLabel(ManejoComp.redimensionarImagen("SYSTEM/libros/" + fav.getCodigoLibro() + ".png", 160, 200));
+                // Crear panel para el libro
+                JPanel panelLibroFav = new JPanel(new BorderLayout());
+                panelLibroFav.add(labelImagen, BorderLayout.CENTER);
+
+                // Crear panel para botones y label de descripción
+                JPanel panelBotones = new JPanel(new FlowLayout());
+
+                // Botón para agregar a favoritos
+                JButton btnFavoritos = new JButton("Eliminar de Favoritos");
+                btnFavoritos.addActionListener(e -> {
+                    this.gestorBD.eliminarFavoritosPorLibro(fav.getCodigoLibro());
+                    Almacen.getInstance().favoritos.remove(fav);
+                    JOptionPane.showMessageDialog(panelLibroFav, " Ha sido eliminado tu libro de favoritos.");
+                    iniciarPnlLibrosFav();
+                });
+                JLabel lblDescripcion = new JLabel("Leer Ahora");
+                lblDescripcion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                lblDescripcion.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        GestorPrograma.abrirPDF("SYSTEM/libros/" + fav.getCodigoLibro() + ".pdf");
+                    }
+                });
+
+                // Añadir botón y label al panel de botones
+                panelBotones.add(lblDescripcion);
+
+                // Añadir botón y label al panel de botones
+                panelBotones.add(btnFavoritos);
+
+                // Crear un panel secundario para agrupar el label del libro y los botones
+                JPanel panelInferior = new JPanel(new BorderLayout());
+                panelInferior.add(labelLibro, BorderLayout.NORTH);
+                panelInferior.add(panelBotones, BorderLayout.SOUTH);
+
+                // Añadir el panel inferior al panel del libro
+                panelLibroFav.add(panelInferior, BorderLayout.SOUTH);
+
+                panelLibrosFav.add(panelLibroFav);
+                i++;
+            }
+            panelLibrosFav.setLocation(panelLibrosFav.getX(), 0);
+
+            revalidate();
+            repaint();
+        }
+
+    }
+
     private void mostrarDetalleLibro(Libro libro) {
         JFrame detalleFrame = new JFrame("Detalles del Libro");
         detalleFrame.setSize(300, 200);
@@ -246,18 +251,23 @@ public class FrmLector extends javax.swing.JFrame {
         pnlTb_Menu = new javax.swing.JTabbedPane();
         pnl_Perfil = new javax.swing.JPanel();
         lbl_MensajeSeccion1 = new javax.swing.JLabel();
-        lbl_libPortadaAutor = new javax.swing.JLabel();
-        btn_libAgregarPortadaAutor = new javax.swing.JButton();
-        lbl_autoCantObras = new javax.swing.JLabel();
-        lbl_autoApellido = new javax.swing.JLabel();
-        lbl_autoNombre1 = new javax.swing.JLabel();
-        lbl_autoNombreSalida = new javax.swing.JLabel();
-        lbl_autoApellSalida1 = new javax.swing.JLabel();
-        lbl_autoFechaNac = new javax.swing.JLabel();
-        lbl_autoPais = new javax.swing.JLabel();
-        lbl_autoPaisSalida3 = new javax.swing.JLabel();
-        lbl_autoFechaNacSalida4 = new javax.swing.JLabel();
-        lbl_autoCantObrasSalida2 = new javax.swing.JLabel();
+        lbl_perImagen = new javax.swing.JLabel();
+        btn_perAgregarNuevaFotoPerfil = new javax.swing.JButton();
+        lbl_perCorreo1 = new javax.swing.JLabel();
+        lbl_perCorreo2 = new javax.swing.JLabel();
+        lbl_perNombre = new javax.swing.JLabel();
+        txt_perNombre = new javax.swing.JTextField();
+        lbl_perApellido = new javax.swing.JLabel();
+        txt_perApellido = new javax.swing.JTextField();
+        lbl_perPais = new javax.swing.JLabel();
+        txt_perPais = new javax.swing.JTextField();
+        lbl_perFecNac1 = new javax.swing.JLabel();
+        lbl_perFecNac2 = new javax.swing.JLabel();
+        btn_perActualizar = new javax.swing.JButton();
+        btn_perDescartar = new javax.swing.JButton();
+        lbl_perCambioNombre = new javax.swing.JLabel();
+        lbl_perCambioApellido = new javax.swing.JLabel();
+        lbl_perCambioPais = new javax.swing.JLabel();
         pnl_Libros = new javax.swing.JPanel();
         lbl_MensajeSeccion2 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -323,77 +333,114 @@ public class FrmLector extends javax.swing.JFrame {
         pnl_Perfil.setBackground(new java.awt.Color(255, 255, 255));
         pnl_Perfil.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbl_MensajeSeccion1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbl_MensajeSeccion1.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
         lbl_MensajeSeccion1.setForeground(new java.awt.Color(0, 0, 0));
         lbl_MensajeSeccion1.setText("Seccion: Mi Perfil");
         pnl_Perfil.add(lbl_MensajeSeccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 40, -1, -1));
 
-        lbl_libPortadaAutor.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        pnl_Perfil.add(lbl_libPortadaAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 170, 210));
+        lbl_perImagen.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnl_Perfil.add(lbl_perImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, 170, 210));
 
-        btn_libAgregarPortadaAutor.setText("Agregar foto de perfil");
-        btn_libAgregarPortadaAutor.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btn_libAgregarPortadaAutor.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_perAgregarNuevaFotoPerfil.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        btn_perAgregarNuevaFotoPerfil.setText("Seleccionar foto");
+        btn_perAgregarNuevaFotoPerfil.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_perAgregarNuevaFotoPerfil.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_libAgregarPortadaAutorMouseClicked(evt);
+                btn_perAgregarNuevaFotoPerfilMouseClicked(evt);
             }
         });
-        pnl_Perfil.add(btn_libAgregarPortadaAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, 170, 30));
+        pnl_Perfil.add(btn_perAgregarNuevaFotoPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 440, 170, 35));
 
-        lbl_autoCantObras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lbl_autoCantObras.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_autoCantObras.setText("Cant Obras:");
-        pnl_Perfil.add(lbl_autoCantObras, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 240, 80, 30));
+        lbl_perCorreo1.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lbl_perCorreo1.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_perCorreo1.setText("Correo:");
+        pnl_Perfil.add(lbl_perCorreo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 200, 110, 40));
 
-        lbl_autoApellido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lbl_autoApellido.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_autoApellido.setText("Apellido:");
-        pnl_Perfil.add(lbl_autoApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, 80, 30));
+        lbl_perCorreo2.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lbl_perCorreo2.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_perCorreo2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        pnl_Perfil.add(lbl_perCorreo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 200, 180, 40));
 
-        lbl_autoNombre1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lbl_autoNombre1.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_autoNombre1.setText("Nombre:");
-        pnl_Perfil.add(lbl_autoNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 80, 30));
+        lbl_perNombre.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lbl_perNombre.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_perNombre.setText("Nombre:");
+        pnl_Perfil.add(lbl_perNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 260, 110, 40));
 
-        lbl_autoNombreSalida.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        lbl_autoNombreSalida.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_autoNombreSalida.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbl_autoNombreSalida.setToolTipText("");
-        pnl_Perfil.add(lbl_autoNombreSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 140, 180, 30));
+        txt_perNombre.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        txt_perNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_perNombreKeyTyped(evt);
+            }
+        });
+        pnl_Perfil.add(txt_perNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 260, 180, 40));
 
-        lbl_autoApellSalida1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        lbl_autoApellSalida1.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_autoApellSalida1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbl_autoApellSalida1.setToolTipText("");
-        pnl_Perfil.add(lbl_autoApellSalida1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 180, 30));
+        lbl_perApellido.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lbl_perApellido.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_perApellido.setText("Apellido:");
+        pnl_Perfil.add(lbl_perApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 320, 110, 40));
 
-        lbl_autoFechaNac.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lbl_autoFechaNac.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_autoFechaNac.setText("Fecha Nac:");
-        pnl_Perfil.add(lbl_autoFechaNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 190, 80, 32));
+        txt_perApellido.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        txt_perApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_perApellidoKeyTyped(evt);
+            }
+        });
+        pnl_Perfil.add(txt_perApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 320, 180, 40));
 
-        lbl_autoPais.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lbl_autoPais.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_autoPais.setText("Pais:");
-        pnl_Perfil.add(lbl_autoPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 140, 80, 30));
+        lbl_perPais.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lbl_perPais.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_perPais.setText("Pais:");
+        pnl_Perfil.add(lbl_perPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 380, 110, 40));
 
-        lbl_autoPaisSalida3.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        lbl_autoPaisSalida3.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_autoPaisSalida3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbl_autoPaisSalida3.setToolTipText("");
-        pnl_Perfil.add(lbl_autoPaisSalida3, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 140, 180, 30));
+        txt_perPais.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        txt_perPais.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_perPaisKeyTyped(evt);
+            }
+        });
+        pnl_Perfil.add(txt_perPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 380, 180, 40));
 
-        lbl_autoFechaNacSalida4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        lbl_autoFechaNacSalida4.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_autoFechaNacSalida4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbl_autoFechaNacSalida4.setToolTipText("");
-        pnl_Perfil.add(lbl_autoFechaNacSalida4, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 190, 180, 30));
+        lbl_perFecNac1.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lbl_perFecNac1.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_perFecNac1.setText("Fecha Nac:");
+        pnl_Perfil.add(lbl_perFecNac1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 440, 110, 40));
 
-        lbl_autoCantObrasSalida2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        lbl_autoCantObrasSalida2.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_autoCantObrasSalida2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbl_autoCantObrasSalida2.setToolTipText("");
-        pnl_Perfil.add(lbl_autoCantObrasSalida2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 240, 180, 30));
+        lbl_perFecNac2.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lbl_perFecNac2.setForeground(new java.awt.Color(0, 0, 0));
+        pnl_Perfil.add(lbl_perFecNac2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 440, 180, 40));
+
+        btn_perActualizar.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        btn_perActualizar.setText("Actualizar perfil");
+        btn_perActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_perActualizarMouseClicked(evt);
+            }
+        });
+        pnl_Perfil.add(btn_perActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 630, 190, 35));
+
+        btn_perDescartar.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        btn_perDescartar.setText("Descartar Cambios");
+        btn_perDescartar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_perDescartarMouseClicked(evt);
+            }
+        });
+        pnl_Perfil.add(btn_perDescartar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 630, 190, 35));
+
+        lbl_perCambioNombre.setFont(new java.awt.Font("Trebuchet MS", 0, 36)); // NOI18N
+        lbl_perCambioNombre.setForeground(new java.awt.Color(255, 102, 102));
+        lbl_perCambioNombre.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        pnl_Perfil.add(lbl_perCambioNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 260, 20, 20));
+
+        lbl_perCambioApellido.setFont(new java.awt.Font("Trebuchet MS", 0, 36)); // NOI18N
+        lbl_perCambioApellido.setForeground(new java.awt.Color(255, 102, 102));
+        lbl_perCambioApellido.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        pnl_Perfil.add(lbl_perCambioApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 320, 20, 20));
+
+        lbl_perCambioPais.setFont(new java.awt.Font("Trebuchet MS", 0, 36)); // NOI18N
+        lbl_perCambioPais.setForeground(new java.awt.Color(255, 102, 102));
+        lbl_perCambioPais.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        pnl_Perfil.add(lbl_perCambioPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 380, 20, 20));
 
         pnlTb_Menu.addTab("", pnl_Perfil);
 
@@ -415,7 +462,7 @@ public class FrmLector extends javax.swing.JFrame {
         pnl_LibrosAll.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jScrollPane4.setViewportView(pnl_LibrosAll);
 
-        pnl_Libros.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 80, 1200, 630));
+        pnl_Libros.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 90, 1200, 620));
 
         pnlTb_Menu.addTab("", pnl_Libros);
 
@@ -471,37 +518,72 @@ public class FrmLector extends javax.swing.JFrame {
 
     private void lbl_btnLibrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_btnLibrosMouseClicked
         this.pnlTb_Menu.setSelectedIndex(1);
-        InfoLibros inf = new InfoLibros();
-        JPanel panelLibros = new JPanel();
-        panelLibros.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
-        //inf.mostrarLibros(panelLibros,PanelImg,lbNombreLibro, mostrarAutor, mostrarGenero, mostrarNumPaginas, pnlTb_Menu);
-
-        this.pnl_Libros.setLayout(new BorderLayout());
-        this.pnl_Libros.add(panelLibros, BorderLayout.CENTER);
-
-        this.pnl_Libros.revalidate();
-        this.pnl_Libros.repaint();
     }//GEN-LAST:event_lbl_btnLibrosMouseClicked
 
     private void lbl_btnFavoritosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_btnFavoritosMouseClicked
         this.pnlTb_Menu.setSelectedIndex(2);
     }//GEN-LAST:event_lbl_btnFavoritosMouseClicked
 
-    private void btn_libAgregarPortadaAutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libAgregarPortadaAutorMouseClicked
-        if (this.btn_libAgregarPortadaAutor.isEnabled() == false) {
+    private void btn_perAgregarNuevaFotoPerfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_perAgregarNuevaFotoPerfilMouseClicked
+        if (this.btn_perAgregarNuevaFotoPerfil.isEnabled() == false) {
             return;
         }
         this.urlPortadaAutor = GestorPrograma.seleccionarImagen();
         if (Controles.cadenaVacia(this.urlPortadaAutor)) {
             return;
         }
-        ManejoComp.crearlabel(this.lbl_libPortadaAutor, this.urlPortadaAutor);
-        this.btn_libAgregarPortadaAutor.setEnabled(false);
-        GestorPrograma.almacenarImagenAutores(urlPortadaAutor, this.SesionActual.getCorreo() + ".png");
-    }//GEN-LAST:event_btn_libAgregarPortadaAutorMouseClicked
+        ManejoComp.crearlabel(this.lbl_perImagen, this.urlPortadaAutor);
+        GestorPrograma.almacenarImagenUsuarios(urlPortadaAutor, this.SesionActual.getCorreo() + ".png");
+    }//GEN-LAST:event_btn_perAgregarNuevaFotoPerfilMouseClicked
+
+    private void txt_perNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_perNombreKeyTyped
+        this.lbl_perCambioNombre.setText("\u2022");
+        this.btn_perActualizar.setEnabled(true);
+    }//GEN-LAST:event_txt_perNombreKeyTyped
+
+    private void txt_perApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_perApellidoKeyTyped
+        this.lbl_perCambioApellido.setText("\u2022");
+        this.btn_perActualizar.setEnabled(true);
+    }//GEN-LAST:event_txt_perApellidoKeyTyped
+
+    private void txt_perPaisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_perPaisKeyTyped
+        this.lbl_perCambioPais.setText("\u2022");
+        this.btn_perActualizar.setEnabled(true);
+    }//GEN-LAST:event_txt_perPaisKeyTyped
+
+    private void btn_perActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_perActualizarMouseClicked
+        if (this.btn_perActualizar.isEnabled() == false) {
+            return;
+        }
+        if (Controles.cadenaVacia(this.txt_perNombre.getText())
+            || Controles.cadenaVacia(this.txt_perApellido.getText())
+            || Controles.cadenaVacia(this.txt_perPais.getText())) {
+            JOptionPane.showMessageDialog(this, "No se admiten espacios en blanco. . .");
+            return;
+        }
+        String nuevoNombre = this.txt_perNombre.getText();
+        String nuevoApellido = this.txt_perApellido.getText();
+        String nuevoPais = this.txt_perPais.getText();
+        this.SesionActual.setNombre(nuevoNombre);
+        this.SesionActual.setApellido(nuevoApellido);
+        this.SesionActual.setPais(nuevoPais);
+
+        this.gestorBD.actualizarUsuario(this.SesionActual);
+        GestorPrograma.actualizarUsuario(this.SesionActual);
+
+        this.iniciarPnlPerfil();
+        this.limpiarPnlPerfil();
+    }//GEN-LAST:event_btn_perActualizarMouseClicked
+
+    private void btn_perDescartarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_perDescartarMouseClicked
+        this.iniciarPnlPerfil();
+        this.limpiarPnlPerfil();
+    }//GEN-LAST:event_btn_perDescartarMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton btn_libAgregarPortadaAutor;
+    private javax.swing.JButton btn_perActualizar;
+    public javax.swing.JButton btn_perAgregarNuevaFotoPerfil;
+    private javax.swing.JButton btn_perDescartar;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator2;
@@ -509,21 +591,21 @@ public class FrmLector extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_MensajeSeccion1;
     private javax.swing.JLabel lbl_MensajeSeccion2;
     private javax.swing.JLabel lbl_MensajeSeccion3;
-    private javax.swing.JLabel lbl_autoApellSalida1;
-    private javax.swing.JLabel lbl_autoApellido;
-    private javax.swing.JLabel lbl_autoCantObras;
-    private javax.swing.JLabel lbl_autoCantObrasSalida2;
-    private javax.swing.JLabel lbl_autoFechaNac;
-    private javax.swing.JLabel lbl_autoFechaNacSalida4;
-    private javax.swing.JLabel lbl_autoNombre1;
-    private javax.swing.JLabel lbl_autoNombreSalida;
-    private javax.swing.JLabel lbl_autoPais;
-    private javax.swing.JLabel lbl_autoPaisSalida3;
     public javax.swing.JLabel lbl_btnCerrarSesion;
     private javax.swing.JLabel lbl_btnFavoritos;
     private javax.swing.JLabel lbl_btnLibros;
     private javax.swing.JLabel lbl_btnPerfil;
-    public javax.swing.JLabel lbl_libPortadaAutor;
+    private javax.swing.JLabel lbl_perApellido;
+    private javax.swing.JLabel lbl_perCambioApellido;
+    private javax.swing.JLabel lbl_perCambioNombre;
+    private javax.swing.JLabel lbl_perCambioPais;
+    private javax.swing.JLabel lbl_perCorreo1;
+    private javax.swing.JLabel lbl_perCorreo2;
+    private javax.swing.JLabel lbl_perFecNac1;
+    private javax.swing.JLabel lbl_perFecNac2;
+    public javax.swing.JLabel lbl_perImagen;
+    private javax.swing.JLabel lbl_perNombre;
+    private javax.swing.JLabel lbl_perPais;
     private javax.swing.JTabbedPane pnlTb_Menu;
     private javax.swing.JPanel pnl_Favoritos;
     private javax.swing.JPanel pnl_Libros;
@@ -532,5 +614,8 @@ public class FrmLector extends javax.swing.JFrame {
     private javax.swing.JPanel pnl_Perfil;
     private javax.swing.JPanel pnl_base;
     private javax.swing.JPanel pnl_navBar;
+    private javax.swing.JTextField txt_perApellido;
+    private javax.swing.JTextField txt_perNombre;
+    private javax.swing.JTextField txt_perPais;
     // End of variables declaration//GEN-END:variables
 }

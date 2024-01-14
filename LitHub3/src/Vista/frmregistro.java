@@ -92,98 +92,114 @@ public class frmregistro extends javax.swing.JFrame {
         pnl_registro.setBackground(new java.awt.Color(255, 255, 255));
         pnl_registro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbl_titulo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        lbl_titulo.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         lbl_titulo.setForeground(new java.awt.Color(51, 51, 51));
         lbl_titulo.setText("Registro de Usuario");
-        pnl_registro.add(lbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 240, 60));
+        pnl_registro.add(lbl_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 220, 40));
 
+        lbl_nombre.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_nombre.setForeground(new java.awt.Color(0, 0, 0));
         lbl_nombre.setText("Nombre:");
-        pnl_registro.add(lbl_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, -1, -1));
+        pnl_registro.add(lbl_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 90, -1));
 
+        txt_nombre.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txt_nombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_nombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_nombreKeyTyped(evt);
             }
         });
-        pnl_registro.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 120, 30));
+        pnl_registro.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 130, 40));
 
+        lbl_apellido.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_apellido.setForeground(new java.awt.Color(0, 0, 0));
         lbl_apellido.setText("Apellido");
-        pnl_registro.add(lbl_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, -1, -1));
+        pnl_registro.add(lbl_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 90, -1));
 
+        txt_apellido.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txt_apellido.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_apellido.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_apellidoKeyTyped(evt);
             }
         });
-        pnl_registro.add(txt_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 120, 30));
+        pnl_registro.add(txt_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, 150, 40));
 
+        lbl_fechaNac.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_fechaNac.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_fechaNac.setText("Fecha de Nacimiento");
-        pnl_registro.add(lbl_fechaNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, -1, -1));
+        lbl_fechaNac.setText("Fecha de Nac");
+        pnl_registro.add(lbl_fechaNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 120, -1));
 
         txt_fecNac.setDateFormatString("dd/MM/yyyy");
         txt_fecNac.setMaxSelectableDate(new java.util.Date(1262235600000L));
-        pnl_registro.add(txt_fecNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 120, 30));
+        pnl_registro.add(txt_fecNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 130, 40));
 
+        lbl_tipo.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_tipo.setForeground(new java.awt.Color(0, 0, 0));
         lbl_tipo.setText("Tipo");
-        pnl_registro.add(lbl_tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, -1));
+        pnl_registro.add(lbl_tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, 60, -1));
 
+        cmb_tipo.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         cmb_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMIN", "LECTOR", "AUTOR" }));
-        pnl_registro.add(cmb_tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 120, 30));
+        pnl_registro.add(cmb_tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 150, 40));
 
+        lbl_pais.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_pais.setForeground(new java.awt.Color(0, 0, 0));
         lbl_pais.setText("País");
-        pnl_registro.add(lbl_pais, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, -1, -1));
+        pnl_registro.add(lbl_pais, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 60, -1));
 
+        txt_pais.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txt_pais.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_pais.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_paisKeyTyped(evt);
             }
         });
-        pnl_registro.add(txt_pais, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 250, 30));
+        pnl_registro.add(txt_pais, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 290, 40));
 
+        lbl_correo.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_correo.setForeground(new java.awt.Color(0, 0, 0));
         lbl_correo.setText("Correo:");
-        pnl_registro.add(lbl_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, -1, -1));
+        pnl_registro.add(lbl_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 90, -1));
 
+        txt_correo.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txt_correo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_correo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_correoKeyTyped(evt);
             }
         });
-        pnl_registro.add(txt_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, 250, 30));
+        pnl_registro.add(txt_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, 290, 40));
 
+        lbl_contrasenia.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_contrasenia.setForeground(new java.awt.Color(0, 0, 0));
         lbl_contrasenia.setText("Contraseña:");
-        pnl_registro.add(lbl_contrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, -1, -1));
+        pnl_registro.add(lbl_contrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, 120, -1));
 
+        txt_contrasenia.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txt_contrasenia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_contrasenia.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_contraseniaKeyTyped(evt);
             }
         });
-        pnl_registro.add(txt_contrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 380, 250, 30));
+        pnl_registro.add(txt_contrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 400, 290, 40));
 
+        lbl_confContrasenia.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_confContrasenia.setForeground(new java.awt.Color(0, 0, 0));
         lbl_confContrasenia.setText("Confirmar contraseña:");
-        pnl_registro.add(lbl_confContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, -1, -1));
+        pnl_registro.add(lbl_confContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 460, 210, -1));
 
+        txt_confContrasenia.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txt_confContrasenia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_confContrasenia.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_confContraseniaKeyTyped(evt);
             }
         });
-        pnl_registro.add(txt_confContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 440, 250, 30));
+        pnl_registro.add(txt_confContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 480, 290, 40));
 
+        btn_registrar.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btn_registrar.setText("Registrarse");
         btn_registrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_registrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -191,12 +207,14 @@ public class frmregistro extends javax.swing.JFrame {
                 btn_registrarMouseClicked(evt);
             }
         });
-        pnl_registro.add(btn_registrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 500, -1, -1));
+        pnl_registro.add(btn_registrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 540, 150, 35));
 
+        lbl_inicio.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         lbl_inicio.setForeground(new java.awt.Color(0, 0, 0));
         lbl_inicio.setText("Ya tienes una cuenta?");
         pnl_registro.add(lbl_inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, -1, -1));
 
+        btn_inicio.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         btn_inicio.setForeground(new java.awt.Color(51, 0, 102));
         btn_inicio.setText("iniciar sesion");
         btn_inicio.setBorder(null);
@@ -204,13 +222,15 @@ public class frmregistro extends javax.swing.JFrame {
         btn_inicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnl_registro.add(btn_inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 550, -1, -1));
 
+        btn_verConfContrasenia.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         btn_verConfContrasenia.setText("Ver");
         btn_verConfContrasenia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnl_registro.add(btn_verConfContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 445, 55, 20));
+        pnl_registro.add(btn_verConfContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 490, 55, 20));
 
+        btn_verContrasenia.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         btn_verContrasenia.setText("Ver");
         btn_verContrasenia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnl_registro.add(btn_verContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 385, 55, 20));
+        pnl_registro.add(btn_verContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 410, 55, 20));
 
         getContentPane().add(pnl_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 510, 590));
         getContentPane().add(lbl_fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 590));

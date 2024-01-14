@@ -99,52 +99,61 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
 
         pnl_derecha.setBackground(new java.awt.Color(255, 255, 255));
         pnl_derecha.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        pnl_derecha.add(lbl_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 120, 120));
+        pnl_derecha.add(lbl_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 120, 120));
 
+        lbl_correo.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_correo.setForeground(new java.awt.Color(0, 0, 0));
         lbl_correo.setText("Correo:");
-        pnl_derecha.add(lbl_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, -1, -1));
+        pnl_derecha.add(lbl_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, -1, 30));
 
+        txt_correo.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txt_correo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_correo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_correoKeyTyped(evt);
             }
         });
-        pnl_derecha.add(txt_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, 190, 30));
+        pnl_derecha.add(txt_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 190, 40));
 
+        lbl_contrasenia.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_contrasenia.setForeground(new java.awt.Color(0, 0, 0));
         lbl_contrasenia.setText("Contraseña:");
-        pnl_derecha.add(lbl_contrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, -1, -1));
+        pnl_derecha.add(lbl_contrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, -1, 30));
 
+        txt_contrasenia.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txt_contrasenia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_contrasenia.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_contraseniaKeyTyped(evt);
             }
         });
-        pnl_derecha.add(txt_contrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 190, 30));
+        pnl_derecha.add(txt_contrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, 190, 40));
 
+        btn_verContrasenia.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         btn_verContrasenia.setText("Ver");
         btn_verContrasenia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnl_derecha.add(btn_verContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 265, 55, 20));
+        pnl_derecha.add(btn_verContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, -1, 20));
 
+        lbl_mensaje.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         lbl_mensaje.setForeground(new java.awt.Color(255, 0, 0));
-        pnl_derecha.add(lbl_mensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 240, 30));
+        pnl_derecha.add(lbl_mensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, 240, 30));
 
-        btn_iniciarSesion.setText("iniciar Sesion");
+        btn_iniciarSesion.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        btn_iniciarSesion.setText("Iniciar Sesion");
         btn_iniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_iniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_iniciarSesionMouseClicked(evt);
             }
         });
-        pnl_derecha.add(btn_iniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 330, -1, -1));
+        pnl_derecha.add(btn_iniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 430, -1, 35));
 
+        lbl_registro.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         lbl_registro.setForeground(new java.awt.Color(0, 0, 0));
         lbl_registro.setText("No tienes una cuenta?");
-        pnl_derecha.add(lbl_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 510, -1, -1));
+        pnl_derecha.add(lbl_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 500, -1, 30));
 
+        btn_registro.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         btn_registro.setForeground(new java.awt.Color(51, 0, 102));
         btn_registro.setText("Registrarse");
         btn_registro.setBorder(null);
@@ -155,7 +164,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
                 btn_registroMouseClicked(evt);
             }
         });
-        pnl_derecha.add(btn_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 510, -1, -1));
+        pnl_derecha.add(btn_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 500, -1, 30));
 
         lblbaseDerecha.setBackground(new java.awt.Color(255, 255, 255));
         lblbaseDerecha.setForeground(new java.awt.Color(255, 0, 0));

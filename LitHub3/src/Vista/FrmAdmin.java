@@ -191,6 +191,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         lbl_btnUsuarios = new javax.swing.JLabel();
         lbl_btnCerrarSesion = new javax.swing.JLabel();
         lbl_MensajeBienvenida = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
         pnlTb_Menu = new javax.swing.JTabbedPane();
         pnl_Libros = new javax.swing.JPanel();
         lbl_MensajeSeccion1 = new javax.swing.JLabel();
@@ -264,135 +265,145 @@ public class FrmAdmin extends javax.swing.JFrame {
         pnl_navBar.add(lbl_btnUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 130, 50, 50));
 
         lbl_btnCerrarSesion.setBackground(new java.awt.Color(36, 35, 53));
-        lbl_btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnl_navBar.add(lbl_btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 590, 50, 50));
 
         pnl_base.add(pnl_navBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 650));
 
-        lbl_MensajeBienvenida.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbl_MensajeBienvenida.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
         lbl_MensajeBienvenida.setForeground(new java.awt.Color(0, 0, 0));
         lbl_MensajeBienvenida.setText("Iniciaste sesion como: ADMINISTRADOR");
         pnl_base.add(lbl_MensajeBienvenida, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, -1, -1));
+
+        jSeparator2.setBackground(new java.awt.Color(0, 153, 153));
+        jSeparator2.setForeground(new java.awt.Color(0, 153, 153));
+        pnl_base.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 910, 10));
 
         pnlTb_Menu.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
         pnl_Libros.setBackground(new java.awt.Color(255, 255, 255));
         pnl_Libros.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbl_MensajeSeccion1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbl_MensajeSeccion1.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
         lbl_MensajeSeccion1.setForeground(new java.awt.Color(0, 0, 0));
         lbl_MensajeSeccion1.setText("Seccion Libros");
         pnl_Libros.add(lbl_MensajeSeccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 40, -1, -1));
 
         lbl_libPortada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        pnl_Libros.add(lbl_libPortada, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 170, 210));
+        pnl_Libros.add(lbl_libPortada, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 170, 210));
 
+        btn_libAgregarPortada.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btn_libAgregarPortada.setText("Agregar portada");
-        btn_libAgregarPortada.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_libAgregarPortada.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_libAgregarPortada.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_libAgregarPortadaMouseClicked(evt);
             }
         });
-        pnl_Libros.add(btn_libAgregarPortada, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 170, 30));
+        pnl_Libros.add(btn_libAgregarPortada, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 170, 30));
 
+        btn_libAgregarPdf.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btn_libAgregarPdf.setText("Agregar pdf");
-        btn_libAgregarPdf.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_libAgregarPdf.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_libAgregarPdf.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_libAgregarPdfMouseClicked(evt);
             }
         });
-        pnl_Libros.add(btn_libAgregarPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 170, 30));
+        pnl_Libros.add(btn_libAgregarPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 170, 30));
 
-        lbl_libCodigo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_libCodigo.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_libCodigo.setForeground(new java.awt.Color(0, 0, 0));
         lbl_libCodigo.setText("Codigo:");
-        pnl_Libros.add(lbl_libCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 100, 30));
+        pnl_Libros.add(lbl_libCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, 100, 40));
 
-        txt_libCodigo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txt_libCodigo.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txt_libCodigo.setEnabled(false);
         txt_libCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_libCodigoKeyTyped(evt);
             }
         });
-        pnl_Libros.add(txt_libCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 80, 300, 30));
+        pnl_Libros.add(txt_libCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, 300, 40));
 
-        lbl_libAutor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_libAutor.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_libAutor.setForeground(new java.awt.Color(0, 0, 0));
         lbl_libAutor.setText("Autor:");
-        pnl_Libros.add(lbl_libAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 100, 30));
+        pnl_Libros.add(lbl_libAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 165, 100, 40));
 
-        lbl_libNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_libNombre.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_libNombre.setForeground(new java.awt.Color(0, 0, 0));
         lbl_libNombre.setText("Nombre:");
-        pnl_Libros.add(lbl_libNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, 100, 30));
+        pnl_Libros.add(lbl_libNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, 100, 40));
 
-        txt_libNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txt_libNombre.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txt_libNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_libNombreKeyTyped(evt);
             }
         });
-        pnl_Libros.add(txt_libNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, 300, 30));
+        pnl_Libros.add(txt_libNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 220, 300, 40));
 
-        lbl_libGenero.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_libGenero.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_libGenero.setForeground(new java.awt.Color(0, 0, 0));
         lbl_libGenero.setText("Genero:");
-        pnl_Libros.add(lbl_libGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, 100, 30));
+        pnl_Libros.add(lbl_libGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 275, 100, 40));
 
-        lbl_libNumPags.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_libNumPags.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_libNumPags.setForeground(new java.awt.Color(0, 0, 0));
         lbl_libNumPags.setText("Num paginas:");
-        pnl_Libros.add(lbl_libNumPags, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 100, 30));
+        pnl_Libros.add(lbl_libNumPags, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 330, 100, 40));
 
-        txt_libNumPags.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txt_libNumPags.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txt_libNumPags.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_libNumPagsKeyTyped(evt);
             }
         });
-        pnl_Libros.add(txt_libNumPags, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 300, 30));
+        pnl_Libros.add(txt_libNumPags, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 330, 300, 40));
 
+        btn_libGuardar.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btn_libGuardar.setText("Guardar");
-        btn_libGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_libGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_libGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_libGuardarMouseClicked(evt);
             }
         });
-        pnl_Libros.add(btn_libGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 110, 100, 30));
+        pnl_Libros.add(btn_libGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 140, 120, 35));
 
+        btn_libActualizar.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btn_libActualizar.setText("Actualizar");
-        btn_libActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_libActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_libActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_libActualizarMouseClicked(evt);
             }
         });
-        pnl_Libros.add(btn_libActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 160, 100, 30));
+        pnl_Libros.add(btn_libActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(782, 190, -1, 35));
 
+        btn_libEliminar.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btn_libEliminar.setText("Eliminar");
-        btn_libEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_libEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_libEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_libEliminarMouseClicked(evt);
             }
         });
-        pnl_Libros.add(btn_libEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 210, 100, 30));
+        pnl_Libros.add(btn_libEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 240, 120, 35));
 
+        btn_libLimpiar.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btn_libLimpiar.setText("Limpiar");
-        btn_libLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_libLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_libLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_libLimpiarMouseClicked(evt);
             }
         });
-        pnl_Libros.add(btn_libLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 260, 100, 30));
+        pnl_Libros.add(btn_libLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 290, 120, 35));
         pnl_Libros.add(lbl_libNombreArchivoPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, 200, 30));
 
-        tbl_libros.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tbl_libros.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         tbl_libros.setModel(this.modelTblLibros);
         tbl_libros.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -401,34 +412,37 @@ public class FrmAdmin extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbl_libros);
 
-        pnl_Libros.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 890, 270));
+        pnl_Libros.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 890, 250));
 
+        btn_libNuevoCodigo.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         btn_libNuevoCodigo.setText("Nuevo");
-        btn_libNuevoCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_libNuevoCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_libNuevoCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_libNuevoCodigoMouseClicked(evt);
             }
         });
-        pnl_Libros.add(btn_libNuevoCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 50, 70, 30));
+        pnl_Libros.add(btn_libNuevoCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 80, 80, 30));
 
+        cmb_libGeneros.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         cmb_libGeneros.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Drama", "Castigo", "Ficticio" }));
-        pnl_Libros.add(cmb_libGeneros, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 230, 300, 30));
+        pnl_Libros.add(cmb_libGeneros, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 275, 300, 40));
 
+        cmb_libAutores.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         cmb_libAutores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1" }));
-        pnl_Libros.add(cmb_libAutores, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 300, 30));
+        pnl_Libros.add(cmb_libAutores, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 165, 300, 40));
 
         pnlTb_Menu.addTab("", pnl_Libros);
 
         pnl_Usuarios.setBackground(new java.awt.Color(255, 255, 255));
         pnl_Usuarios.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbl_MensajeSeccion2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbl_MensajeSeccion2.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
         lbl_MensajeSeccion2.setForeground(new java.awt.Color(0, 0, 0));
         lbl_MensajeSeccion2.setText("Seccion Usuarios");
         pnl_Usuarios.add(lbl_MensajeSeccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 40, -1, -1));
 
-        tbl_usuarios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tbl_usuarios.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         tbl_usuarios.setModel(this.modelTblUsuarioss);
         tbl_usuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -439,81 +453,83 @@ public class FrmAdmin extends javax.swing.JFrame {
 
         pnl_Usuarios.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 890, 280));
 
-        lbl_usuCorreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_usuCorreo.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_usuCorreo.setForeground(new java.awt.Color(0, 0, 0));
         lbl_usuCorreo.setText("Correo: ");
-        pnl_Usuarios.add(lbl_usuCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 80, 30));
+        pnl_Usuarios.add(lbl_usuCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 80, 40));
 
-        lbl_usuNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_usuNombre.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_usuNombre.setForeground(new java.awt.Color(0, 0, 0));
         lbl_usuNombre.setText("Nombre:");
-        pnl_Usuarios.add(lbl_usuNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 80, 30));
+        pnl_Usuarios.add(lbl_usuNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 80, 40));
 
-        lbl_usuApellido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_usuApellido.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_usuApellido.setForeground(new java.awt.Color(0, 0, 0));
         lbl_usuApellido.setText("Apellido:");
-        pnl_Usuarios.add(lbl_usuApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 80, 30));
+        pnl_Usuarios.add(lbl_usuApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 80, 40));
 
-        lbl_usuPais.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_usuPais.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_usuPais.setForeground(new java.awt.Color(0, 0, 0));
         lbl_usuPais.setText("Pais:");
-        pnl_Usuarios.add(lbl_usuPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, 80, 30));
+        pnl_Usuarios.add(lbl_usuPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 90, 40));
 
-        lbl_usuFecNac.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_usuFecNac.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_usuFecNac.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_usuFecNac.setText("Fecha Nac:");
-        pnl_Usuarios.add(lbl_usuFecNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 180, 80, 30));
+        lbl_usuFecNac.setText("Fecha Nac");
+        pnl_Usuarios.add(lbl_usuFecNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 190, 90, 40));
 
-        lbl_usuTipo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_usuTipo.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_usuTipo.setForeground(new java.awt.Color(0, 0, 0));
         lbl_usuTipo.setText("Tipo:");
-        pnl_Usuarios.add(lbl_usuTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 220, 80, 30));
+        pnl_Usuarios.add(lbl_usuTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 240, 90, 40));
 
-        txt_usuCorreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txt_usuCorreo.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txt_usuCorreo.setEnabled(false);
         txt_usuCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_usuCorreoKeyTyped(evt);
             }
         });
-        pnl_Usuarios.add(txt_usuCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 200, 30));
+        pnl_Usuarios.add(txt_usuCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 200, 40));
 
-        txt_usuNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txt_usuNombre.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txt_usuNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_usuNombreKeyTyped(evt);
             }
         });
-        pnl_Usuarios.add(txt_usuNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 200, 30));
+        pnl_Usuarios.add(txt_usuNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 200, 40));
 
-        txt_usuApellido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txt_usuApellido.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txt_usuApellido.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_usuApellidoKeyTyped(evt);
             }
         });
-        pnl_Usuarios.add(txt_usuApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 200, 30));
+        pnl_Usuarios.add(txt_usuApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 200, 40));
 
-        txt_usuPais.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txt_usuPais.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txt_usuPais.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_usuPaisKeyTyped(evt);
             }
         });
-        pnl_Usuarios.add(txt_usuPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, 200, 30));
+        pnl_Usuarios.add(txt_usuPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, 200, 40));
 
-        cmb_usuTipo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cmb_usuTipo.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         cmb_usuTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMIN", "AUTOR", "LECTOR" }));
-        pnl_Usuarios.add(cmb_usuTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, 200, 30));
+        pnl_Usuarios.add(cmb_usuTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 240, 200, 40));
 
+        btn_usuActualizar.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btn_usuActualizar.setText("Actualizar");
         btn_usuActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_usuActualizarMouseClicked(evt);
             }
         });
-        pnl_Usuarios.add(btn_usuActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 130, 100, 30));
+        pnl_Usuarios.add(btn_usuActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 140, 120, 35));
 
+        btn_usuEliminar.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btn_usuEliminar.setText("Eliminar");
         btn_usuEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -525,19 +541,19 @@ public class FrmAdmin extends javax.swing.JFrame {
                 btn_usuEliminarActionPerformed(evt);
             }
         });
-        pnl_Usuarios.add(btn_usuEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 180, 100, 30));
+        pnl_Usuarios.add(btn_usuEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 190, 120, 35));
 
+        btn_usuLimpiar.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btn_usuLimpiar.setText("Limpiar");
         btn_usuLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_usuLimpiarActionPerformed(evt);
             }
         });
-        pnl_Usuarios.add(btn_usuLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 230, 100, 30));
+        pnl_Usuarios.add(btn_usuLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 240, 120, 35));
 
-        txt_usuFecNac.setDateFormatString("dd/MM/yyyy");
         txt_usuFecNac.setMaxSelectableDate(new java.util.Date(1262235600000L));
-        pnl_Usuarios.add(txt_usuFecNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 180, 200, 30));
+        pnl_Usuarios.add(txt_usuFecNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, 200, 40));
 
         pnlTb_Menu.addTab("", pnl_Usuarios);
 
@@ -636,8 +652,7 @@ public class FrmAdmin extends javax.swing.JFrame {
                 autorPartes[0],
                 this.txt_libNombre.getText(),
                 this.cmb_libGeneros.getSelectedItem().toString(),
-                Integer.parseInt(this.txt_libNumPags.getText()),
-                "NO");
+                Integer.parseInt(this.txt_libNumPags.getText()));
         this.gestorBD.agregarLibro(librito);
         Almacen.getInstance().libros.add(librito);
         GestorPrograma.almacenarImagen(this.urlPortada, this.txt_libCodigo.getText() + ".png");
@@ -670,8 +685,7 @@ public class FrmAdmin extends javax.swing.JFrame {
                 autorPartes[0],
                 this.txt_libNombre.getText(),
                 this.cmb_libGeneros.getSelectedItem().toString(),
-                Integer.parseInt(this.txt_libNumPags.getText()),
-                "NO");
+                Integer.parseInt(this.txt_libNumPags.getText()));
         gestorBD.actualizarLibro(librito);
         Almacen.getInstance().libros.set(index, librito);
 
@@ -841,6 +855,7 @@ public class FrmAdmin extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmb_usuTipo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lbl_MensajeBienvenida;
     private javax.swing.JLabel lbl_MensajeSeccion1;
     private javax.swing.JLabel lbl_MensajeSeccion2;

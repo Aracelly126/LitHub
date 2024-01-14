@@ -3,9 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/thexe/OneDrive/Documentos/GitHub/LitHub/LitHub3/src/BaseDatos/GestorBD.java</file>
-            <file>file:/C:/Users/thexe/OneDrive/Documentos/GitHub/LitHub/LitHub3/src/Utilidades/InfoLibros.java</file>
-            <file>file:/C:/Users/thexe/OneDrive/Documentos/GitHub/LitHub/LitHub3/src/Vista/FrmLector.java</file>
+            <file>file:/C:/Users/Elias/Documents/GitHub/LitHub/LitHub3/src/Utilidades/GestorPrograma.java</file>
+            <file>file:/C:/Users/Elias/Documents/GitHub/LitHub/LitHub3/src/Main/Main.java</file>
+            <file>file:/C:/Users/Elias/Documents/GitHub/LitHub/LitHub3/src/Vista/FrmAutor.java</file>
+            <file>file:/C:/Users/Elias/Documents/GitHub/LitHub/LitHub3/src/BaseDatos/GestorBD.java</file>
+            <file>file:/C:/Users/Elias/Documents/GitHub/LitHub/LitHub3/src/Vista/FrmIniciarSesion.java</file>
+            <file>file:/C:/Users/Elias/Documents/GitHub/LitHub/LitHub3/src/Utilidades/InfoLibros.java</file>
+            <file>file:/C:/Users/Elias/Documents/GitHub/LitHub/LitHub3/src/Vista/FrmAdmin.java</file>
+            <file>file:/C:/Users/Elias/Documents/GitHub/LitHub/LitHub3/src/Vista/FrmLector.java</file>
+            <file>file:/C:/Users/Elias/Documents/GitHub/LitHub/LitHub3/src/BaseDatos/Almacen.java</file>
         </group>
     </open-files>
 </project-private>

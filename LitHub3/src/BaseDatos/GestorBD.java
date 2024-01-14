@@ -45,8 +45,7 @@ public class GestorBD {
                                 resultSetEntidades.getString("CORREO_USU"),
                                 resultSetEntidades.getString("NOMBRE"),
                                 resultSetEntidades.getString("GENERO"),
-                                resultSetEntidades.getInt("NUM_PAG"),
-                                resultSetEntidades.getString("PRESTADO")
+                                resultSetEntidades.getInt("NUM_PAG")
                         );
                         entidades.add(libro);
                     }
@@ -150,6 +149,7 @@ public class GestorBD {
             System.out.println("Error en el Método:insertarLibro Clase:GestorBD\n" + e);
         }
     }
+
     public void agregarLibroFavoritos(Favorito fav) {
         if (this.con.conectar() == false) {
             this.con.desconectar();
@@ -322,9 +322,9 @@ public class GestorBD {
             System.out.println("Error en el Método: eliminarFavoritosPorLibro Clase: GestorBD\n" + e);
         }
     }
+
     public ArrayList<Libro> obtenerTodosLosLibros() {
         if (this.con.conectar() == false) {
-            this.con.desconectar();
             return new ArrayList<>();
         }
 
@@ -340,8 +340,7 @@ public class GestorBD {
                         resultSetLibros.getString("CORREO_USU"),
                         resultSetLibros.getString("NOMBRE"),
                         resultSetLibros.getString("GENERO"),
-                        resultSetLibros.getInt("NUM_PAG"),
-                        resultSetLibros.getString("PRESTADO")
+                        resultSetLibros.getInt("NUM_PAG")
                 );
 
                 todosLosLibros.add(libro);
@@ -355,6 +354,31 @@ public class GestorBD {
         }
 
         return todosLosLibros;
+    }
+
+    public int obtenerNumeroLibrosPorCorreo(String correo) {
+        if (this.con.conectar() == false) {
+            return 0;
+        }
+
+        int numeroLibros = 0;
+
+        try {
+            String consulta = "SELECT COUNT(*) FROM Libros WHERE CORREO_USU = ?";
+
+            PreparedStatement preparedStatement = this.con.getConexion().prepareStatement(consulta);
+            preparedStatement.setString(1, correo);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                numeroLibros = resultSet.getInt(1);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error Metodo:obtenerNumeroLibrosPorCorreo Clase:GestorBD correo:" + correo + "\n" + e);
+        }
+
+        return numeroLibros;
     }
 
 }
