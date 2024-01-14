@@ -293,4 +293,20 @@ public class GestorPrograma {
         }
     }
 
+    public static void actualizarLibro(Libro nuevoLibro) {
+        // Iterar sobre la lista de libros
+        for (int i = 0; i < Almacen.getInstance().libros.size(); i++) {
+            Libro libroActual = Almacen.getInstance().libros.get(i);
+
+            // Verificar si el código del libro actual es igual al código del nuevo libro
+            if (libroActual.getCodigo().equals(nuevoLibro.getCodigo())) {
+                // Reemplazar el libro antiguo con el nuevo libro
+                Almacen.getInstance().libros.set(i, nuevoLibro);
+
+                JOptionPane.showMessageDialog(null, "Libro actualizado con éxito.");
+                return; // Salir del bucle una vez actualizado
+            }
+        }
+    }
+
 }

@@ -76,7 +76,8 @@ public class FrmLector extends javax.swing.JFrame {
         this.SesionActual = GestorPrograma.buscarUsuario(correoUser);
         System.out.println("Bienvenido: " + this.SesionActual.getNombre());
 
-        iniciarPnlPerfil();
+        this.iniciarPnlPerfil();
+        this.limpiarPnlPerfil();
         iniciarPnlTodosLibros();
         iniciarPnlLibrosFav();
 
@@ -283,7 +284,7 @@ public class FrmLector extends javax.swing.JFrame {
 
         pnl_base.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbl_MensajeBienvenida.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbl_MensajeBienvenida.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
         lbl_MensajeBienvenida.setForeground(new java.awt.Color(0, 0, 0));
         lbl_MensajeBienvenida.setText("Iniciaste sesion como: LECTOR");
         pnl_base.add(lbl_MensajeBienvenida, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, -1, -1));

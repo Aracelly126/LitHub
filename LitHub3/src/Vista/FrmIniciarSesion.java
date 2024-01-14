@@ -129,7 +129,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         });
         pnl_derecha.add(txt_contrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, 190, 40));
 
-        btn_verContrasenia.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
+        btn_verContrasenia.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         btn_verContrasenia.setText("Ver");
         btn_verContrasenia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnl_derecha.add(btn_verContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, -1, 20));

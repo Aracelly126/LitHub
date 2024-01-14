@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.border.LineBorder;
@@ -26,16 +27,15 @@ public class ManejoComp {
         // Private constructor to prevent instantiation
     }
 
-   public static boolean crearlabel(JLabel label, String urlImg) {
-    if (urlImg != null && !urlImg.isEmpty()) {
-        label.setIcon(redimensionarImagen(urlImg, label.getWidth(), label.getHeight()));
-        return true;
-    } else {
-        label.setIcon(null);  // Limpiar la imagen del JLabel
-        return false;
+    public static boolean crearlabel(JLabel label, String urlImg) {
+        if (urlImg != null && !urlImg.isEmpty()) {
+            label.setIcon(redimensionarImagen(urlImg, label.getWidth(), label.getHeight()));
+            return true;
+        } else {
+            label.setIcon(null);  // Limpiar la imagen del JLabel
+            return false;
+        }
     }
-}
-
 
     public static void crearPanel(JPanel panel, String nombreImg) {
         ImageIcon imagen = redimensionarImagen(nombreImg, panel.getWidth(), panel.getHeight());
@@ -204,6 +204,13 @@ public class ManejoComp {
     public static void txtLongitudCondicion(JTextField jtextfield, KeyEvent evt, int longitud) {
         String cadena = jtextfield.getText();
         if (cadena.length() >= longitud) {
+            evt.consume();
+        }
+    }
+
+    public static void textAreaLongitudCondicion(JTextArea jtextArea, KeyEvent evt, int longitud) {
+        String texto = jtextArea.getText();
+        if (texto.length() >= longitud) {
             evt.consume();
         }
     }

@@ -7,16 +7,18 @@ public class Libro {
     private String nombre;
     private String genero;
     private int numPag;
+    private String sinopsis;
 
     public Libro() {
     }
 
-    public Libro(String codigo, String correo_usu, String nombre, String genero, int numPag) {
+    public Libro(String codigo, String correo_usu, String nombre, String genero, int numPag, String sinopsis) {
         this.codigo = codigo;
         this.CORREO_USU = correo_usu;
         this.nombre = nombre;
         this.genero = genero;
         this.numPag = numPag;
+        this.sinopsis = sinopsis;
     }
 
     public void setCodigo(String codigo) {
@@ -27,7 +29,7 @@ public class Libro {
         return this.codigo;
     }
 
-    public void setAutor(String autor) {
+    public void setCorreoUsu(String autor) {
         this.CORREO_USU = autor;
     }
 
@@ -59,7 +61,17 @@ public class Libro {
         return this.numPag;
     }
 
-    public Object getDescripcion() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void setSinopsis(String sinopsis) {
+        this.sinopsis = sinopsis;
     }
+
+    public String getSinopsis() {
+        return this.sinopsis;
+    }
+
+    @Override
+    public String toString() {
+        return "Libro{" + "codigo=" + codigo + ", CORREO_USU=" + CORREO_USU + ", nombre=" + nombre + ", genero=" + genero + ", numPag=" + numPag + ", sinopsis=" + sinopsis + '}';
+    }
+
 }

@@ -30,7 +30,7 @@ public class FrmAutor extends javax.swing.JFrame {
     private String[] tblLibrosTitulosAutor = {"CODIGO", "NOMBRE", "GENERO", "NUMERO PAGS"};
     private DefaultTableModel modelTblLibrosAutor = new DefaultTableModel(tblLibrosTitulosAutor, 0);
     private String urlPortadaAutor = "";
-    private String urlPortadaAutorSubir = "";
+    private String urlPortadaLibroSubir = "";
     private String urlPdfAutor = "";
     private JPanel panelLibros;
     private JPanel panelLibrosFav;
@@ -83,7 +83,8 @@ public class FrmAutor extends javax.swing.JFrame {
         this.SesionActual = GestorPrograma.buscarUsuario(correoUser);
         System.out.println("Bienvenido: " + this.SesionActual.getNombre());
 
-        iniciarPnlPerfil();
+        this.iniciarPnlPerfil();
+        this.limpiarPnlPerfil();
         iniciarPnlTodosLibros();
         iniciarPnlLibrosFav();
         iniciarPnlSubirLibro();
@@ -236,7 +237,7 @@ public class FrmAutor extends javax.swing.JFrame {
     }
 
     private void iniciarPnlSubirLibro() {
-        ManejoComp.vaciarTabla(this.tbl_librosAutoSubidos, this.modelTblLibrosAutor);
+        ManejoComp.vaciarTabla(this.tbl_misLibros, this.modelTblLibrosAutor);
         for (Libro libro : Almacen.getInstance().libros) {
             if (libro.getCorreoUsu().equals(this.SesionActual.getCorreo())) {
                 String[] registro = {
@@ -264,22 +265,22 @@ public class FrmAutor extends javax.swing.JFrame {
 
     public void limpiarPnlLibrosAutores() {
         this.libroSeleccionado = null;
-        this.urlPortadaAutorSubir = "";
+        this.urlPortadaLibroSubir = "";
         this.urlPdfAutor = "";
-        ManejoComp.crearlabel(this.lbl_libPortadaAuto, "");
-        this.lbl_libNombreArchivoPdf.setText("");
-        this.txt_libCodigoAuto.setText("");
-        this.txt_nombreAutor.setText("");
-        this.txt_libNombreAuto.setText("");
-        this.cmb_libGenerosAutor.setSelectedIndex(0);
-        this.txt_libNumPagsAuto.setText("");
+        ManejoComp.crearlabel(this.lbl_miLibPortada, "");
+        this.lbl_miLibNombreArchivoPdf.setText("");
+        this.txt_miLibCodigo.setText("");
+        this.txt_miLibAutor.setText("");
+        this.txt_miLibNombre.setText("");
+        this.cmb_miLibGenero.setSelectedIndex(0);
+        this.txt_miLibNumPags.setText("");
 
-        this.btn_libGuardarAutor.setEnabled(true);
-        this.btn_libAgregarPortadaAuto.setEnabled(true);
-        this.btn_libAgregarPdfAuto.setEnabled(true);
-        this.btn_libEliminarAuto.setEnabled(false);
-        this.btn_libActualizarAuto.setEnabled(false);
-        this.btn_libNuevoCodigo.setEnabled(true);
+        this.btn_miLibGuardar.setEnabled(true);
+        this.btn_miLibAgregarPortadaLibro.setEnabled(true);
+        this.btn_miLibAgregarPdfLibro.setEnabled(true);
+        this.btn_miLibEliminar.setEnabled(false);
+        this.btn_miLibActualizar.setEnabled(false);
+        this.btn_miLibNuevoCodigo.setEnabled(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -327,30 +328,30 @@ public class FrmAutor extends javax.swing.JFrame {
         pnl_LibrosAllFav = new javax.swing.JPanel();
         pnl_nuevoLibro = new javax.swing.JPanel();
         lbl_MensajeSeccion4 = new javax.swing.JLabel();
-        lbl_libPortadaAuto = new javax.swing.JLabel();
-        btn_libAgregarPortadaAuto = new javax.swing.JButton();
-        btn_libAgregarPdfAuto = new javax.swing.JButton();
-        lbl_libNombreArchivoPdf = new javax.swing.JLabel();
-        btn_libNuevoCodigo = new javax.swing.JButton();
-        lbl_libCodigoAuto = new javax.swing.JLabel();
-        txt_libCodigoAuto = new javax.swing.JTextField();
-        lbl_libAutor = new javax.swing.JLabel();
-        txt_nombreAutor = new javax.swing.JTextField();
-        lbl_libNombre = new javax.swing.JLabel();
-        txt_libNombreAuto = new javax.swing.JTextField();
-        lbl_libGenero = new javax.swing.JLabel();
-        cmb_libGenerosAutor = new javax.swing.JComboBox<>();
-        lbl_libNumPags = new javax.swing.JLabel();
-        txt_libNumPagsAuto = new javax.swing.JTextField();
-        lbl_libNumPags1 = new javax.swing.JLabel();
+        lbl_miLibPortada = new javax.swing.JLabel();
+        btn_miLibAgregarPortadaLibro = new javax.swing.JButton();
+        btn_miLibAgregarPdfLibro = new javax.swing.JButton();
+        lbl_miLibNombreArchivoPdf = new javax.swing.JLabel();
+        btn_miLibNuevoCodigo = new javax.swing.JButton();
+        lbl_miLibCodigo = new javax.swing.JLabel();
+        txt_miLibCodigo = new javax.swing.JTextField();
+        lbl_miLibAutor = new javax.swing.JLabel();
+        txt_miLibAutor = new javax.swing.JTextField();
+        lbl_miLibNombre = new javax.swing.JLabel();
+        txt_miLibNombre = new javax.swing.JTextField();
+        lbl_miLibGenero = new javax.swing.JLabel();
+        cmb_miLibGenero = new javax.swing.JComboBox<>();
+        lbl_miLibNumPags = new javax.swing.JLabel();
+        txt_miLibNumPags = new javax.swing.JTextField();
+        lbl_miLibSinopsis = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtSinpsis = new javax.swing.JTextArea();
-        btn_libGuardarAutor = new javax.swing.JButton();
-        btn_libActualizarAuto = new javax.swing.JButton();
-        btn_libEliminarAuto = new javax.swing.JButton();
-        btn_libLimpiarAuto = new javax.swing.JButton();
+        btn_miLibGuardar = new javax.swing.JButton();
+        btn_miLibActualizar = new javax.swing.JButton();
+        btn_miLibEliminar = new javax.swing.JButton();
+        btn_miLibLimpiar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tbl_librosAutoSubidos = new javax.swing.JTable();
+        tbl_misLibros = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LibHub | Autor");
@@ -590,153 +591,167 @@ public class FrmAutor extends javax.swing.JFrame {
         lbl_MensajeSeccion4.setText("Seccion Agregar nuevos Libros");
         pnl_nuevoLibro.add(lbl_MensajeSeccion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 40, -1, -1));
 
-        lbl_libPortadaAuto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        pnl_nuevoLibro.add(lbl_libPortadaAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 170, 210));
+        lbl_miLibPortada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnl_nuevoLibro.add(lbl_miLibPortada, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 170, 210));
 
-        btn_libAgregarPortadaAuto.setText("Agregar portada");
-        btn_libAgregarPortadaAuto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btn_libAgregarPortadaAuto.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_miLibAgregarPortadaLibro.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        btn_miLibAgregarPortadaLibro.setText("Agregar portada");
+        btn_miLibAgregarPortadaLibro.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_miLibAgregarPortadaLibro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_libAgregarPortadaAutoMouseClicked(evt);
+                btn_miLibAgregarPortadaLibroMouseClicked(evt);
             }
         });
-        pnl_nuevoLibro.add(btn_libAgregarPortadaAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 170, 30));
+        pnl_nuevoLibro.add(btn_miLibAgregarPortadaLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 170, 30));
 
-        btn_libAgregarPdfAuto.setText("Agregar pdf");
-        btn_libAgregarPdfAuto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btn_libAgregarPdfAuto.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_miLibAgregarPdfLibro.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        btn_miLibAgregarPdfLibro.setText("Agregar pdf");
+        btn_miLibAgregarPdfLibro.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_miLibAgregarPdfLibro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_libAgregarPdfAutoMouseClicked(evt);
+                btn_miLibAgregarPdfLibroMouseClicked(evt);
             }
         });
-        pnl_nuevoLibro.add(btn_libAgregarPdfAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, 170, 30));
-        pnl_nuevoLibro.add(lbl_libNombreArchivoPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 380, 200, 30));
+        pnl_nuevoLibro.add(btn_miLibAgregarPdfLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, 170, 30));
+        pnl_nuevoLibro.add(lbl_miLibNombreArchivoPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 380, 200, 30));
 
-        btn_libNuevoCodigo.setText("Nuevo");
-        btn_libNuevoCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btn_libNuevoCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_miLibNuevoCodigo.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        btn_miLibNuevoCodigo.setText("Nuevo");
+        btn_miLibNuevoCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_miLibNuevoCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_libNuevoCodigoMouseClicked(evt);
+                btn_miLibNuevoCodigoMouseClicked(evt);
             }
         });
-        pnl_nuevoLibro.add(btn_libNuevoCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 100, 70, 30));
+        pnl_nuevoLibro.add(btn_miLibNuevoCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 100, 80, 30));
 
-        lbl_libCodigoAuto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lbl_libCodigoAuto.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_libCodigoAuto.setText("Codigo:");
-        pnl_nuevoLibro.add(lbl_libCodigoAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 100, 30));
+        lbl_miLibCodigo.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lbl_miLibCodigo.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_miLibCodigo.setText("Codigo:");
+        pnl_nuevoLibro.add(lbl_miLibCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, 120, 40));
 
-        txt_libCodigoAuto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txt_libCodigoAuto.setEnabled(false);
-        txt_libCodigoAuto.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_miLibCodigo.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        txt_miLibCodigo.setEnabled(false);
+        txt_miLibCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_libCodigoAutoKeyTyped(evt);
+                txt_miLibCodigoKeyTyped(evt);
             }
         });
-        pnl_nuevoLibro.add(txt_libCodigoAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 300, 30));
+        pnl_nuevoLibro.add(txt_miLibCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 300, 40));
 
-        lbl_libAutor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lbl_libAutor.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_libAutor.setText("Autor:");
-        pnl_nuevoLibro.add(lbl_libAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, 100, 30));
+        lbl_miLibAutor.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lbl_miLibAutor.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_miLibAutor.setText("Autor:");
+        pnl_nuevoLibro.add(lbl_miLibAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 120, 40));
 
-        txt_nombreAutor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txt_nombreAutor.setEnabled(false);
-        pnl_nuevoLibro.add(txt_nombreAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, 300, 30));
+        txt_miLibAutor.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        txt_miLibAutor.setEnabled(false);
+        pnl_nuevoLibro.add(txt_miLibAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, 300, 40));
 
-        lbl_libNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lbl_libNombre.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_libNombre.setText("Nombre:");
-        pnl_nuevoLibro.add(lbl_libNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, 100, 30));
+        lbl_miLibNombre.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lbl_miLibNombre.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_miLibNombre.setText("Nombre:");
+        pnl_nuevoLibro.add(lbl_miLibNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, 120, 40));
 
-        txt_libNombreAuto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txt_libNombreAuto.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_miLibNombre.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        txt_miLibNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_libNombreAutoKeyTyped(evt);
+                txt_miLibNombreKeyTyped(evt);
             }
         });
-        pnl_nuevoLibro.add(txt_libNombreAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 230, 300, 30));
+        pnl_nuevoLibro.add(txt_miLibNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 230, 300, 40));
 
-        lbl_libGenero.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lbl_libGenero.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_libGenero.setText("Genero:");
-        pnl_nuevoLibro.add(lbl_libGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 100, 30));
+        lbl_miLibGenero.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lbl_miLibGenero.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_miLibGenero.setText("Genero:");
+        pnl_nuevoLibro.add(lbl_miLibGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, 120, 40));
 
-        cmb_libGenerosAutor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Drama", "Novela", "Ficticio" }));
-        pnl_nuevoLibro.add(cmb_libGenerosAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 300, 30));
+        cmb_miLibGenero.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        cmb_miLibGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Drama", "Novela", "Ficticio" }));
+        pnl_nuevoLibro.add(cmb_miLibGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 300, 40));
 
-        lbl_libNumPags.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lbl_libNumPags.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_libNumPags.setText("Num paginas:");
-        pnl_nuevoLibro.add(lbl_libNumPags, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 330, 100, 30));
+        lbl_miLibNumPags.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lbl_miLibNumPags.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_miLibNumPags.setText("Num paginas:");
+        pnl_nuevoLibro.add(lbl_miLibNumPags, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, 120, 40));
 
-        txt_libNumPagsAuto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txt_libNumPagsAuto.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_miLibNumPags.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        txt_miLibNumPags.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_libNumPagsAutoKeyTyped(evt);
+                txt_miLibNumPagsKeyTyped(evt);
             }
         });
-        pnl_nuevoLibro.add(txt_libNumPagsAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 330, 300, 30));
+        pnl_nuevoLibro.add(txt_miLibNumPags, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 330, 300, 40));
 
-        lbl_libNumPags1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lbl_libNumPags1.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_libNumPags1.setText("Sinopsis");
-        pnl_nuevoLibro.add(lbl_libNumPags1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 100, 100, 30));
+        lbl_miLibSinopsis.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lbl_miLibSinopsis.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_miLibSinopsis.setText("Sinopsis");
+        pnl_nuevoLibro.add(lbl_miLibSinopsis, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 130, 100, 30));
 
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         txtSinpsis.setColumns(20);
+        txtSinpsis.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txtSinpsis.setLineWrap(true);
         txtSinpsis.setRows(5);
+        txtSinpsis.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSinpsisKeyTyped(evt);
+            }
+        });
         jScrollPane3.setViewportView(txtSinpsis);
 
-        pnl_nuevoLibro.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 130, 272, 224));
+        pnl_nuevoLibro.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 160, 272, 210));
 
-        btn_libGuardarAutor.setText("Guardar");
-        btn_libGuardarAutor.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btn_libGuardarAutor.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_miLibGuardar.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        btn_miLibGuardar.setText("Guardar");
+        btn_miLibGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_miLibGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_libGuardarAutorMouseClicked(evt);
+                btn_miLibGuardarMouseClicked(evt);
             }
         });
-        pnl_nuevoLibro.add(btn_libGuardarAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 130, 100, 30));
+        pnl_nuevoLibro.add(btn_miLibGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 170, 120, 35));
 
-        btn_libActualizarAuto.setText("Actualizar");
-        btn_libActualizarAuto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btn_libActualizarAuto.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_miLibActualizar.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        btn_miLibActualizar.setText("Actualizar");
+        btn_miLibActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_miLibActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_libActualizarAutoMouseClicked(evt);
+                btn_miLibActualizarMouseClicked(evt);
             }
         });
-        pnl_nuevoLibro.add(btn_libActualizarAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 180, 100, 30));
+        pnl_nuevoLibro.add(btn_miLibActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 220, 120, 35));
 
-        btn_libEliminarAuto.setText("Eliminar");
-        btn_libEliminarAuto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btn_libEliminarAuto.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_miLibEliminar.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        btn_miLibEliminar.setText("Eliminar");
+        btn_miLibEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_miLibEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_libEliminarAutoMouseClicked(evt);
+                btn_miLibEliminarMouseClicked(evt);
             }
         });
-        pnl_nuevoLibro.add(btn_libEliminarAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 230, 100, 30));
+        pnl_nuevoLibro.add(btn_miLibEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 270, 120, 35));
 
-        btn_libLimpiarAuto.setText("Limpiar");
-        btn_libLimpiarAuto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btn_libLimpiarAuto.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_miLibLimpiar.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        btn_miLibLimpiar.setText("Limpiar");
+        btn_miLibLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_miLibLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_libLimpiarAutoMouseClicked(evt);
+                btn_miLibLimpiarMouseClicked(evt);
             }
         });
-        pnl_nuevoLibro.add(btn_libLimpiarAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 280, 100, 30));
+        pnl_nuevoLibro.add(btn_miLibLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 320, 120, 35));
 
-        tbl_librosAutoSubidos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        tbl_librosAutoSubidos.setModel(this.modelTblLibrosAutor);
-        tbl_librosAutoSubidos.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbl_misLibros.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tbl_misLibros.setModel(this.modelTblLibrosAutor);
+        tbl_misLibros.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbl_librosAutoSubidosMouseClicked(evt);
+                tbl_misLibrosMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tbl_librosAutoSubidos);
+        jScrollPane2.setViewportView(tbl_misLibros);
 
         pnl_nuevoLibro.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 440, 1200, 270));
 
@@ -783,148 +798,151 @@ public class FrmAutor extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_perAgregarNuevaFotoPerfilMouseClicked
 
-    private void txt_libCodigoAutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_libCodigoAutoKeyTyped
+    private void txt_miLibCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_miLibCodigoKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_libCodigoAutoKeyTyped
+    }//GEN-LAST:event_txt_miLibCodigoKeyTyped
 
     private void lbl_btnSubirLibrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_btnSubirLibrosMouseClicked
         this.pnlTb_MenuAutor.setSelectedIndex(3);
     }//GEN-LAST:event_lbl_btnSubirLibrosMouseClicked
 
-    private void btn_libAgregarPortadaAutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libAgregarPortadaAutoMouseClicked
-        if (this.btn_libAgregarPortadaAuto.isEnabled() == false) {
+    private void btn_miLibAgregarPortadaLibroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_miLibAgregarPortadaLibroMouseClicked
+        if (this.btn_miLibAgregarPortadaLibro.isEnabled() == false) {
             return;
         }
-        this.urlPortadaAutorSubir = GestorPrograma.seleccionarImagen();
-        if (Controles.cadenaVacia(this.urlPortadaAutorSubir)) {
+        this.urlPortadaLibroSubir = GestorPrograma.seleccionarImagen();
+        if (Controles.cadenaVacia(this.urlPortadaLibroSubir)) {
             return;
         }
-        ManejoComp.crearlabel(this.lbl_libPortadaAuto, this.urlPortadaAutorSubir);
-        this.btn_libAgregarPortadaAuto.setEnabled(false);
-    }//GEN-LAST:event_btn_libAgregarPortadaAutoMouseClicked
+        ManejoComp.crearlabel(this.lbl_miLibPortada, this.urlPortadaLibroSubir);
+        this.btn_miLibAgregarPortadaLibro.setEnabled(false);
+    }//GEN-LAST:event_btn_miLibAgregarPortadaLibroMouseClicked
 
-    private void btn_libAgregarPdfAutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libAgregarPdfAutoMouseClicked
-        if (this.btn_libAgregarPdfAuto.isEnabled() == false) {
+    private void btn_miLibAgregarPdfLibroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_miLibAgregarPdfLibroMouseClicked
+        if (this.btn_miLibAgregarPdfLibro.isEnabled() == false) {
             return;
         }
         this.urlPdfAutor = GestorPrograma.seleccionarPDF();
         if (Controles.cadenaVacia(this.urlPdfAutor)) {
             return;
         }
-        this.lbl_libNombreArchivoPdf.setText(this.urlPdfAutor);
-        this.btn_libAgregarPdfAuto.setEnabled(false);
-    }//GEN-LAST:event_btn_libAgregarPdfAutoMouseClicked
+        this.lbl_miLibNombreArchivoPdf.setText(this.urlPdfAutor);
+        this.btn_miLibAgregarPdfLibro.setEnabled(false);
+    }//GEN-LAST:event_btn_miLibAgregarPdfLibroMouseClicked
 
-    private void btn_libNuevoCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libNuevoCodigoMouseClicked
-        if (this.btn_libNuevoCodigo.isEnabled() == false) {
+    private void btn_miLibNuevoCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_miLibNuevoCodigoMouseClicked
+        if (this.btn_miLibNuevoCodigo.isEnabled() == false) {
             return;
         }
-        this.txt_libCodigoAuto.setText(GestorPrograma.generarCadenaNumAleatoria(10));
-        this.txt_nombreAutor.setText(SesionActual.getNombre());
+        this.txt_miLibCodigo.setText(GestorPrograma.generarCadenaNumAleatoria(10));
+        this.txt_miLibAutor.setText(SesionActual.getNombre());
 
-    }//GEN-LAST:event_btn_libNuevoCodigoMouseClicked
+    }//GEN-LAST:event_btn_miLibNuevoCodigoMouseClicked
 
-    private void txt_libNumPagsAutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_libNumPagsAutoKeyTyped
+    private void txt_miLibNumPagsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_miLibNumPagsKeyTyped
         ManejoComp.txtOnlyNumbers(evt);
-        ManejoComp.txtLongitudCondicion(this.txt_libNumPagsAuto, evt, 4);
-    }//GEN-LAST:event_txt_libNumPagsAutoKeyTyped
+        ManejoComp.txtLongitudCondicion(this.txt_miLibNumPags, evt, 4);
+    }//GEN-LAST:event_txt_miLibNumPagsKeyTyped
 
-    private void txt_libNombreAutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_libNombreAutoKeyTyped
-        ManejoComp.txtLongitudCondicion(this.txt_libNombreAuto, evt, 50);
-    }//GEN-LAST:event_txt_libNombreAutoKeyTyped
+    private void txt_miLibNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_miLibNombreKeyTyped
+        ManejoComp.txtLongitudCondicion(this.txt_miLibNombre, evt, 50);
+    }//GEN-LAST:event_txt_miLibNombreKeyTyped
 
-    private void tbl_librosAutoSubidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_librosAutoSubidosMouseClicked
-        int index = this.tbl_librosAutoSubidos.getSelectedRow();
+    private void tbl_misLibrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_misLibrosMouseClicked
+        int index = this.tbl_misLibros.getSelectedRow();
 
         this.libroSeleccionado = GestorPrograma.buscarLibro((String) this.modelTblLibrosAutor.getValueAt(index, 0));
         //Usuario autor = GestorPrograma.buscarUsuario(this.libroSeleccionado.getCorreoUsu());
 
-        this.cmb_libGenerosAutor.setSelectedItem(this.libroSeleccionado.getGenero());
-        this.txt_libNombreAuto.setText(this.libroSeleccionado.getNombre());
-        this.txt_libNumPagsAuto.setText(String.valueOf(this.libroSeleccionado.getNumPag()));
-        this.txt_libCodigoAuto.setText(this.libroSeleccionado.getCodigo());
-        this.txt_nombreAutor.setText(this.libroSeleccionado.getCorreoUsu());
+        this.txt_miLibCodigo.setText(this.libroSeleccionado.getCodigo());
+        this.txt_miLibAutor.setText(this.libroSeleccionado.getCorreoUsu());
+        this.txt_miLibNombre.setText(this.libroSeleccionado.getNombre());
+        this.cmb_miLibGenero.setSelectedItem(this.libroSeleccionado.getGenero());
+        this.txt_miLibNumPags.setText(String.valueOf(this.libroSeleccionado.getNumPag()));
+        this.txtSinpsis.setText(this.libroSeleccionado.getSinopsis());
 
-        ManejoComp.crearlabel(this.lbl_libPortadaAuto, "SYSTEM/libros/" + this.txt_libCodigoAuto.getText() + ".png");
+        ManejoComp.crearlabel(this.lbl_miLibPortada, "SYSTEM/libros/" + this.txt_miLibCodigo.getText() + ".png");
         //System.out.println("El codigo del libro es este para buscar y mostrar en el lbl tbLibrosAutoSubidos"+Almacen.getInstance().libros.get(index).getCodigo());
-        this.btn_libEliminarAuto.setEnabled(true);
-        this.btn_libActualizarAuto.setEnabled(true);
-    }//GEN-LAST:event_tbl_librosAutoSubidosMouseClicked
+        this.btn_miLibEliminar.setEnabled(true);
+        this.btn_miLibActualizar.setEnabled(true);
+    }//GEN-LAST:event_tbl_misLibrosMouseClicked
 
-    private void btn_libGuardarAutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libGuardarAutorMouseClicked
-        if (!this.btn_libGuardarAutor.isEnabled()) {
+    private void btn_miLibGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_miLibGuardarMouseClicked
+        if (!this.btn_miLibGuardar.isEnabled()) {
             return;
         }
-        if (Controles.cadenaVacia(this.txt_libCodigoAuto.getText())
-                || Controles.cadenaVacia(this.cmb_libGenerosAutor.getSelectedItem().toString())
-                || Controles.cadenaVacia(this.txt_libNombreAuto.getText())
-                || Controles.cadenaVacia(this.txt_libNumPagsAuto.getText())) {
+        if (Controles.cadenaVacia(this.txt_miLibCodigo.getText())
+                || Controles.cadenaVacia(this.cmb_miLibGenero.getSelectedItem().toString())
+                || Controles.cadenaVacia(this.txt_miLibNombre.getText())
+                || Controles.cadenaVacia(this.txt_miLibNumPags.getText())) {
             JOptionPane.showMessageDialog(this, "Llena todos los campos primero. . .");
             return;
         }
-        if (Controles.cadenaVacia(this.urlPortadaAutorSubir) || Controles.cadenaVacia(this.urlPdfAutor)) {
+        if (Controles.cadenaVacia(this.urlPortadaLibroSubir) || Controles.cadenaVacia(this.urlPdfAutor)) {
             JOptionPane.showMessageDialog(this, "Portada o PDF faltantes, intenta de nuevo. . .");
             return;
         }
-        if (Integer.parseInt(this.txt_libNumPagsAuto.getText()) > 5000) {
+        if (Integer.parseInt(this.txt_miLibNumPags.getText()) > 5000) {
             JOptionPane.showMessageDialog(this, "Libros con mas de 5000 paginas no aceptados");
             return;
         }
         Libro librito = new Libro(
-                this.txt_libCodigoAuto.getText(),
+                this.txt_miLibCodigo.getText(),
                 SesionActual.getCorreo(),
-                this.txt_libNombreAuto.getText(),
-                this.cmb_libGenerosAutor.getSelectedItem().toString(),
-                Integer.parseInt(this.txt_libNumPagsAuto.getText()));
+                this.txt_miLibNombre.getText(),
+                this.cmb_miLibGenero.getSelectedItem().toString(),
+                Integer.parseInt(this.txt_miLibNumPags.getText()),
+                this.txtSinpsis.getText());
         //"INSERT INTO LIBROS (CODIGO, CORREO_USU, NOMBRE, GENERO, NUM_PAG) VALUES (?, ?, ?, ?, ?)";
 
         this.gestorBD.agregarLibro(librito);
         Almacen.getInstance().libros.add(librito);
-        GestorPrograma.almacenarImagen(this.urlPortadaAutorSubir, this.txt_libCodigoAuto.getText() + ".png");
-        GestorPrograma.almacenarPDF(this.urlPdfAutor, this.txt_libCodigoAuto.getText() + ".pdf");
+        GestorPrograma.almacenarImagen(this.urlPortadaLibroSubir, this.txt_miLibCodigo.getText() + ".png");
+        GestorPrograma.almacenarPDF(this.urlPdfAutor, this.txt_miLibCodigo.getText() + ".pdf");
 
         this.iniciarPnlSubirLibro();
         this.iniciarPnlTodosLibros();
-    }//GEN-LAST:event_btn_libGuardarAutorMouseClicked
+    }//GEN-LAST:event_btn_miLibGuardarMouseClicked
 
-    private void btn_libActualizarAutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libActualizarAutoMouseClicked
-        if (!this.btn_libActualizarAuto.isEnabled()) {
+    private void btn_miLibActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_miLibActualizarMouseClicked
+        if (!this.btn_miLibActualizar.isEnabled()) {
             return;
         }
-        int index = this.tbl_librosAutoSubidos.getSelectedRow();
-        if (Controles.cadenaVacia(this.txt_libCodigoAuto.getText())
-                || Controles.cadenaVacia(this.txt_libNombreAuto.getText())
-                || Controles.cadenaVacia(this.cmb_libGenerosAutor.getSelectedItem().toString())
-                || Controles.cadenaVacia(this.txt_libNumPagsAuto.getText())) {
+        int index = this.tbl_misLibros.getSelectedRow();
+        if (Controles.cadenaVacia(this.txt_miLibCodigo.getText())
+                || Controles.cadenaVacia(this.txt_miLibNombre.getText())
+                || Controles.cadenaVacia(this.cmb_miLibGenero.getSelectedItem().toString())
+                || Controles.cadenaVacia(this.txt_miLibNumPags.getText())) {
             JOptionPane.showMessageDialog(this, "Llena todos los campos primero. . .");
             return;
         }
-        if (Integer.parseInt(this.txt_libNumPagsAuto.getText()) > 5000) {
+        if (Integer.parseInt(this.txt_miLibNumPags.getText()) > 5000) {
             JOptionPane.showMessageDialog(this, "Libros con mas de 5000 paginas no aceptados");
             return;
         }
         Libro librito = new Libro(
-                this.txt_libCodigoAuto.getText(),
+                this.txt_miLibCodigo.getText(),
                 SesionActual.getCorreo(),
-                this.txt_libNombreAuto.getText(),
-                this.cmb_libGenerosAutor.getSelectedItem().toString(),
-                Integer.parseInt(this.txt_libNumPagsAuto.getText()));
-        gestorBD.actualizarLibro(librito);
-        Almacen.getInstance().libros.set(index, librito);
+                this.txt_miLibNombre.getText(),
+                this.cmb_miLibGenero.getSelectedItem().toString(),
+                Integer.parseInt(this.txt_miLibNumPags.getText()),
+                this.txtSinpsis.getText());
+        this.gestorBD.actualizarLibro(librito);
+        GestorPrograma.actualizarLibro(librito);
         this.iniciarPnlSubirLibro();
         this.iniciarPnlTodosLibros();
-        this.btn_libLimpiarAutoMouseClicked(evt);
-    }//GEN-LAST:event_btn_libActualizarAutoMouseClicked
+        this.btn_miLibLimpiarMouseClicked(evt);
+    }//GEN-LAST:event_btn_miLibActualizarMouseClicked
 
-    private void btn_libEliminarAutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libEliminarAutoMouseClicked
-        if (this.btn_libEliminarAuto.isEnabled() == false) {
+    private void btn_miLibEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_miLibEliminarMouseClicked
+        if (this.btn_miLibEliminar.isEnabled() == false) {
             return;
         }
-        int index = this.tbl_librosAutoSubidos.getSelectedRow();
+        int index = this.tbl_misLibros.getSelectedRow();
         gestorBD.eliminarLibro(this.libroSeleccionado.getCodigo());
 
         // Eliminar el libro del almacenamiento local (Almacen)
-        GestorPrograma.eliminarLibro(this.txt_libCodigoAuto.getText());
+        GestorPrograma.eliminarLibro(this.txt_miLibCodigo.getText());
         GestorPrograma.eliminarImagen(this.libroSeleccionado.getCodigo() + ".png");
         GestorPrograma.eliminarPDF(this.libroSeleccionado.getCodigo() + ".pdf");
 
@@ -935,11 +953,11 @@ public class FrmAutor extends javax.swing.JFrame {
         this.iniciarPnlSubirLibro();
         this.iniciarPnlTodosLibros();
         this.iniciarPnlLibrosFav();
-    }//GEN-LAST:event_btn_libEliminarAutoMouseClicked
+    }//GEN-LAST:event_btn_miLibEliminarMouseClicked
 
-    private void btn_libLimpiarAutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libLimpiarAutoMouseClicked
+    private void btn_miLibLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_miLibLimpiarMouseClicked
         limpiarPnlLibrosAutores();
-    }//GEN-LAST:event_btn_libLimpiarAutoMouseClicked
+    }//GEN-LAST:event_btn_miLibLimpiarMouseClicked
 
     private void btn_perActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_perActualizarMouseClicked
         if (this.btn_perActualizar.isEnabled() == false) {
@@ -985,18 +1003,22 @@ public class FrmAutor extends javax.swing.JFrame {
         this.btn_perActualizar.setEnabled(true);
     }//GEN-LAST:event_txt_perPaisKeyTyped
 
+    private void txtSinpsisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSinpsisKeyTyped
+        ManejoComp.textAreaLongitudCondicion(this.txtSinpsis, evt, 200);
+    }//GEN-LAST:event_txtSinpsisKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_libActualizarAuto;
-    private javax.swing.JButton btn_libAgregarPdfAuto;
-    public javax.swing.JButton btn_libAgregarPortadaAuto;
-    private javax.swing.JButton btn_libEliminarAuto;
-    private javax.swing.JButton btn_libGuardarAutor;
-    private javax.swing.JButton btn_libLimpiarAuto;
-    private javax.swing.JButton btn_libNuevoCodigo;
+    private javax.swing.JButton btn_miLibActualizar;
+    private javax.swing.JButton btn_miLibAgregarPdfLibro;
+    public javax.swing.JButton btn_miLibAgregarPortadaLibro;
+    private javax.swing.JButton btn_miLibEliminar;
+    private javax.swing.JButton btn_miLibGuardar;
+    private javax.swing.JButton btn_miLibLimpiar;
+    private javax.swing.JButton btn_miLibNuevoCodigo;
     private javax.swing.JButton btn_perActualizar;
     public javax.swing.JButton btn_perAgregarNuevaFotoPerfil;
     private javax.swing.JButton btn_perDescartar;
-    private javax.swing.JComboBox<String> cmb_libGenerosAutor;
+    private javax.swing.JComboBox<String> cmb_miLibGenero;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1012,14 +1034,14 @@ public class FrmAutor extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_btnLibros;
     private javax.swing.JLabel lbl_btnPerfil;
     public javax.swing.JLabel lbl_btnSubirLibros;
-    private javax.swing.JLabel lbl_libAutor;
-    private javax.swing.JLabel lbl_libCodigoAuto;
-    private javax.swing.JLabel lbl_libGenero;
-    private javax.swing.JLabel lbl_libNombre;
-    private javax.swing.JLabel lbl_libNombreArchivoPdf;
-    private javax.swing.JLabel lbl_libNumPags;
-    private javax.swing.JLabel lbl_libNumPags1;
-    private javax.swing.JLabel lbl_libPortadaAuto;
+    private javax.swing.JLabel lbl_miLibAutor;
+    private javax.swing.JLabel lbl_miLibCodigo;
+    private javax.swing.JLabel lbl_miLibGenero;
+    private javax.swing.JLabel lbl_miLibNombre;
+    private javax.swing.JLabel lbl_miLibNombreArchivoPdf;
+    private javax.swing.JLabel lbl_miLibNumPags;
+    private javax.swing.JLabel lbl_miLibPortada;
+    private javax.swing.JLabel lbl_miLibSinopsis;
     private javax.swing.JLabel lbl_perApellido;
     private javax.swing.JLabel lbl_perCambioApellido;
     private javax.swing.JLabel lbl_perCambioNombre;
@@ -1042,12 +1064,12 @@ public class FrmAutor extends javax.swing.JFrame {
     private javax.swing.JPanel pnl_base;
     private javax.swing.JPanel pnl_navBar;
     private javax.swing.JPanel pnl_nuevoLibro;
-    private javax.swing.JTable tbl_librosAutoSubidos;
+    private javax.swing.JTable tbl_misLibros;
     private javax.swing.JTextArea txtSinpsis;
-    private javax.swing.JTextField txt_libCodigoAuto;
-    private javax.swing.JTextField txt_libNombreAuto;
-    private javax.swing.JTextField txt_libNumPagsAuto;
-    private javax.swing.JTextField txt_nombreAutor;
+    private javax.swing.JTextField txt_miLibAutor;
+    private javax.swing.JTextField txt_miLibCodigo;
+    private javax.swing.JTextField txt_miLibNombre;
+    private javax.swing.JTextField txt_miLibNumPags;
     private javax.swing.JTextField txt_perApellido;
     private javax.swing.JTextField txt_perNombre;
     private javax.swing.JTextField txt_perPais;

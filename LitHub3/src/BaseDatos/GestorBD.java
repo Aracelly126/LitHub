@@ -45,7 +45,8 @@ public class GestorBD {
                                 resultSetEntidades.getString("CORREO_USU"),
                                 resultSetEntidades.getString("NOMBRE"),
                                 resultSetEntidades.getString("GENERO"),
-                                resultSetEntidades.getInt("NUM_PAG")
+                                resultSetEntidades.getInt("NUM_PAG"),
+                                resultSetEntidades.getString("SINOPSIS")
                         );
                         entidades.add(libro);
                     }
@@ -177,13 +178,13 @@ public class GestorBD {
             return;
         }
         try {
-            String consultaUpdate = "UPDATE Libros SET CORREO_USU = ?, NOMBRE = ?, GENERO = ?, NUM_PAG = ?, PRESTADO = ? WHERE CODIGO = ?";
+            String consultaUpdate = "UPDATE Libros SET CORREO_USU = ?, NOMBRE = ?, GENERO = ?, NUM_PAG = ?, SINOPSIS = ? WHERE CODIGO = ?";
             PreparedStatement preparedStatement = this.con.getConexion().prepareStatement(consultaUpdate);
             preparedStatement.setString(1, libro.getCorreoUsu());
             preparedStatement.setString(2, libro.getNombre());
             preparedStatement.setString(3, libro.getGenero());
             preparedStatement.setInt(4, libro.getNumPag());
-            preparedStatement.setString(5, "NO");  // Asignar 'NO' como valor predeterminado para PRESTADO
+            preparedStatement.setString(5, libro.getSinopsis());  // Asignar 'NO' como valor predeterminado para PRESTADO
             preparedStatement.setString(6, libro.getCodigo());
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -340,7 +341,8 @@ public class GestorBD {
                         resultSetLibros.getString("CORREO_USU"),
                         resultSetLibros.getString("NOMBRE"),
                         resultSetLibros.getString("GENERO"),
-                        resultSetLibros.getInt("NUM_PAG")
+                        resultSetLibros.getInt("NUM_PAG"),
+                        resultSetLibros.getString("SINOPSIS")
                 );
 
                 todosLosLibros.add(libro);

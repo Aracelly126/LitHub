@@ -222,15 +222,15 @@ public class frmregistro extends javax.swing.JFrame {
         btn_inicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnl_registro.add(btn_inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 550, -1, -1));
 
-        btn_verConfContrasenia.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
+        btn_verConfContrasenia.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         btn_verConfContrasenia.setText("Ver");
         btn_verConfContrasenia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnl_registro.add(btn_verConfContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 490, 55, 20));
+        pnl_registro.add(btn_verConfContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 490, 60, 20));
 
-        btn_verContrasenia.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
+        btn_verContrasenia.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         btn_verContrasenia.setText("Ver");
         btn_verContrasenia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnl_registro.add(btn_verContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 410, 55, 20));
+        pnl_registro.add(btn_verContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 410, 60, 20));
 
         getContentPane().add(pnl_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 510, 590));
         getContentPane().add(lbl_fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 590));

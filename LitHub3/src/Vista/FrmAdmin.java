@@ -315,7 +315,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         lbl_libCodigo.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_libCodigo.setForeground(new java.awt.Color(0, 0, 0));
         lbl_libCodigo.setText("Codigo:");
-        pnl_Libros.add(lbl_libCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, 100, 40));
+        pnl_Libros.add(lbl_libCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 120, 40));
 
         txt_libCodigo.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txt_libCodigo.setEnabled(false);
@@ -329,12 +329,12 @@ public class FrmAdmin extends javax.swing.JFrame {
         lbl_libAutor.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_libAutor.setForeground(new java.awt.Color(0, 0, 0));
         lbl_libAutor.setText("Autor:");
-        pnl_Libros.add(lbl_libAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 165, 100, 40));
+        pnl_Libros.add(lbl_libAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 165, 120, 40));
 
         lbl_libNombre.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_libNombre.setForeground(new java.awt.Color(0, 0, 0));
         lbl_libNombre.setText("Nombre:");
-        pnl_Libros.add(lbl_libNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, 100, 40));
+        pnl_Libros.add(lbl_libNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 120, 40));
 
         txt_libNombre.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txt_libNombre.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -347,12 +347,12 @@ public class FrmAdmin extends javax.swing.JFrame {
         lbl_libGenero.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_libGenero.setForeground(new java.awt.Color(0, 0, 0));
         lbl_libGenero.setText("Genero:");
-        pnl_Libros.add(lbl_libGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 275, 100, 40));
+        pnl_Libros.add(lbl_libGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 275, 120, 40));
 
         lbl_libNumPags.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lbl_libNumPags.setForeground(new java.awt.Color(0, 0, 0));
         lbl_libNumPags.setText("Num paginas:");
-        pnl_Libros.add(lbl_libNumPags, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 330, 100, 40));
+        pnl_Libros.add(lbl_libNumPags, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, 120, 40));
 
         txt_libNumPags.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txt_libNumPags.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -652,7 +652,8 @@ public class FrmAdmin extends javax.swing.JFrame {
                 autorPartes[0],
                 this.txt_libNombre.getText(),
                 this.cmb_libGeneros.getSelectedItem().toString(),
-                Integer.parseInt(this.txt_libNumPags.getText()));
+                Integer.parseInt(this.txt_libNumPags.getText()),
+                "");
         this.gestorBD.agregarLibro(librito);
         Almacen.getInstance().libros.add(librito);
         GestorPrograma.almacenarImagen(this.urlPortada, this.txt_libCodigo.getText() + ".png");
@@ -685,7 +686,8 @@ public class FrmAdmin extends javax.swing.JFrame {
                 autorPartes[0],
                 this.txt_libNombre.getText(),
                 this.cmb_libGeneros.getSelectedItem().toString(),
-                Integer.parseInt(this.txt_libNumPags.getText()));
+                Integer.parseInt(this.txt_libNumPags.getText()),
+                this.libroSeleccionado.getSinopsis());
         gestorBD.actualizarLibro(librito);
         Almacen.getInstance().libros.set(index, librito);
 
