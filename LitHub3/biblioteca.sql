@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 14-01-2024 a las 04:05:49
+-- Tiempo de generación: 14-01-2024 a las 23:06:21
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -44,8 +44,16 @@ CREATE TABLE `libros` (
   `CORREO_USU` varchar(30) DEFAULT NULL,
   `NOMBRE` varchar(50) DEFAULT NULL,
   `GENERO` varchar(20) DEFAULT NULL,
-  `NUM_PAG` int(11) DEFAULT NULL CHECK (`NUM_PAG` <= 500)
+  `NUM_PAG` int(11) DEFAULT NULL CHECK (`NUM_PAG` <= 500),
+  `SINOPSIS` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `libros`
+--
+
+INSERT INTO `libros` (`CODIGO`, `CORREO_USU`, `NOMBRE`, `GENERO`, `NUM_PAG`, `SINOPSIS`) VALUES
+('6782666673', 'autor@root.com', 'XD', 'Drama', 123, 'Dentro, en el abismo del aberno, un hombre se realsa, y no sabe lo que piensa, solo quiere ver el mundo arder xd');
 
 -- --------------------------------------------------------
 
@@ -69,7 +77,7 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`CORREO`, `NOMBRE`, `APELLIDO`, `CLAVE`, `PAIS`, `FEC_NAC`, `TIPO`) VALUES
 ('admin@root.com', 'Adminsito', 'NoEliminar', 'lruxImViiJZybBeV1xN/zQ==', 'Ecuador', '05/02/2003', 'ADMIN'),
-('autor@root.com', 'Autorsito', 'NoEliminar', 'lruxImViiJZybBeV1xN/zQ==', 'Autorandia', '09/02/2001', 'AUTOR'),
+('autor@root.com', 'Autorsote', 'Apellidote', 'lruxImViiJZybBeV1xN/zQ==', 'España', '09/02/2001', 'AUTOR'),
 ('lector@root.com', 'Lectorsito', 'NoEliminar', 'lruxImViiJZybBeV1xN/zQ==', 'Ecuador', '14/01/2006', 'LECTOR');
 
 --
@@ -105,7 +113,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `favoritos`
 --
 ALTER TABLE `favoritos`
-  MODIFY `CODIGO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `CODIGO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- Restricciones para tablas volcadas
