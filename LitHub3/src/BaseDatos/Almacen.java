@@ -9,7 +9,6 @@ public class Almacen {
 
     public ArrayList<Usuario> usuarios = new ArrayList<>();
     public ArrayList<Libro> libros = new ArrayList<>();
-    public ArrayList<Prestamo> prestamos = new ArrayList<>();
     public ArrayList<Favorito> favoritos = new ArrayList<>();
 
     private Almacen() {

@@ -691,10 +691,6 @@ public class FrmAdmin extends javax.swing.JFrame {
         GestorPrograma.eliminarImagen(this.libroSeleccionado.getCodigo() + ".png");
         GestorPrograma.eliminarPDF(this.libroSeleccionado.getCodigo() + ".pdf");
 
-        //eliminamos los prestamos con el codigo de ese libro
-        gestorBD.eliminarPrestamosPorLibro(this.libroSeleccionado.getCodigo());
-        GestorPrograma.eliminarPrestamosPorLibro(this.libroSeleccionado.getCodigo());
-
         //eliminamos los favoritos con el codigo de ese libro
         gestorBD.eliminarFavoritosPorLibro(this.libroSeleccionado.getCodigo());
         GestorPrograma.eliminarFavoritosPorLibro(this.libroSeleccionado.getCodigo());

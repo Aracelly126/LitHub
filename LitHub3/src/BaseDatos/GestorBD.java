@@ -51,21 +51,6 @@ public class GestorBD {
                         entidades.add(libro);
                     }
                     break;
-
-                case "PRESTAMOS":
-                    ArrayList<Prestamo> prestamos = new ArrayList<>();
-                    while (resultSetEntidades.next()) {
-                        Prestamo prestamo = new Prestamo(
-                                resultSetEntidades.getString("CODIGO"),
-                                resultSetEntidades.getString("COD_LIB"),
-                                resultSetEntidades.getString("CORREO_USU"),
-                                resultSetEntidades.getString("FEC_INI"),
-                                resultSetEntidades.getString("FEC_DEV"),
-                                resultSetEntidades.getString("ESTADO")
-                        );
-                        entidades.add(prestamo);
-                    }
-                    break;
                 case "FAVORITOS":
                     ArrayList<Favorito> favoritos = new ArrayList<>();
                     while (resultSetEntidades.next()) {

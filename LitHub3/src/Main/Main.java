@@ -19,7 +19,6 @@ public class Main {
 
         Almacen.getInstance().usuarios = (ArrayList<Usuario>) mbd.SELECT("USUARIOS");
         Almacen.getInstance().libros = (ArrayList<Libro>) mbd.SELECT("LIBROS");
-        Almacen.getInstance().prestamos = (ArrayList<Prestamo>) mbd.SELECT("PRESTAMOS");
         Almacen.getInstance().favoritos = (ArrayList<Favorito>) mbd.SELECT("FAVORITOS");
     }
 }

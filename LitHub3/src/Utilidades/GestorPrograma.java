@@ -43,15 +43,6 @@ public class GestorPrograma {
         return null;
     }
 
-    public static Prestamo buscarPrestamo(String codigo) {
-        for (Prestamo prestamo : Almacen.getInstance().prestamos) {
-            if (prestamo.getCodigo().equals(codigo)) {
-                return prestamo;
-            }
-        }
-        return null;
-    }
-
     public static Favorito buscarFavorito(String codigo, String correo) {
         for (Favorito favorito : Almacen.getInstance().favoritos) {
             if (favorito.getCodigoLibro().equals(codigo) && favorito.getCorreoUsuario().equals(correo)) {
@@ -208,21 +199,6 @@ public class GestorPrograma {
         }
     }
 
-    public static void eliminarPrestamosPorLibro(String codigoLibro) {
-        ArrayList<Prestamo> nuevosPrestamos = new ArrayList<>();
-
-        for (Prestamo prestamo : Almacen.getInstance().prestamos) {
-            if (!prestamo.getCodLib().equals(codigoLibro)) {
-                nuevosPrestamos.add(prestamo);
-            }
-        }
-
-        // Asignar la nueva lista de préstamos a la lista principal
-        Almacen.getInstance().prestamos = nuevosPrestamos;
-
-        System.out.println("Préstamos asociados al libro con código " + codigoLibro + " eliminados del almacen.");
-    }
-
     public static void eliminarFavoritosPorLibro(String codigoLibro) {
         ArrayList<Favorito> nuevosFavoritos = new ArrayList<>();
 
@@ -255,7 +231,7 @@ public class GestorPrograma {
     public static void almacenarImagenAutores(String urlImagen, String nombreArchivoDestino) {
         try {
             Path origenPath = Paths.get(urlImagen);
-            Path destinoPath = Paths.get("SYSTEM/Autores/", nombreArchivoDestino);
+            Path destinoPath = Paths.get("SYSTEM/autores/", nombreArchivoDestino);
 
             // Copiar el archivo a la carpeta destino
             Files.copy(origenPath, destinoPath);

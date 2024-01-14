@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 11-01-2024 a las 20:55:36
+-- Servidor: localhost
+-- Tiempo de generación: 14-01-2024 a las 04:05:49
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -44,23 +44,7 @@ CREATE TABLE `libros` (
   `CORREO_USU` varchar(30) DEFAULT NULL,
   `NOMBRE` varchar(50) DEFAULT NULL,
   `GENERO` varchar(20) DEFAULT NULL,
-  `NUM_PAG` int(11) DEFAULT NULL CHECK (`NUM_PAG` <= 500),
-  `PRESTADO` varchar(2) DEFAULT NULL CHECK (`PRESTADO` in ('SI','NO'))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `prestamos`
---
-
-CREATE TABLE `prestamos` (
-  `CODIGO` int(11) NOT NULL,
-  `COD_LIB` varchar(10) DEFAULT NULL,
-  `CORREO_USU` varchar(30) DEFAULT NULL,
-  `FEC_INI` varchar(10) DEFAULT NULL,
-  `FEC_DEV` varchar(10) DEFAULT NULL,
-  `ESTADO` varchar(10) DEFAULT NULL CHECK (`ESTADO` in ('DEVUELTO','INDEVUELTO'))
+  `NUM_PAG` int(11) DEFAULT NULL CHECK (`NUM_PAG` <= 500)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -84,7 +68,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`CORREO`, `NOMBRE`, `APELLIDO`, `CLAVE`, `PAIS`, `FEC_NAC`, `TIPO`) VALUES
-('pepito@gmail.com', 'Anuel', NULL, 'lruxImViiJZybBeV1xN/zQ==', NULL, '05/02/2003', 'ADMIN');
+('admin@root.com', 'Adminsito', 'NoEliminar', 'lruxImViiJZybBeV1xN/zQ==', 'Ecuador', '05/02/2003', 'ADMIN'),
+('autor@root.com', 'Autorsito', 'NoEliminar', 'lruxImViiJZybBeV1xN/zQ==', 'Autorandia', '09/02/2001', 'AUTOR'),
+('lector@root.com', 'Lectorsito', 'NoEliminar', 'lruxImViiJZybBeV1xN/zQ==', 'Ecuador', '14/01/2006', 'LECTOR');
 
 --
 -- Índices para tablas volcadas
@@ -106,14 +92,6 @@ ALTER TABLE `libros`
   ADD KEY `CORREO_USU` (`CORREO_USU`);
 
 --
--- Indices de la tabla `prestamos`
---
-ALTER TABLE `prestamos`
-  ADD PRIMARY KEY (`CODIGO`),
-  ADD KEY `COD_LIB` (`COD_LIB`),
-  ADD KEY `CORREO_USU` (`CORREO_USU`);
-
---
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -127,13 +105,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `favoritos`
 --
 ALTER TABLE `favoritos`
-  MODIFY `CODIGO` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `prestamos`
---
-ALTER TABLE `prestamos`
-  MODIFY `CODIGO` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `CODIGO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- Restricciones para tablas volcadas
@@ -151,13 +123,6 @@ ALTER TABLE `favoritos`
 --
 ALTER TABLE `libros`
   ADD CONSTRAINT `libros_ibfk_1` FOREIGN KEY (`CORREO_USU`) REFERENCES `usuarios` (`CORREO`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `prestamos`
---
-ALTER TABLE `prestamos`
-  ADD CONSTRAINT `prestamos_ibfk_1` FOREIGN KEY (`CORREO_USU`) REFERENCES `usuarios` (`CORREO`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `prestamos_ibfk_2` FOREIGN KEY (`COD_LIB`) REFERENCES `libros` (`CODIGO`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -86,7 +86,7 @@ public class FrmAutor extends javax.swing.JFrame {
         iniciarPnlTodosLibros();
         iniciarPnlLibrosAutor();
 
-        iniciarPnlLibrosFav(SesionActual);
+        iniciarPnlLibrosFav();
 
         this.setVisible(true);
     }
@@ -95,7 +95,7 @@ public class FrmAutor extends javax.swing.JFrame {
         this.dispose();
     }
 
-    private void iniciarPnlLibrosFav(Usuario SesionActual) {
+    private void iniciarPnlLibrosFav() {
         int numeroDeColumnas = 4; // Por ejemplo, 3 columnas
         panelLibrosFav.setLayout(new GridLayout(0, numeroDeColumnas));
         panelLibrosFav.removeAll();
@@ -118,7 +118,7 @@ public class FrmAutor extends javax.swing.JFrame {
                     this.gestorBD.eliminarFavoritosPorLibro(fav.getCodigoLibro());
                     Almacen.getInstance().favoritos.remove(fav);
                     JOptionPane.showMessageDialog(panelLibroFav, " Ha sido eliminado tu libro de favoritos.");
-                    iniciarPnlLibrosFav(SesionActual);
+                    iniciarPnlLibrosFav();
                 });
                 JLabel lblDescripcion = new JLabel("Leer Ahora");
                 lblDescripcion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -179,7 +179,7 @@ public class FrmAutor extends javax.swing.JFrame {
                     this.gestorBD.agregarLibroFavoritos(fav);
                     Almacen.getInstance().favoritos.add(fav);
                     JOptionPane.showMessageDialog(panelLibro, libro.getNombre() + " ha sido agregado a favoritos.");
-                    iniciarPnlLibrosFav(SesionActual);
+                    iniciarPnlLibrosFav();
                     return;
                 }
                 JOptionPane.showMessageDialog(panelLibro, libro.getNombre().toUpperCase() + " ya lo tienes en favoritos.");
@@ -244,7 +244,6 @@ public class FrmAutor extends javax.swing.JFrame {
         ManejoComp.vaciarTabla(this.tbl_librosAutor, this.modelTblLibrosAutor);
         for (Libro libro : Almacen.getInstance().libros) {
             if (libro.getCorreoUsu().equals(this.SesionActual.getCorreo())) {
-//                System.out.println("CORREO RELACIONADO CON EL LIBRO " + libro.getCorreoUsu() + SesionActual.getCorreo());
                 String[] registro = {
                     libro.getCodigo(),
                     libro.getNombre(),
@@ -319,7 +318,7 @@ public class FrmAutor extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         pnl_LibrosAllFav = new javax.swing.JPanel();
         pnl_subirLibrosAutor = new javax.swing.JPanel();
-        lbl_MensajeSeccion5 = new javax.swing.JLabel();
+        lbl_MensajeSeccion4 = new javax.swing.JLabel();
         lbl_libPortadaAuto = new javax.swing.JLabel();
         btn_libAgregarPortadaAuto = new javax.swing.JButton();
         btn_libAgregarPdfAuto = new javax.swing.JButton();
@@ -412,7 +411,7 @@ public class FrmAutor extends javax.swing.JFrame {
 
         lbl_MensajeSeccion1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbl_MensajeSeccion1.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_MensajeSeccion1.setText("Seccion: Perfil");
+        lbl_MensajeSeccion1.setText("Seccion: Mi Perfil");
         pnl_Perfil.add(lbl_MensajeSeccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 40, -1, -1));
 
         lbl_libPortadaAutor.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -423,11 +422,6 @@ public class FrmAutor extends javax.swing.JFrame {
         btn_libAgregarPortadaAutor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_libAgregarPortadaAutorMouseClicked(evt);
-            }
-        });
-        btn_libAgregarPortadaAutor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_libAgregarPortadaAutorActionPerformed(evt);
             }
         });
         pnl_Perfil.add(btn_libAgregarPortadaAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 170, 30));
@@ -540,7 +534,7 @@ public class FrmAutor extends javax.swing.JFrame {
 
         lbl_MensajeSeccion3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbl_MensajeSeccion3.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_MensajeSeccion3.setText("Seccion Favoritos");
+        lbl_MensajeSeccion3.setText("Seccion: Mis favoritos");
         pnl_Favoritos.add(lbl_MensajeSeccion3, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 40, -1, -1));
 
         jScrollPane5.setBorder(null);
@@ -558,20 +552,15 @@ public class FrmAutor extends javax.swing.JFrame {
         pnlTb_MenuAutor.addTab("", pnl_Favoritos);
 
         pnl_subirLibrosAutor.setBackground(new java.awt.Color(255, 255, 255));
-        pnl_subirLibrosAutor.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pnl_subirLibrosAutorMouseClicked(evt);
-            }
-        });
         pnl_subirLibrosAutor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbl_MensajeSeccion5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lbl_MensajeSeccion5.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_MensajeSeccion5.setText("Seccion Agregar nuevos Libros");
-        pnl_subirLibrosAutor.add(lbl_MensajeSeccion5, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 40, -1, -1));
+        lbl_MensajeSeccion4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbl_MensajeSeccion4.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_MensajeSeccion4.setText("Seccion Agregar nuevos Libros");
+        pnl_subirLibrosAutor.add(lbl_MensajeSeccion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 40, -1, -1));
 
         lbl_libPortadaAuto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        pnl_subirLibrosAutor.add(lbl_libPortadaAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 170, 210));
+        pnl_subirLibrosAutor.add(lbl_libPortadaAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 170, 210));
 
         btn_libAgregarPortadaAuto.setText("Agregar portada");
         btn_libAgregarPortadaAuto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -580,7 +569,7 @@ public class FrmAutor extends javax.swing.JFrame {
                 btn_libAgregarPortadaAutoMouseClicked(evt);
             }
         });
-        pnl_subirLibrosAutor.add(btn_libAgregarPortadaAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 170, 30));
+        pnl_subirLibrosAutor.add(btn_libAgregarPortadaAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 170, 30));
 
         btn_libAgregarPdfAuto.setText("Agregar pdf");
         btn_libAgregarPdfAuto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -589,7 +578,7 @@ public class FrmAutor extends javax.swing.JFrame {
                 btn_libAgregarPdfAutoMouseClicked(evt);
             }
         });
-        pnl_subirLibrosAutor.add(btn_libAgregarPdfAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 170, 30));
+        pnl_subirLibrosAutor.add(btn_libAgregarPdfAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, 170, 30));
         pnl_subirLibrosAutor.add(lbl_libNombreArchivoPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, 200, 30));
 
         btn_libNuevoCodigo.setText("Nuevo");
@@ -599,12 +588,12 @@ public class FrmAutor extends javax.swing.JFrame {
                 btn_libNuevoCodigoMouseClicked(evt);
             }
         });
-        pnl_subirLibrosAutor.add(btn_libNuevoCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 50, 70, 30));
+        pnl_subirLibrosAutor.add(btn_libNuevoCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 100, 70, 30));
 
         lbl_libCodigoAuto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_libCodigoAuto.setForeground(new java.awt.Color(0, 0, 0));
         lbl_libCodigoAuto.setText("Codigo:");
-        pnl_subirLibrosAutor.add(lbl_libCodigoAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 100, 30));
+        pnl_subirLibrosAutor.add(lbl_libCodigoAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 100, 30));
 
         txt_libCodigoAuto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_libCodigoAuto.setEnabled(false);
@@ -613,21 +602,21 @@ public class FrmAutor extends javax.swing.JFrame {
                 txt_libCodigoAutoKeyTyped(evt);
             }
         });
-        pnl_subirLibrosAutor.add(txt_libCodigoAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 80, 300, 30));
+        pnl_subirLibrosAutor.add(txt_libCodigoAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 300, 30));
 
         lbl_libAutor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_libAutor.setForeground(new java.awt.Color(0, 0, 0));
         lbl_libAutor.setText("Autor:");
-        pnl_subirLibrosAutor.add(lbl_libAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 100, 30));
+        pnl_subirLibrosAutor.add(lbl_libAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, 100, 30));
 
         txt_nombreAutor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_nombreAutor.setEnabled(false);
-        pnl_subirLibrosAutor.add(txt_nombreAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 128, 300, 30));
+        pnl_subirLibrosAutor.add(txt_nombreAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, 300, 30));
 
         lbl_libNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_libNombre.setForeground(new java.awt.Color(0, 0, 0));
         lbl_libNombre.setText("Nombre:");
-        pnl_subirLibrosAutor.add(lbl_libNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, 100, 30));
+        pnl_subirLibrosAutor.add(lbl_libNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, 100, 30));
 
         txt_libNombreAuto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_libNombreAuto.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -635,20 +624,20 @@ public class FrmAutor extends javax.swing.JFrame {
                 txt_libNombreAutoKeyTyped(evt);
             }
         });
-        pnl_subirLibrosAutor.add(txt_libNombreAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, 300, 30));
+        pnl_subirLibrosAutor.add(txt_libNombreAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 230, 300, 30));
 
         lbl_libGenero.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_libGenero.setForeground(new java.awt.Color(0, 0, 0));
         lbl_libGenero.setText("Genero:");
-        pnl_subirLibrosAutor.add(lbl_libGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, 100, 30));
+        pnl_subirLibrosAutor.add(lbl_libGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 100, 30));
 
         cmb_libGenerosAutor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Drama", "Novela", "Ficticio" }));
-        pnl_subirLibrosAutor.add(cmb_libGenerosAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 230, 300, 30));
+        pnl_subirLibrosAutor.add(cmb_libGenerosAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 300, 30));
 
         lbl_libNumPags.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_libNumPags.setForeground(new java.awt.Color(0, 0, 0));
         lbl_libNumPags.setText("Num paginas:");
-        pnl_subirLibrosAutor.add(lbl_libNumPags, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 100, 30));
+        pnl_subirLibrosAutor.add(lbl_libNumPags, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 330, 100, 30));
 
         txt_libNumPagsAuto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txt_libNumPagsAuto.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -656,12 +645,12 @@ public class FrmAutor extends javax.swing.JFrame {
                 txt_libNumPagsAutoKeyTyped(evt);
             }
         });
-        pnl_subirLibrosAutor.add(txt_libNumPagsAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 280, 300, 30));
+        pnl_subirLibrosAutor.add(txt_libNumPagsAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 330, 300, 30));
 
         lbl_libNumPags1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_libNumPags1.setForeground(new java.awt.Color(0, 0, 0));
         lbl_libNumPags1.setText("Sinopsis");
-        pnl_subirLibrosAutor.add(lbl_libNumPags1, new org.netbeans.lib.awtextra.AbsoluteConstraints(752, 48, 100, 30));
+        pnl_subirLibrosAutor.add(lbl_libNumPags1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 100, 100, 30));
 
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -671,7 +660,7 @@ public class FrmAutor extends javax.swing.JFrame {
         txtSinpsis.setRows(5);
         jScrollPane3.setViewportView(txtSinpsis);
 
-        pnl_subirLibrosAutor.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(752, 80, 272, 224));
+        pnl_subirLibrosAutor.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 130, 272, 224));
 
         btn_libGuardarAutor.setText("Guardar");
         btn_libGuardarAutor.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -680,7 +669,7 @@ public class FrmAutor extends javax.swing.JFrame {
                 btn_libGuardarAutorMouseClicked(evt);
             }
         });
-        pnl_subirLibrosAutor.add(btn_libGuardarAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 80, 100, 30));
+        pnl_subirLibrosAutor.add(btn_libGuardarAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 130, 100, 30));
 
         btn_libActualizarAuto.setText("Actualizar");
         btn_libActualizarAuto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -689,7 +678,7 @@ public class FrmAutor extends javax.swing.JFrame {
                 btn_libActualizarAutoMouseClicked(evt);
             }
         });
-        pnl_subirLibrosAutor.add(btn_libActualizarAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 128, 100, 30));
+        pnl_subirLibrosAutor.add(btn_libActualizarAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 180, 100, 30));
 
         btn_libEliminarAuto.setText("Eliminar");
         btn_libEliminarAuto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -698,7 +687,7 @@ public class FrmAutor extends javax.swing.JFrame {
                 btn_libEliminarAutoMouseClicked(evt);
             }
         });
-        pnl_subirLibrosAutor.add(btn_libEliminarAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 176, 100, 30));
+        pnl_subirLibrosAutor.add(btn_libEliminarAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 230, 100, 30));
 
         btn_libLimpiarAuto.setText("Limpiar");
         btn_libLimpiarAuto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -707,7 +696,7 @@ public class FrmAutor extends javax.swing.JFrame {
                 btn_libLimpiarAutoMouseClicked(evt);
             }
         });
-        pnl_subirLibrosAutor.add(btn_libLimpiarAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 224, 100, 30));
+        pnl_subirLibrosAutor.add(btn_libLimpiarAuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 280, 100, 30));
 
         tbl_librosAutoSubidos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tbl_librosAutoSubidos.setModel(this.modelTblLibrosAutor);
@@ -718,7 +707,7 @@ public class FrmAutor extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tbl_librosAutoSubidos);
 
-        pnl_subirLibrosAutor.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 368, 890, 270));
+        pnl_subirLibrosAutor.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 440, 1200, 270));
 
         pnlTb_MenuAutor.addTab("", pnl_subirLibrosAutor);
 
@@ -764,10 +753,6 @@ public class FrmAutor extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_libAgregarPortadaAutorMouseClicked
 
-    private void btn_libAgregarPortadaAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_libAgregarPortadaAutorActionPerformed
-
-    }//GEN-LAST:event_btn_libAgregarPortadaAutorActionPerformed
-
     private void tbl_librosAutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_librosAutorMouseClicked
         int index = this.tbl_librosAutor.getSelectedRow();
         String codigoLibro = this.tbl_librosAutor.getModel().getValueAt(index, 0).toString();
@@ -781,12 +766,7 @@ public class FrmAutor extends javax.swing.JFrame {
 
     private void lbl_btnSubirLibrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_btnSubirLibrosMouseClicked
         this.pnlTb_MenuAutor.setSelectedIndex(3);
-
     }//GEN-LAST:event_lbl_btnSubirLibrosMouseClicked
-
-    private void pnl_subirLibrosAutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnl_subirLibrosAutorMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pnl_subirLibrosAutorMouseClicked
 
     private void btn_libAgregarPortadaAutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libAgregarPortadaAutoMouseClicked
         if (this.btn_libAgregarPortadaAuto.isEnabled() == false) {
@@ -924,17 +904,13 @@ public class FrmAutor extends javax.swing.JFrame {
         GestorPrograma.eliminarImagen(this.libroSeleccionado.getCodigo() + ".png");
         GestorPrograma.eliminarPDF(this.libroSeleccionado.getCodigo() + ".pdf");
 
-        //eliminamos los prestamos con el codigo de ese libro
-        gestorBD.eliminarPrestamosPorLibro(this.libroSeleccionado.getCodigo());
-        GestorPrograma.eliminarPrestamosPorLibro(this.libroSeleccionado.getCodigo());
-
         //eliminamos los favoritos con el codigo de ese libro
         gestorBD.eliminarFavoritosPorLibro(this.libroSeleccionado.getCodigo());
         GestorPrograma.eliminarFavoritosPorLibro(this.libroSeleccionado.getCodigo());
 
         this.iniciarPnlLibrosAutor();
         this.iniciarPnlTodosLibros();
-        this.iniciarPnlLibrosFav(SesionActual);
+        this.iniciarPnlLibrosFav();
     }//GEN-LAST:event_btn_libEliminarAutoMouseClicked
 
     private void btn_libLimpiarAutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_libLimpiarAutoMouseClicked
@@ -962,7 +938,7 @@ public class FrmAutor extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_MensajeSeccion1;
     private javax.swing.JLabel lbl_MensajeSeccion2;
     private javax.swing.JLabel lbl_MensajeSeccion3;
-    private javax.swing.JLabel lbl_MensajeSeccion5;
+    private javax.swing.JLabel lbl_MensajeSeccion4;
     private javax.swing.JLabel lbl_Obras;
     private javax.swing.JLabel lbl_autoApellSalida1;
     private javax.swing.JLabel lbl_autoApellido;
