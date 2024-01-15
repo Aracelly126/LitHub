@@ -233,7 +233,7 @@ public class FrmLector extends javax.swing.JFrame {
         DetallesLibro detallePanel = new DetallesLibro(libro.getNombre(), libro.getSinopsis());
         detalleFrame.add(detallePanel);
 
-        detalleFrame.setLocationRelativeTo(null);
+        detalleFrame.setLocationRelativeTo(this);
         detalleFrame.setVisible(true);
     }
 
