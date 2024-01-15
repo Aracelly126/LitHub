@@ -656,7 +656,7 @@ public class FrmAdmin extends javax.swing.JFrame {
                 "");
         this.gestorBD.agregarLibro(librito);
         Almacen.getInstance().libros.add(librito);
-        GestorPrograma.almacenarImagen(this.urlPortada, this.txt_libCodigo.getText() + ".png");
+        GestorPrograma.almacenarPortadaLibro(this.urlPortada, this.txt_libCodigo.getText() + ".png");
         GestorPrograma.almacenarPDF(this.urlPdf, this.txt_libCodigo.getText() + ".pdf");
 
         this.iniciarPnlLibros();
@@ -708,7 +708,6 @@ public class FrmAdmin extends javax.swing.JFrame {
         GestorPrograma.eliminarPDF(this.libroSeleccionado.getCodigo() + ".pdf");
 
         //eliminamos los favoritos con el codigo de ese libro
-        gestorBD.eliminarFavoritosPorLibro(this.libroSeleccionado.getCodigo());
         GestorPrograma.eliminarFavoritosPorLibro(this.libroSeleccionado.getCodigo());
 
         this.iniciarPnlLibros();

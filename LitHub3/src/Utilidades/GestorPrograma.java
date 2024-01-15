@@ -149,10 +149,17 @@ public class GestorPrograma {
         return rutaPDF;
     }
 
-    public static void almacenarImagen(String urlImagen, String nombreArchivoDestino) {
+    public static void almacenarPortadaLibro(String urlImagen, String nombreArchivoDestino) {
         try {
             Path origenPath = Paths.get(urlImagen);
             Path destinoPath = Paths.get("SYSTEM/libros/", nombreArchivoDestino);
+
+            // Verificar si ya existe un archivo con el mismo nombre en la carpeta destino
+            if (Files.exists(destinoPath)) {
+                // Si existe, eliminar el archivo anterior
+                Files.delete(destinoPath);
+                System.out.println("Archivo anterior eliminado: " + destinoPath.toString());
+            }
 
             // Copiar el archivo a la carpeta destino
             Files.copy(origenPath, destinoPath);

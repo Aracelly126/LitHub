@@ -187,7 +187,7 @@ public class FrmLector extends javax.swing.JFrame {
                 // Botón para agregar a favoritos
                 JButton btnFavoritos = new JButton("Eliminar de Favoritos");
                 btnFavoritos.addActionListener(e -> {
-                    this.gestorBD.eliminarFavoritosPorLibro(fav.getCodigoLibro());
+                    this.gestorBD.eliminarFavoritosPorLibro(fav.getCodigoLibro(), this.SesionActual.getCorreo());
                     Almacen.getInstance().favoritos.remove(fav);
                     JOptionPane.showMessageDialog(panelLibroFav, " Ha sido eliminado tu libro de favoritos.");
                     iniciarPnlLibrosFav();

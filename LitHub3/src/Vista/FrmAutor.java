@@ -10,6 +10,7 @@ import Utilidades.DetallesLibro;
 import Utilidades.GestorPrograma;
 import Utilidades.ManejoComp;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -20,6 +21,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class FrmAutor extends javax.swing.JFrame {
@@ -31,7 +34,7 @@ public class FrmAutor extends javax.swing.JFrame {
     private DefaultTableModel modelTblLibrosAutor = new DefaultTableModel(tblLibrosTitulosAutor, 0);
     private String urlPortadaAutor = "";
     private String urlPortadaLibroSubir = "";
-    private String urlPdfAutor = "";
+    private String urlPdfLibroSubir = "";
     private JPanel panelLibros;
     private JPanel panelLibrosFav;
 
@@ -77,6 +80,24 @@ public class FrmAutor extends javax.swing.JFrame {
         panelLibrosFav = new JPanel();
         pnl_LibrosAllFav.setLayout(new BorderLayout());
         pnl_LibrosAllFav.add(panelLibrosFav, BorderLayout.CENTER);
+
+        //<editor-fold defaultstate="collapsed" desc="DISEÑO PESTANIA LIBROS">      
+        DefaultTableCellRenderer cellRenderer1 = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                    boolean hasFocus, int row, int column) {
+                Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus,
+                        row, column);
+                // Establecer el alto personalizado para todas las filas
+                table.setRowHeight(row, 25); // 50 es el alto deseado en píxeles
+                return component;
+            }
+        };
+        // Asignar el renderizador de celdas personalizado a todas las columnas
+        for (int i = 0; i < this.tbl_misLibros.getColumnCount(); i++) {
+            this.tbl_misLibros.getColumnModel().getColumn(i).setCellRenderer(cellRenderer1);
+        }
+        //</editor-fold>
     }
 
     public void iniciarVentana(String correoUser) {
@@ -87,7 +108,8 @@ public class FrmAutor extends javax.swing.JFrame {
         this.limpiarPnlPerfil();
         iniciarPnlTodosLibros();
         iniciarPnlLibrosFav();
-        iniciarPnlSubirLibro();
+        this.iniciarPnlSubirLibro();
+        this.limpiarPnlSubirLibro();
 
         this.setVisible(true);
     }
@@ -197,7 +219,7 @@ public class FrmAutor extends javax.swing.JFrame {
                 // Botón para agregar a favoritos
                 JButton btnFavoritos = new JButton("Eliminar de Favoritos");
                 btnFavoritos.addActionListener(e -> {
-                    this.gestorBD.eliminarFavoritosPorLibro(fav.getCodigoLibro());
+                    this.gestorBD.eliminarFavoritosPorLibro(fav.getCodigoLibro(), this.SesionActual.getCorreo());
                     Almacen.getInstance().favoritos.remove(fav);
                     JOptionPane.showMessageDialog(panelLibroFav, " Ha sido eliminado tu libro de favoritos.");
                     iniciarPnlLibrosFav();
@@ -237,6 +259,7 @@ public class FrmAutor extends javax.swing.JFrame {
     }
 
     private void iniciarPnlSubirLibro() {
+        this.txt_miLibAutor.setText(this.SesionActual.getCorreo());
         ManejoComp.vaciarTabla(this.tbl_misLibros, this.modelTblLibrosAutor);
         for (Libro libro : Almacen.getInstance().libros) {
             if (libro.getCorreoUsu().equals(this.SesionActual.getCorreo())) {
@@ -249,7 +272,26 @@ public class FrmAutor extends javax.swing.JFrame {
                 this.modelTblLibrosAutor.addRow(registro);
             }
         }
-        limpiarPnlLibrosAutores();
+    }
+
+    public void limpiarPnlSubirLibro() {
+        this.libroSeleccionado = null;
+        this.urlPortadaLibroSubir = "";
+        this.urlPdfLibroSubir = "";
+        ManejoComp.crearlabel(this.lbl_miLibPortada, "");
+        this.lbl_miLibNombreArchivoPdf.setText("");
+        this.txt_miLibCodigo.setText("");
+        this.txt_miLibNombre.setText("");
+        this.cmb_miLibGenero.setSelectedIndex(0);
+        this.txt_miLibNumPags.setText("");
+        this.txtSinpsis.setText("");
+
+        this.btn_miLibGuardar.setEnabled(true);
+        this.btn_miLibAgregarPortadaLibro.setEnabled(true);
+        this.btn_miLibAgregarPdfLibro.setEnabled(true);
+        this.btn_miLibEliminar.setEnabled(false);
+        this.btn_miLibActualizar.setEnabled(false);
+        this.btn_miLibNuevoCodigo.setEnabled(true);
     }
 
     private void mostrarDetalleLibro(Libro libro) {
@@ -261,26 +303,6 @@ public class FrmAutor extends javax.swing.JFrame {
 
         detalleFrame.setLocationRelativeTo(null);
         detalleFrame.setVisible(true);
-    }
-
-    public void limpiarPnlLibrosAutores() {
-        this.libroSeleccionado = null;
-        this.urlPortadaLibroSubir = "";
-        this.urlPdfAutor = "";
-        ManejoComp.crearlabel(this.lbl_miLibPortada, "");
-        this.lbl_miLibNombreArchivoPdf.setText("");
-        this.txt_miLibCodigo.setText("");
-        this.txt_miLibAutor.setText("");
-        this.txt_miLibNombre.setText("");
-        this.cmb_miLibGenero.setSelectedIndex(0);
-        this.txt_miLibNumPags.setText("");
-
-        this.btn_miLibGuardar.setEnabled(true);
-        this.btn_miLibAgregarPortadaLibro.setEnabled(true);
-        this.btn_miLibAgregarPdfLibro.setEnabled(true);
-        this.btn_miLibEliminar.setEnabled(false);
-        this.btn_miLibActualizar.setEnabled(false);
-        this.btn_miLibNuevoCodigo.setEnabled(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -602,7 +624,7 @@ public class FrmAutor extends javax.swing.JFrame {
                 btn_miLibAgregarPortadaLibroMouseClicked(evt);
             }
         });
-        pnl_nuevoLibro.add(btn_miLibAgregarPortadaLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 170, 30));
+        pnl_nuevoLibro.add(btn_miLibAgregarPortadaLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 170, 35));
 
         btn_miLibAgregarPdfLibro.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btn_miLibAgregarPdfLibro.setText("Agregar pdf");
@@ -612,8 +634,8 @@ public class FrmAutor extends javax.swing.JFrame {
                 btn_miLibAgregarPdfLibroMouseClicked(evt);
             }
         });
-        pnl_nuevoLibro.add(btn_miLibAgregarPdfLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, 170, 30));
-        pnl_nuevoLibro.add(lbl_miLibNombreArchivoPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 380, 200, 30));
+        pnl_nuevoLibro.add(btn_miLibAgregarPdfLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 170, 35));
+        pnl_nuevoLibro.add(lbl_miLibNombreArchivoPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 390, 200, 30));
 
         btn_miLibNuevoCodigo.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         btn_miLibNuevoCodigo.setText("Nuevo");
@@ -744,7 +766,7 @@ public class FrmAutor extends javax.swing.JFrame {
         });
         pnl_nuevoLibro.add(btn_miLibLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 320, 120, 35));
 
-        tbl_misLibros.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tbl_misLibros.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         tbl_misLibros.setModel(this.modelTblLibrosAutor);
         tbl_misLibros.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -822,11 +844,11 @@ public class FrmAutor extends javax.swing.JFrame {
         if (this.btn_miLibAgregarPdfLibro.isEnabled() == false) {
             return;
         }
-        this.urlPdfAutor = GestorPrograma.seleccionarPDF();
-        if (Controles.cadenaVacia(this.urlPdfAutor)) {
+        this.urlPdfLibroSubir = GestorPrograma.seleccionarPDF();
+        if (Controles.cadenaVacia(this.urlPdfLibroSubir)) {
             return;
         }
-        this.lbl_miLibNombreArchivoPdf.setText(this.urlPdfAutor);
+        this.lbl_miLibNombreArchivoPdf.setText(this.urlPdfLibroSubir);
         this.btn_miLibAgregarPdfLibro.setEnabled(false);
     }//GEN-LAST:event_btn_miLibAgregarPdfLibroMouseClicked
 
@@ -835,8 +857,6 @@ public class FrmAutor extends javax.swing.JFrame {
             return;
         }
         this.txt_miLibCodigo.setText(GestorPrograma.generarCadenaNumAleatoria(10));
-        this.txt_miLibAutor.setText(SesionActual.getNombre());
-
     }//GEN-LAST:event_btn_miLibNuevoCodigoMouseClicked
 
     private void txt_miLibNumPagsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_miLibNumPagsKeyTyped
@@ -852,7 +872,6 @@ public class FrmAutor extends javax.swing.JFrame {
         int index = this.tbl_misLibros.getSelectedRow();
 
         this.libroSeleccionado = GestorPrograma.buscarLibro((String) this.modelTblLibrosAutor.getValueAt(index, 0));
-        //Usuario autor = GestorPrograma.buscarUsuario(this.libroSeleccionado.getCorreoUsu());
 
         this.txt_miLibCodigo.setText(this.libroSeleccionado.getCodigo());
         this.txt_miLibAutor.setText(this.libroSeleccionado.getCorreoUsu());
@@ -863,8 +882,10 @@ public class FrmAutor extends javax.swing.JFrame {
 
         ManejoComp.crearlabel(this.lbl_miLibPortada, "SYSTEM/libros/" + this.txt_miLibCodigo.getText() + ".png");
         //System.out.println("El codigo del libro es este para buscar y mostrar en el lbl tbLibrosAutoSubidos"+Almacen.getInstance().libros.get(index).getCodigo());
+        this.btn_miLibGuardar.setEnabled(false);
         this.btn_miLibEliminar.setEnabled(true);
         this.btn_miLibActualizar.setEnabled(true);
+        this.btn_miLibNuevoCodigo.setEnabled(false);
     }//GEN-LAST:event_tbl_misLibrosMouseClicked
 
     private void btn_miLibGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_miLibGuardarMouseClicked
@@ -872,13 +893,12 @@ public class FrmAutor extends javax.swing.JFrame {
             return;
         }
         if (Controles.cadenaVacia(this.txt_miLibCodigo.getText())
-                || Controles.cadenaVacia(this.cmb_miLibGenero.getSelectedItem().toString())
                 || Controles.cadenaVacia(this.txt_miLibNombre.getText())
                 || Controles.cadenaVacia(this.txt_miLibNumPags.getText())) {
             JOptionPane.showMessageDialog(this, "Llena todos los campos primero. . .");
             return;
         }
-        if (Controles.cadenaVacia(this.urlPortadaLibroSubir) || Controles.cadenaVacia(this.urlPdfAutor)) {
+        if (Controles.cadenaVacia(this.urlPortadaLibroSubir) || Controles.cadenaVacia(this.urlPdfLibroSubir)) {
             JOptionPane.showMessageDialog(this, "Portada o PDF faltantes, intenta de nuevo. . .");
             return;
         }
@@ -897,8 +917,8 @@ public class FrmAutor extends javax.swing.JFrame {
 
         this.gestorBD.agregarLibro(librito);
         Almacen.getInstance().libros.add(librito);
-        GestorPrograma.almacenarImagen(this.urlPortadaLibroSubir, this.txt_miLibCodigo.getText() + ".png");
-        GestorPrograma.almacenarPDF(this.urlPdfAutor, this.txt_miLibCodigo.getText() + ".pdf");
+        GestorPrograma.almacenarPortadaLibro(this.urlPortadaLibroSubir, this.txt_miLibCodigo.getText() + ".png");
+        GestorPrograma.almacenarPDF(this.urlPdfLibroSubir, this.txt_miLibCodigo.getText() + ".pdf");
 
         this.iniciarPnlSubirLibro();
         this.iniciarPnlTodosLibros();
@@ -929,9 +949,14 @@ public class FrmAutor extends javax.swing.JFrame {
                 this.txtSinpsis.getText());
         this.gestorBD.actualizarLibro(librito);
         GestorPrograma.actualizarLibro(librito);
+
+        if (Controles.cadenaVacia(this.urlPortadaLibroSubir) == false) {
+            GestorPrograma.almacenarPortadaLibro(this.urlPortadaLibroSubir, this.libroSeleccionado.getCodigo() + ".png");
+        }
+
         this.iniciarPnlSubirLibro();
+        this.limpiarPnlSubirLibro();
         this.iniciarPnlTodosLibros();
-        this.btn_miLibLimpiarMouseClicked(evt);
     }//GEN-LAST:event_btn_miLibActualizarMouseClicked
 
     private void btn_miLibEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_miLibEliminarMouseClicked
@@ -947,7 +972,6 @@ public class FrmAutor extends javax.swing.JFrame {
         GestorPrograma.eliminarPDF(this.libroSeleccionado.getCodigo() + ".pdf");
 
         //eliminamos los favoritos con el codigo de ese libro
-        gestorBD.eliminarFavoritosPorLibro(this.libroSeleccionado.getCodigo());
         GestorPrograma.eliminarFavoritosPorLibro(this.libroSeleccionado.getCodigo());
 
         this.iniciarPnlSubirLibro();
@@ -956,7 +980,7 @@ public class FrmAutor extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_miLibEliminarMouseClicked
 
     private void btn_miLibLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_miLibLimpiarMouseClicked
-        limpiarPnlLibrosAutores();
+        limpiarPnlSubirLibro();
     }//GEN-LAST:event_btn_miLibLimpiarMouseClicked
 
     private void btn_perActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_perActualizarMouseClicked

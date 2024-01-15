@@ -129,19 +129,19 @@ public class GestorBD {
 
     public void agregarLibro(Libro libro) {
         if (this.con.conectar() == false) {
-            this.con.desconectar();
             return;
         }
         try {
             // Insertar el libro en la base de datos
-            String consultaInsert = "INSERT INTO LIBROS (CODIGO, CORREO_USU, NOMBRE, GENERO, NUM_PAG) VALUES (?, ?, ?, ?, ?)";
+            String consultaInsert = "INSERT INTO LIBROS (CODIGO, CORREO_USU, NOMBRE, GENERO, NUM_PAG, SINOPSIS) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = this.con.getConexion().prepareStatement(consultaInsert);
             preparedStatement.setString(1, libro.getCodigo());
             preparedStatement.setString(2, libro.getCorreoUsu());
             preparedStatement.setString(3, libro.getNombre());
             preparedStatement.setString(4, libro.getGenero());
             preparedStatement.setInt(5, libro.getNumPag());
-            preparedStatement.executeUpdate();
+            preparedStatement.setString(6, libro.getSinopsis());
+            preparedStatement.execute();
 
             preparedStatement.close();
             this.con.desconectar();
@@ -296,7 +296,7 @@ public class GestorBD {
         }
     }
 
-    public void eliminarFavoritosPorLibro(String codigoLibro) {
+    public void eliminarFavoritosPorLibro(String codigoLibro, String correo) {
         if (this.con.conectar() == false) {
             this.con.desconectar();
             return;
@@ -304,9 +304,10 @@ public class GestorBD {
 
         try {
             // Eliminar los registros de Favoritos asociados al libro de la base de datos
-            String consultaDelete = "DELETE FROM Favoritos WHERE COD_LIB = ?";
+            String consultaDelete = "DELETE FROM Favoritos WHERE COD_LIB = ? AND CORREO_USU = ?";
             PreparedStatement preparedStatement = this.con.getConexion().prepareStatement(consultaDelete);
             preparedStatement.setString(1, codigoLibro);
+            preparedStatement.setString(2, correo);
             int rowsAffected = preparedStatement.executeUpdate();
 
             // Verificar si se eliminaron favoritos
