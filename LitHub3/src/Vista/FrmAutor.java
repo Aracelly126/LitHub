@@ -296,12 +296,12 @@ public class FrmAutor extends javax.swing.JFrame {
 
     private void mostrarDetalleLibro(Libro libro) {
         JFrame detalleFrame = new JFrame("Detalles del Libro");
-        detalleFrame.setSize(300, 200);
+        detalleFrame.setSize(400, 200);
         // Crear y agregar el panel de detalles
-        DetallesLibro detallePanel = new DetallesLibro(libro.getNombre(), libro.getGenero());
+        DetallesLibro detallePanel = new DetallesLibro(libro.getNombre(), libro.getSinopsis());
         detalleFrame.add(detallePanel);
 
-        detalleFrame.setLocationRelativeTo(null);
+        detalleFrame.setLocationRelativeTo(this);
         detalleFrame.setVisible(true);
     }
 

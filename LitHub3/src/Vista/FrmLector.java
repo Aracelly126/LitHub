@@ -230,7 +230,7 @@ public class FrmLector extends javax.swing.JFrame {
         JFrame detalleFrame = new JFrame("Detalles del Libro");
         detalleFrame.setSize(300, 200);
         // Crear y agregar el panel de detalles
-        DetallesLibro detallePanel = new DetallesLibro(libro.getNombre(), libro.getGenero());
+        DetallesLibro detallePanel = new DetallesLibro(libro.getNombre(), libro.getSinopsis());
         detalleFrame.add(detallePanel);
 
         detalleFrame.setLocationRelativeTo(null);
