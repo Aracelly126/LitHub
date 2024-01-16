@@ -69,6 +69,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
 
         ManejoComp.crearlabel(this.lbl_izquierda, "SYSTEM/src/img_fondo1.png");
         ManejoComp.crearlabel(this.lbl_logo, "SYSTEM/src/img_logo.png");
+        ManejoComp.crearlabel(this.lb_informacion, "SYSTEM/src/information_icon.png");
         ManejoComp.crearVerPassword(txt_contrasenia, btn_verContrasenia);
     }
 
@@ -89,6 +90,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         lbl_registro = new javax.swing.JLabel();
         btn_registro = new javax.swing.JButton();
         lblbaseDerecha = new javax.swing.JLabel();
+        lb_informacion = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -131,7 +133,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
 
         btn_verContrasenia.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         btn_verContrasenia.setText("Ver");
-        btn_verContrasenia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_verContrasenia.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnl_derecha.add(btn_verContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, -1, 20));
 
         lbl_mensaje.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
@@ -140,7 +142,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
 
         btn_iniciarSesion.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btn_iniciarSesion.setText("Iniciar Sesion");
-        btn_iniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_iniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_iniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_iniciarSesionMouseClicked(evt);
@@ -158,7 +160,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         btn_registro.setText("Registrarse");
         btn_registro.setBorder(null);
         btn_registro.setContentAreaFilled(false);
-        btn_registro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_registro.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_registro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_registroMouseClicked(evt);
@@ -169,6 +171,14 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         lblbaseDerecha.setBackground(new java.awt.Color(255, 255, 255));
         lblbaseDerecha.setForeground(new java.awt.Color(255, 0, 0));
         pnl_derecha.add(lblbaseDerecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 540));
+
+        lb_informacion.setText("jLabel1");
+        lb_informacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lb_informacionMouseClicked(evt);
+            }
+        });
+        pnl_derecha.add(lb_informacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(345, 500, 30, 30));
 
         getContentPane().add(pnl_derecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 380, 540));
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 540));
@@ -225,11 +235,19 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         ManejoComp.txtLongitudCondicion(this.txt_contrasenia, evt, 20);
     }//GEN-LAST:event_txt_contraseniaKeyTyped
 
+    private void lb_informacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_informacionMouseClicked
+        // TODO add your handling code here:
+        FrmInformacion inf = new FrmInformacion();
+        inf.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lb_informacionMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_iniciarSesion;
     private javax.swing.JButton btn_registro;
     private javax.swing.JToggleButton btn_verContrasenia;
     private javax.swing.JLabel fondo;
+    private javax.swing.JLabel lb_informacion;
     private javax.swing.JLabel lbl_contrasenia;
     private javax.swing.JLabel lbl_correo;
     private javax.swing.JLabel lbl_izquierda;
