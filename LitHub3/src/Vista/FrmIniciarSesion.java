@@ -7,13 +7,13 @@ import java.awt.Color;
 public class FrmIniciarSesion extends javax.swing.JFrame {
 
     private Conexion con = new Conexion();
-
+    
     private frmregistro frmRegistro = new frmregistro();
     private FrmAdmin frmAdmin = new FrmAdmin();
     private FrmAutor frmAutor = new FrmAutor();
     private FrmLector frmLector = new FrmLector();
 
-    public FrmIniciarSesion() {
+     public FrmIniciarSesion() {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -89,6 +89,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         btn_iniciarSesion = new javax.swing.JButton();
         lbl_registro = new javax.swing.JLabel();
         btn_registro = new javax.swing.JButton();
+        lb_btRecuperaContra = new javax.swing.JLabel();
         lblbaseDerecha = new javax.swing.JLabel();
         lb_informacion = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
@@ -148,7 +149,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
                 btn_iniciarSesionMouseClicked(evt);
             }
         });
-        pnl_derecha.add(btn_iniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 430, -1, 35));
+        pnl_derecha.add(btn_iniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 405, -1, 35));
 
         lbl_registro.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         lbl_registro.setForeground(new java.awt.Color(0, 0, 0));
@@ -167,6 +168,16 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
             }
         });
         pnl_derecha.add(btn_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 500, -1, 30));
+
+        lb_btRecuperaContra.setBackground(new java.awt.Color(78, 80, 82));
+        lb_btRecuperaContra.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        lb_btRecuperaContra.setForeground(new java.awt.Color(51, 0, 102));
+        lb_btRecuperaContra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lb_btRecuperaContraMouseClicked(evt);
+            }
+        });
+        pnl_derecha.add(lb_btRecuperaContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 464, 128, -1));
 
         lblbaseDerecha.setBackground(new java.awt.Color(255, 255, 255));
         lblbaseDerecha.setForeground(new java.awt.Color(255, 0, 0));
@@ -200,7 +211,8 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
                 ManejoComp.colorBorderTxt(this.txt_contrasenia, Color.RED, Color.GREEN);
                 break;
             case 0:// Usuario Bloqueado
-                this.lbl_mensaje.setText("Cuenta Bloqueado, contacta a soporte. . .");
+                this.lbl_mensaje.setText("Cuenta Bloqueada..");
+                this.lb_btRecuperaContra.setText("Recuperar Contraseña");
                 ManejoComp.colorBorderTxt(this.txt_correo, Color.RED, Color.GREEN);
                 ManejoComp.colorBorderTxt(this.txt_contrasenia, Color.RED, Color.GREEN);
                 break;
@@ -242,11 +254,18 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_lb_informacionMouseClicked
 
+    private void lb_btRecuperaContraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_btRecuperaContraMouseClicked
+        FrmContra frmcon= new FrmContra();
+        frmcon.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lb_btRecuperaContraMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_iniciarSesion;
     private javax.swing.JButton btn_registro;
     private javax.swing.JToggleButton btn_verContrasenia;
     private javax.swing.JLabel fondo;
+    private javax.swing.JLabel lb_btRecuperaContra;
     private javax.swing.JLabel lb_informacion;
     private javax.swing.JLabel lbl_contrasenia;
     private javax.swing.JLabel lbl_correo;

@@ -1,6 +1,7 @@
 package Utilidades;
 
 import BaseDatos.Almacen;
+import Clases.ContraseniaAntigua;
 import Clases.Usuario;
 import static Utilidades.GestorPrograma.bloquearUsuario;
 import java.util.regex.Matcher;
@@ -26,11 +27,19 @@ public class Controles {
     public static int credenciales(String userCorreo, String contrasenia) {
         boolean UserExiste = false;
         for (Usuario usuario : Almacen.getInstance().usuarios) {
+            System.out.println("XD");
             String correo = usuario.getCorreo();
             String clave = usuario.getClave();
+
             if (GestorPrograma.buscarUsuario(userCorreo) != null) {
                 UserExiste = true;
+                if (correo.equals(userCorreo)) {
+                    Almacen.getInstance().contraseniaAnti.clear();
+                    Almacen.getInstance().contraseniaAnti.add(new ContraseniaAntigua(userCorreo, Seguridad.Desencriptar(clave)));
+                    System.out.println("Se agregó al almacen credenciales: " + correo + clave);       
+                }
                 if (correo.equals(userCorreo) && clave.equals(Seguridad.Encriptar(contrasenia))) {
+                    Almacen.getInstance().contraseniaAnti.clear();
                     switch (usuario.getTipo()) {
                         case "ADMIN":
                             return 1;

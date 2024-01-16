@@ -66,8 +66,11 @@ public class GestorPrograma {
         Almacen.getInstance().usuarios.add(newUsuario);
     }
 
-    public static void bloquearUsuario(String user) {
-        gestorBD.cambiarClaveUsuario(user, Seguridad.Encriptar(generarCadenaNumAleatoria(10)));
+    public static void bloquearUsuario(String user) {    
+        String contraNueva=generarCadenaNumAleatoria(10);
+        gestorBD.cambiarClaveUsuario(user, Seguridad.Encriptar(contraNueva));
+        System.out.println("Metodo bloquearUsuario: "+contraNueva);
+        Almacen.getInstance().contraseniaNueva.add(new ContraseniaNueva(user,contraNueva));
     }
 
     public static String generarCadenaNumAleatoria(int longitud) {

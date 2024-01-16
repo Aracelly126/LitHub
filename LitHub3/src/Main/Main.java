@@ -21,4 +21,8 @@ public class Main {
         Almacen.getInstance().libros = (ArrayList<Libro>) mbd.SELECT("LIBROS");
         Almacen.getInstance().favoritos = (ArrayList<Favorito>) mbd.SELECT("FAVORITOS");
     }
+    public static void arrancarBDContraNueva(){
+         GestorBD mbd = new GestorBD();
+         Almacen.getInstance().usuarios = (ArrayList<Usuario>) mbd.SELECT("USUARIOS");
+    }
 }

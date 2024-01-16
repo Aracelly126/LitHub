@@ -141,7 +141,7 @@ public class GestorBD {
             preparedStatement.setString(4, libro.getGenero());
             preparedStatement.setInt(5, libro.getNumPag());
             preparedStatement.setString(6, libro.getSinopsis());
-            preparedStatement.execute();
+            preparedStatement.executeUpdate();
 
             preparedStatement.close();
             this.con.desconectar();

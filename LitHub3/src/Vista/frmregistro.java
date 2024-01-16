@@ -130,7 +130,6 @@ public class frmregistro extends javax.swing.JFrame {
         lbl_fechaNac.setText("Fecha de Nac");
         pnl_registro.add(lbl_fechaNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 120, -1));
 
-        txt_fecNac.setDateFormatString("dd/MM/yyyy");
         txt_fecNac.setMaxSelectableDate(new java.util.Date(1262235600000L));
         pnl_registro.add(txt_fecNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 130, 40));
 
@@ -201,7 +200,7 @@ public class frmregistro extends javax.swing.JFrame {
 
         btn_registrar.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btn_registrar.setText("Registrarse");
-        btn_registrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_registrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_registrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_registrarMouseClicked(evt);
@@ -219,17 +218,22 @@ public class frmregistro extends javax.swing.JFrame {
         btn_inicio.setText("iniciar sesion");
         btn_inicio.setBorder(null);
         btn_inicio.setContentAreaFilled(false);
-        btn_inicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_inicio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_inicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_inicioActionPerformed(evt);
+            }
+        });
         pnl_registro.add(btn_inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 550, -1, -1));
 
         btn_verConfContrasenia.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         btn_verConfContrasenia.setText("Ver");
-        btn_verConfContrasenia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_verConfContrasenia.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnl_registro.add(btn_verConfContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 490, 60, 20));
 
         btn_verContrasenia.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         btn_verContrasenia.setText("Ver");
-        btn_verContrasenia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_verContrasenia.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnl_registro.add(btn_verContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 410, 60, 20));
 
         getContentPane().add(pnl_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 510, 590));
@@ -322,6 +326,10 @@ public class frmregistro extends javax.swing.JFrame {
     private void txt_confContraseniaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_confContraseniaKeyTyped
         ManejoComp.txtLongitudCondicion(this.txt_contrasenia, evt, 15);
     }//GEN-LAST:event_txt_confContraseniaKeyTyped
+
+    private void btn_inicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inicioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_inicioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btn_inicio;
