@@ -20,20 +20,20 @@ El proyecto aplica principios de **Programación Orientada a Objetos (POO)** y m
 ## 📁 Estructura del proyecto
 
 LitHub/
-│
-├── src/
-│ ├── Autor.java
-│ ├── DetallesLibro.java
-│ ├── Lector.java
-│ ├── Libro.java
-│ ├── LoguinMysql.java
-│ ├── Usuarios.java
-│ └── (otras clases adicionales)
-│
-├── resources/
-│ └── imágenes, iconos o configuraciones
-│
-└── README.md
+ ├── src/
+ │    ├── Autor.java
+ │    ├── DetallesLibro.java
+ │    ├── Lector.java
+ │    ├── Libro.java
+ │    ├── LoguinMysql.java
+ │    ├── Usuarios.java
+ │    └── (otras clases adicionales)
+ │
+ ├── resources/
+ │    └── imágenes, iconos o configuraciones
+ │
+ └── README.md
+
 
 ---
 
